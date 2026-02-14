@@ -32,6 +32,9 @@ export function ResultsTable({ rows }: ResultsTableProps) {
             <th className="px-4 py-3 text-right font-medium text-muted">
               {t.difference}
             </th>
+            <th className="px-4 py-3 text-center font-medium text-muted">
+              Сайт
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -66,26 +69,30 @@ export function ResultsTable({ rows }: ResultsTableProps) {
               </td>
               <td className="px-4 py-3 text-right">
                 {row.isCheapest ? (
-                  <div className="flex items-center justify-end gap-2">
-                    <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
-                      {t.cheapest}
-                    </span>
-                    {row.url && (
-                      <a
-                        href={row.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 rounded-full bg-primary px-3 py-1 text-xs font-medium text-white transition-colors hover:bg-primary-dark"
-                      >
-                        Към сайта
-                        <ExternalLink className="h-3 w-3" />
-                      </a>
-                    )}
-                  </div>
+                  <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
+                    {t.cheapest}
+                  </span>
                 ) : (
                   <span className="text-xs text-accent">
                     +{formatCurrency(row.difference)}
                   </span>
+                )}
+              </td>
+              <td className="px-4 py-3 text-center">
+                {row.url && (
+                  <a
+                    href={row.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-medium transition-colors ${
+                      row.isCheapest
+                        ? "bg-primary text-white hover:bg-primary-dark"
+                        : "bg-gray-100 text-muted hover:bg-gray-200 hover:text-text"
+                    }`}
+                  >
+                    Към сайта
+                    <ExternalLink className="h-3 w-3" />
+                  </a>
                 )}
               </td>
             </tr>

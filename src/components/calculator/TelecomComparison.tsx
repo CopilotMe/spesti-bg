@@ -1,10 +1,19 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { Wifi, Smartphone, Trophy } from "lucide-react";
+import { Wifi, Smartphone, Trophy, ExternalLink } from "lucide-react";
 import { filterMobilePlans, filterInternetPlans } from "@/lib/calculators/telecom";
 import { formatCurrency } from "@/lib/utils";
 import messages from "@/messages/bg.json";
+
+const operatorUrls: Record<string, string> = {
+  a1: "https://www.a1.bg",
+  vivacom: "https://www.vivacom.bg",
+  yettel: "https://www.yettel.bg",
+  bulsatcom: "https://www.bulsatcom.bg",
+  net1: "https://www.net1.bg",
+  cooolbox: "https://www.cooolbox.bg",
+};
 
 type TabType = "mobile" | "internet";
 
@@ -143,6 +152,9 @@ export function TelecomComparison() {
                   <th className="px-4 py-3 text-left font-medium text-muted">
                     {t.extras}
                   </th>
+                  <th className="px-4 py-3 text-center font-medium text-muted">
+                    Сайт
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -195,6 +207,21 @@ export function TelecomComparison() {
                           </span>
                         ))}
                       </div>
+                    </td>
+                    <td className="px-4 py-3 text-center">
+                      <a
+                        href={operatorUrls[plan.operator] || "#"}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-medium transition-colors ${
+                          index === 0
+                            ? "bg-primary text-white hover:bg-primary-dark"
+                            : "bg-gray-100 text-muted hover:bg-gray-200 hover:text-text"
+                        }`}
+                      >
+                        Към сайта
+                        <ExternalLink className="h-3 w-3" />
+                      </a>
                     </td>
                   </tr>
                 ))}
@@ -266,6 +293,9 @@ export function TelecomComparison() {
                   <th className="px-4 py-3 text-left font-medium text-muted">
                     {t.technology}
                   </th>
+                  <th className="px-4 py-3 text-center font-medium text-muted">
+                    Сайт
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -305,6 +335,21 @@ export function TelecomComparison() {
                       <span className="rounded-full bg-gray-100 px-2 py-0.5 text-xs text-muted">
                         {plan.technology}
                       </span>
+                    </td>
+                    <td className="px-4 py-3 text-center">
+                      <a
+                        href={operatorUrls[plan.provider] || "#"}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-medium transition-colors ${
+                          index === 0
+                            ? "bg-primary text-white hover:bg-primary-dark"
+                            : "bg-gray-100 text-muted hover:bg-gray-200 hover:text-text"
+                        }`}
+                      >
+                        Към сайта
+                        <ExternalLink className="h-3 w-3" />
+                      </a>
                     </td>
                   </tr>
                 ))}
