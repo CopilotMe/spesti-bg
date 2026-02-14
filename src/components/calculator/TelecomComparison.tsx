@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { Wifi, Smartphone, Trophy, ExternalLink } from "lucide-react";
+import { Wifi, Smartphone, Trophy, ExternalLink, Share2, Check } from "lucide-react";
 import { filterMobilePlans, filterInternetPlans } from "@/lib/calculators/telecom";
 import { formatCurrency } from "@/lib/utils";
 import messages from "@/messages/bg.json";
@@ -11,7 +11,7 @@ const operatorUrls: Record<string, string> = {
   vivacom: "https://www.vivacom.bg",
   yettel: "https://www.yettel.bg",
   bulsatcom: "https://www.bulsatcom.bg",
-  net1: "https://www.net1.bg",
+  net1: "http://net1.bg",
   cooolbox: "https://www.cooolbox.bg",
 };
 
@@ -26,6 +26,7 @@ export function TelecomComparison() {
   const [minDataGb, setMinDataGb] = useState(0);
   const [minSpeedMbps, setMinSpeedMbps] = useState(0);
   const [internetProvider, setInternetProvider] = useState<string>("all");
+  const [copiedId, setCopiedId] = useState<string | null>(null);
 
   const mobilePlansFiltered = useMemo(
     () =>
@@ -45,6 +46,41 @@ export function TelecomComparison() {
       }),
     [minSpeedMbps, internetProvider]
   );
+
+  const handleShareMobile = async (planId: string, operatorName: string, planName: string, fee: number) => {
+    const text = `${operatorName} ${planName} — ${formatCurrency(fee)}/мес.\n\nВиж сравнението на Спести.бг: ${window.location.href}`;
+
+    if (navigator.share) {
+      try {
+        await navigator.share({ title: "Спести.бг", text });
+        return;
+      } catch { /* cancelled */ }
+    }
+
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopiedId(planId);
+      setTimeout(() => setCopiedId(null), 2000);
+    } catch { /* not available */ }
+  };
+
+  const handleShareInternet = async (planId: string, providerName: string, planName: string, fee: number, speed: number) => {
+    const speedText = speed >= 1000 ? `${speed / 1000} Gbps` : `${speed} Mbps`;
+    const text = `${providerName} ${planName} — ${speedText} за ${formatCurrency(fee)}/мес.\n\nВиж сравнението на Спести.бг: ${window.location.href}`;
+
+    if (navigator.share) {
+      try {
+        await navigator.share({ title: "Спести.бг", text });
+        return;
+      } catch { /* cancelled */ }
+    }
+
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopiedId(planId);
+      setTimeout(() => setCopiedId(null), 2000);
+    } catch { /* not available */ }
+  };
 
   return (
     <div className="space-y-8">
@@ -155,6 +191,9 @@ export function TelecomComparison() {
                   <th className="px-4 py-3 text-center font-medium text-muted">
                     Сайт
                   </th>
+                  <th className="px-4 py-3 text-center font-medium text-muted">
+                    <span className="sr-only">Споделяне</span>
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -222,6 +261,25 @@ export function TelecomComparison() {
                         Към сайта
                         <ExternalLink className="h-3 w-3" />
                       </a>
+                    </td>
+                    <td className="px-4 py-3 text-center">
+                      <button
+                        onClick={() => handleShareMobile(plan.id, plan.operatorName, plan.planName, plan.monthlyFee)}
+                        className="inline-flex items-center gap-1 rounded-full bg-gray-100 px-2.5 py-1 text-xs text-muted transition-colors hover:bg-gray-200 hover:text-text"
+                        title="Сподели този план"
+                      >
+                        {copiedId === plan.id ? (
+                          <>
+                            <Check className="h-3 w-3 text-primary" />
+                            <span className="text-primary">Копирано</span>
+                          </>
+                        ) : (
+                          <>
+                            <Share2 className="h-3 w-3" />
+                            <span className="hidden sm:inline">Сподели</span>
+                          </>
+                        )}
+                      </button>
                     </td>
                   </tr>
                 ))}
@@ -296,6 +354,9 @@ export function TelecomComparison() {
                   <th className="px-4 py-3 text-center font-medium text-muted">
                     Сайт
                   </th>
+                  <th className="px-4 py-3 text-center font-medium text-muted">
+                    <span className="sr-only">Споделяне</span>
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -350,6 +411,25 @@ export function TelecomComparison() {
                         Към сайта
                         <ExternalLink className="h-3 w-3" />
                       </a>
+                    </td>
+                    <td className="px-4 py-3 text-center">
+                      <button
+                        onClick={() => handleShareInternet(plan.id, plan.providerName, plan.planName, plan.monthlyFee, plan.speedMbps)}
+                        className="inline-flex items-center gap-1 rounded-full bg-gray-100 px-2.5 py-1 text-xs text-muted transition-colors hover:bg-gray-200 hover:text-text"
+                        title="Сподели този план"
+                      >
+                        {copiedId === plan.id ? (
+                          <>
+                            <Check className="h-3 w-3 text-primary" />
+                            <span className="text-primary">Копирано</span>
+                          </>
+                        ) : (
+                          <>
+                            <Share2 className="h-3 w-3" />
+                            <span className="hidden sm:inline">Сподели</span>
+                          </>
+                        )}
+                      </button>
                     </td>
                   </tr>
                 ))}

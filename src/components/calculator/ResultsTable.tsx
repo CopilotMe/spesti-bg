@@ -1,5 +1,8 @@
+"use client";
+
+import { useState } from "react";
 import { formatCurrency } from "@/lib/utils";
-import { Trophy, ExternalLink } from "lucide-react";
+import { Trophy, ExternalLink, Share2, Check } from "lucide-react";
 import messages from "@/messages/bg.json";
 
 interface ResultRow {
@@ -17,6 +20,28 @@ interface ResultsTableProps {
 
 export function ResultsTable({ rows }: ResultsTableProps) {
   const t = messages.calculator;
+  const [copiedId, setCopiedId] = useState<string | null>(null);
+
+  const handleShare = async (row: ResultRow) => {
+    const text = `${row.providerName}${row.region ? ` (${row.region})` : ""} — ${formatCurrency(row.total)}/мес.${row.isCheapest ? " ✅ Най-евтин!" : ` (+${formatCurrency(row.difference)} спрямо най-евтиния)`}\n\nВиж сравнението на Спести.бг: ${window.location.href}`;
+
+    if (navigator.share) {
+      try {
+        await navigator.share({ title: "Спести.бг", text });
+        return;
+      } catch {
+        // User cancelled or share failed, fall through to clipboard
+      }
+    }
+
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopiedId(row.providerName);
+      setTimeout(() => setCopiedId(null), 2000);
+    } catch {
+      // Clipboard API not available
+    }
+  };
 
   return (
     <div className="overflow-x-auto rounded-xl border border-border">
@@ -34,6 +59,9 @@ export function ResultsTable({ rows }: ResultsTableProps) {
             </th>
             <th className="px-4 py-3 text-center font-medium text-muted">
               Сайт
+            </th>
+            <th className="px-4 py-3 text-center font-medium text-muted">
+              <span className="sr-only">Споделяне</span>
             </th>
           </tr>
         </thead>
@@ -79,7 +107,7 @@ export function ResultsTable({ rows }: ResultsTableProps) {
                 )}
               </td>
               <td className="px-4 py-3 text-center">
-                {row.url && (
+                {row.url ? (
                   <a
                     href={row.url}
                     target="_blank"
@@ -93,7 +121,28 @@ export function ResultsTable({ rows }: ResultsTableProps) {
                     Към сайта
                     <ExternalLink className="h-3 w-3" />
                   </a>
+                ) : (
+                  <span className="text-xs text-muted">—</span>
                 )}
+              </td>
+              <td className="px-4 py-3 text-center">
+                <button
+                  onClick={() => handleShare(row)}
+                  className="inline-flex items-center gap-1 rounded-full bg-gray-100 px-2.5 py-1 text-xs text-muted transition-colors hover:bg-gray-200 hover:text-text"
+                  title="Сподели тази оферта"
+                >
+                  {copiedId === row.providerName ? (
+                    <>
+                      <Check className="h-3 w-3 text-primary" />
+                      <span className="text-primary">Копирано</span>
+                    </>
+                  ) : (
+                    <>
+                      <Share2 className="h-3 w-3" />
+                      <span className="hidden sm:inline">Сподели</span>
+                    </>
+                  )}
+                </button>
               </td>
             </tr>
           ))}

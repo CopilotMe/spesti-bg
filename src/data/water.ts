@@ -59,7 +59,7 @@ export const waterProviders: WaterProvider[] = [
     sewerageRate: 0.24,
     treatmentRate: 0.66,
     totalRateWithVat: 3.276,
-    url: "https://www.viksz.bg",
+    // ВиК Стара Загора няма работещ уебсайт
   },
   {
     id: "vik_veliko_tarnovo",
@@ -69,7 +69,7 @@ export const waterProviders: WaterProvider[] = [
     sewerageRate: 0.36,
     treatmentRate: 0.68,
     totalRateWithVat: 4.296,
-    url: "https://www.yokovtsi.com",
+    url: "https://vik-vt.com",
   },
   {
     id: "vik_blagoevgrad",
@@ -89,7 +89,7 @@ export const waterProviders: WaterProvider[] = [
     sewerageRate: 0.41,
     treatmentRate: 0.72,
     totalRateWithVat: 3.972,
-    url: "https://www.vik-dobrich.bg",
+    url: "https://vikdobrich.bg",
   },
   {
     id: "vik_pernik",
@@ -109,7 +109,7 @@ export const waterProviders: WaterProvider[] = [
     sewerageRate: 0.35,
     treatmentRate: 0.65,
     totalRateWithVat: 3.744,
-    url: "https://www.vik-shumen.com",
+    url: "https://vikshumen.com",
   },
   {
     id: "vik_haskovo",
@@ -119,7 +119,7 @@ export const waterProviders: WaterProvider[] = [
     sewerageRate: 0.29,
     treatmentRate: 0.55,
     totalRateWithVat: 3.348,
-    url: "https://www.vik-haskovo.bg",
+    url: "https://vikhaskovo.com",
   },
   {
     id: "vik_sliven",
@@ -129,7 +129,7 @@ export const waterProviders: WaterProvider[] = [
     sewerageRate: 0.34,
     treatmentRate: 0.61,
     totalRateWithVat: 3.636,
-    url: "https://www.vik-sliven.com",
+    // ВиК Сливен няма работещ уебсайт
   },
   {
     id: "vik_pleven",
@@ -149,7 +149,7 @@ export const waterProviders: WaterProvider[] = [
     sewerageRate: 0.28,
     treatmentRate: 0.54,
     totalRateWithVat: 3.288,
-    url: "https://www.vik-yambol.com",
+    url: "https://vik-yambol.bg",
   },
   {
     id: "vik_pazardzhik",
@@ -159,7 +159,7 @@ export const waterProviders: WaterProvider[] = [
     sewerageRate: 0.31,
     treatmentRate: 0.57,
     totalRateWithVat: 3.288,
-    url: "https://www.vik-pz.com",
+    url: "https://vikpz.com",
   },
   {
     id: "vik_gabrovo",
@@ -179,7 +179,7 @@ export const waterProviders: WaterProvider[] = [
     sewerageRate: 0.37,
     treatmentRate: 0.69,
     totalRateWithVat: 4.032,
-    url: "https://www.vik-vratsa.com",
+    url: "https://vikvratsa.com",
   },
   {
     id: "vik_kardzhali",
@@ -189,7 +189,7 @@ export const waterProviders: WaterProvider[] = [
     sewerageRate: 0.33,
     treatmentRate: 0.62,
     totalRateWithVat: 3.72,
-    url: "https://www.vik-kardzhali.bg",
+    url: "https://vik-kardzhali.com",
   },
   {
     id: "vik_montana",
@@ -199,7 +199,7 @@ export const waterProviders: WaterProvider[] = [
     sewerageRate: 0.36,
     treatmentRate: 0.68,
     totalRateWithVat: 4.128,
-    url: "https://www.vik-montana.com",
+    url: "https://vikmontana.com",
   },
   {
     id: "vik_vidin",
@@ -229,6 +229,6 @@ export const waterProviders: WaterProvider[] = [
     sewerageRate: 0.38,
     treatmentRate: 0.70,
     totalRateWithVat: 4.08,
-    url: "https://www.vik-lovech.bg",
+    // ВиК Ловеч няма работещ уебсайт
   },
 ];

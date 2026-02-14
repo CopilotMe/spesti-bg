@@ -45,7 +45,7 @@ export interface WaterProvider {
   sewerageRate: number;
   treatmentRate: number;
   totalRateWithVat: number;
-  url: string;
+  url?: string;
 }
 
 export interface WaterResult {
