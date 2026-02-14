@@ -8,8 +8,11 @@ import messages from "@/messages/bg.json";
 const navLinks = [
   { href: "/elektrichestvo", label: messages.nav.electricity },
   { href: "/voda", label: messages.nav.water },
+  { href: "/gaz", label: messages.nav.gas },
   { href: "/internet", label: messages.nav.internet },
-  { href: "/za-nas", label: messages.nav.about },
+  { href: "/krediti", label: messages.nav.loans },
+  { href: "/zastrahovki", label: messages.nav.insurance },
+  { href: "/kombiniran", label: messages.nav.combined },
 ];
 
 export function Header() {

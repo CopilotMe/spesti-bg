@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { formatCurrency } from "@/lib/utils";
+import { refUrl } from "@/lib/ref";
 import { Trophy, ExternalLink, Share2, Check } from "lucide-react";
 import messages from "@/messages/bg.json";
 
@@ -109,7 +110,7 @@ export function ResultsTable({ rows }: ResultsTableProps) {
               <td className="px-4 py-3 text-center">
                 {row.url ? (
                   <a
-                    href={row.url}
+                    href={refUrl(row.url)}
                     target="_blank"
                     rel="noopener noreferrer"
                     className={`inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-medium transition-colors ${

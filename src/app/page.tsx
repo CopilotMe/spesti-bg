@@ -30,7 +30,7 @@ export default function Home() {
 
       {/* Categories */}
       <section className="px-4 py-12">
-        <div className="mx-auto grid max-w-4xl gap-6 md:grid-cols-3">
+        <div className="mx-auto grid max-w-5xl gap-6 sm:grid-cols-2 lg:grid-cols-3">
           <CategoryCard
             title={t.categories.electricity.title}
             description={t.categories.electricity.description}
@@ -44,10 +44,36 @@ export default function Home() {
             href="/voda"
           />
           <CategoryCard
+            title={t.categories.gas.title}
+            description={t.categories.gas.description}
+            icon={t.categories.gas.icon}
+            href="/gaz"
+          />
+          <CategoryCard
             title={t.categories.internet.title}
             description={t.categories.internet.description}
             icon={t.categories.internet.icon}
             href="/internet"
+          />
+          <CategoryCard
+            title={t.categories.loans.title}
+            description={t.categories.loans.description}
+            icon={t.categories.loans.icon}
+            href="/krediti"
+          />
+          <CategoryCard
+            title={t.categories.insurance.title}
+            description={t.categories.insurance.description}
+            icon={t.categories.insurance.icon}
+            href="/zastrahovki"
+          />
+        </div>
+        <div className="mx-auto mt-6 max-w-5xl">
+          <CategoryCard
+            title={t.categories.combined.title}
+            description={t.categories.combined.description}
+            icon={t.categories.combined.icon}
+            href="/kombiniran"
           />
         </div>
       </section>

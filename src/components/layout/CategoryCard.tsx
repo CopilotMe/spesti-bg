@@ -1,10 +1,14 @@
 import Link from "next/link";
-import { Zap, Droplets, Wifi, type LucideIcon } from "lucide-react";
+import { Zap, Droplets, Wifi, Flame, Landmark, ShieldCheck, LayoutDashboard, type LucideIcon } from "lucide-react";
 
 const iconMap: Record<string, LucideIcon> = {
   Zap,
   Droplets,
   Wifi,
+  Flame,
+  Landmark,
+  ShieldCheck,
+  LayoutDashboard,
 };
 
 interface CategoryCardProps {
