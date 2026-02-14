@@ -4,7 +4,7 @@ import { CombinedDashboard } from "@/components/calculator/CombinedDashboard";
 export const metadata: Metadata = {
   title: "Комбиниран калкулатор – Всички разходи на едно място | Спести.бг",
   description:
-    "Виж общите месечни разходи за ток, вода, газ, интернет и кредит на едно място. Живи данни от ECB за лихвите в България.",
+    "Виж общите месечни разходи за ток, вода, газ, интернет и кредит на едно място. Живи данни от ECB, Eurostat и Open-Meteo.",
 };
 
 export default function CombinedPage() {
@@ -16,7 +16,7 @@ export default function CombinedPage() {
         </h1>
         <p className="mt-2 text-muted">
           Въведи потреблението си за всички услуги и виж общата месечна сметка.
-          С живи данни от Европейската централна банка за лихвите.
+          С живи данни от ECB, Eurostat и Open-Meteo.
         </p>
       </div>
       <CombinedDashboard />

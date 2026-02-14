@@ -1,19 +1,19 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
-import { LayoutDashboard, Zap, Droplets, Flame, Wifi, Landmark, TrendingDown } from "lucide-react";
+import { useState, useMemo } from "react";
+import { LayoutDashboard, Zap, Droplets, Flame, Wifi, Landmark } from "lucide-react";
 import { calculateElectricityBills } from "@/lib/calculators/electricity";
 import { calculateWaterBills } from "@/lib/calculators/water";
 import { calculateGasBills } from "@/lib/calculators/gas";
 import { calculateLoans } from "@/lib/calculators/loans";
 import { formatCurrency } from "@/lib/utils";
 import { ProviderComparisonBar } from "@/components/charts/ProviderComparisonBar";
-
-interface EcbRate {
-  period: string;
-  consumerRate: number | null;
-  mortgageRate: number | null;
-}
+import {
+  EcbRateWidget,
+  HicpTrendsWidget,
+  EuPriceComparisonWidget,
+  WeatherHeatingWidget,
+} from "@/components/calculator/LiveDataWidgets";
 
 export function CombinedDashboard() {
   const [electricityKwh, setElectricityKwh] = useState(200);
@@ -22,39 +22,6 @@ export function CombinedDashboard() {
   const [internetFee, setInternetFee] = useState(25);
   const [loanAmount, setLoanAmount] = useState(0);
   const [loanTermMonths, setLoanTermMonths] = useState(60);
-
-  const [ecbRate, setEcbRate] = useState<EcbRate | null>(null);
-  const [ecbLoading, setEcbLoading] = useState(true);
-
-  // Fetch ECB interest rates for Bulgaria
-  useEffect(() => {
-    async function fetchEcbRates() {
-      try {
-        const res = await fetch(
-          "https://data-api.ecb.europa.eu/service/data/MIR/M.BG.B.A2B.A.C.A.2250.EUR.N?lastNObservations=1&format=csvdata"
-        );
-        const text = await res.text();
-        const lines = text.trim().split("\n");
-        if (lines.length >= 2) {
-          const headers = lines[0].split(",");
-          const values = lines[1].split(",");
-          const periodIdx = headers.indexOf("TIME_PERIOD");
-          const valueIdx = headers.indexOf("OBS_VALUE");
-          const period = periodIdx >= 0 ? values[periodIdx] : "";
-          const rate = valueIdx >= 0 ? parseFloat(values[valueIdx]) : NaN;
-          setEcbRate({
-            period: period || "",
-            consumerRate: isNaN(rate) ? null : rate,
-            mortgageRate: null,
-          });
-        }
-      } catch {
-        // ECB API not available
-      }
-      setEcbLoading(false);
-    }
-    fetchEcbRates();
-  }, []);
 
   const elecResults = useMemo(
     () => calculateElectricityBills({ meterType: "dual", dayKwh: electricityKwh, nightKwh: Math.round(electricityKwh * 0.4) }),
@@ -91,25 +58,10 @@ export function CombinedDashboard() {
 
   return (
     <div className="space-y-8">
-      {/* ECB Live Data */}
-      <div className="rounded-2xl border border-primary/20 bg-primary/5 p-4">
-        <div className="flex items-center gap-2 mb-2">
-          <TrendingDown className="h-4 w-4 text-primary" />
-          <span className="text-sm font-semibold text-primary">
-            Средна лихва по потребителски кредити в България (ECB данни)
-          </span>
-        </div>
-        {ecbLoading ? (
-          <p className="text-sm text-muted">Зареждане от ECB API...</p>
-        ) : ecbRate?.consumerRate ? (
-          <p className="text-sm text-text">
-            <span className="text-2xl font-bold text-primary">{ecbRate.consumerRate.toFixed(2)}%</span>
-            {" "}годишна лихва (период: {ecbRate.period})
-            <span className="ml-2 text-xs text-muted">Източник: European Central Bank</span>
-          </p>
-        ) : (
-          <p className="text-sm text-muted">ECB данните не са налични в момента.</p>
-        )}
+      {/* Live data widgets row */}
+      <div className="grid gap-6 lg:grid-cols-2">
+        <EcbRateWidget />
+        <WeatherHeatingWidget />
       </div>
 
       {/* Input controls */}
@@ -151,11 +103,17 @@ export function CombinedDashboard() {
         )}
       </div>
 
-      {/* Chart */}
+      {/* Expense breakdown chart */}
       <ProviderComparisonBar
         title="Разпределение на месечните разходи"
         data={breakdownData}
       />
+
+      {/* Eurostat live data */}
+      <div className="grid gap-6 lg:grid-cols-2">
+        <HicpTrendsWidget />
+        <EuPriceComparisonWidget />
+      </div>
     </div>
   );
 }
