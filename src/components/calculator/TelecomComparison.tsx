@@ -226,6 +226,7 @@ export function TelecomComparison() {
                 <option value="vivacom">Vivacom</option>
                 <option value="bulsatcom">Bulsatcom</option>
                 <option value="net1">Net1</option>
+                <option value="cooolbox">Cooolbox</option>
               </select>
             </div>
             <div className="space-y-2">
