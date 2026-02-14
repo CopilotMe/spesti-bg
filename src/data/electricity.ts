@@ -58,6 +58,7 @@ export const electricityProviders: ElectricityProvider[] = [
         explanationKey: "excise",
       },
     ],
+    url: "https://www.electrohold.bg",
   },
   {
     id: "evn",
@@ -115,6 +116,7 @@ export const electricityProviders: ElectricityProvider[] = [
         explanationKey: "excise",
       },
     ],
+    url: "https://www.evn.bg",
   },
   {
     id: "energo_pro",
@@ -172,6 +174,7 @@ export const electricityProviders: ElectricityProvider[] = [
         explanationKey: "excise",
       },
     ],
+    url: "https://www.energo-pro.bg",
   },
 ];
 

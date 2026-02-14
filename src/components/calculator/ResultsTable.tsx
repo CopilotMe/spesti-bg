@@ -1,5 +1,5 @@
 import { formatCurrency } from "@/lib/utils";
-import { Trophy } from "lucide-react";
+import { Trophy, ExternalLink } from "lucide-react";
 import messages from "@/messages/bg.json";
 
 interface ResultRow {
@@ -8,6 +8,7 @@ interface ResultRow {
   total: number;
   difference: number;
   isCheapest: boolean;
+  url?: string;
 }
 
 interface ResultsTableProps {
@@ -65,9 +66,22 @@ export function ResultsTable({ rows }: ResultsTableProps) {
               </td>
               <td className="px-4 py-3 text-right">
                 {row.isCheapest ? (
-                  <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
-                    {t.cheapest}
-                  </span>
+                  <div className="flex items-center justify-end gap-2">
+                    <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
+                      {t.cheapest}
+                    </span>
+                    {row.url && (
+                      <a
+                        href={row.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 rounded-full bg-primary px-3 py-1 text-xs font-medium text-white transition-colors hover:bg-primary-dark"
+                      >
+                        Към сайта
+                        <ExternalLink className="h-3 w-3" />
+                      </a>
+                    )}
+                  </div>
                 ) : (
                   <span className="text-xs text-accent">
                     +{formatCurrency(row.difference)}

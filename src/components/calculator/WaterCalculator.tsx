@@ -84,6 +84,7 @@ export function WaterCalculator() {
             total: r.totalWithVat,
             difference: r.differenceFromCheapest,
             isCheapest: r.isCheapest,
+            url: r.provider.url,
           }))}
         />
       </div>

@@ -16,6 +16,7 @@ export interface ElectricityProvider {
   nightRate: number;
   singleRate: number;
   breakdown: BillComponent[];
+  url: string;
 }
 
 export interface ElectricityResult {
@@ -44,6 +45,7 @@ export interface WaterProvider {
   sewerageRate: number;
   treatmentRate: number;
   totalRateWithVat: number;
+  url: string;
 }
 
 export interface WaterResult {

@@ -9,6 +9,7 @@ export const waterProviders: WaterProvider[] = [
     sewerageRate: 0.974,
     treatmentRate: 1.293,
     totalRateWithVat: 5.171,
+    url: "https://www.sofiyskavoda.bg",
   },
   {
     id: "vik_plovdiv",
@@ -18,6 +19,7 @@ export const waterProviders: WaterProvider[] = [
     sewerageRate: 0.46,
     treatmentRate: 0.63,
     totalRateWithVat: 3.456,
+    url: "https://www.vik.bg",
   },
   {
     id: "vik_varna",
@@ -27,6 +29,7 @@ export const waterProviders: WaterProvider[] = [
     sewerageRate: 0.45,
     treatmentRate: 0.84,
     totalRateWithVat: 4.248,
+    url: "https://www.vik-varna.com",
   },
   {
     id: "vik_burgas",
@@ -36,6 +39,7 @@ export const waterProviders: WaterProvider[] = [
     sewerageRate: 0.31,
     treatmentRate: 0.78,
     totalRateWithVat: 3.744,
+    url: "https://www.vik-burgas.com",
   },
   {
     id: "vik_ruse",
@@ -45,6 +49,7 @@ export const waterProviders: WaterProvider[] = [
     sewerageRate: 0.6,
     treatmentRate: 0.72,
     totalRateWithVat: 4.104,
+    url: "https://www.vik-ruse.com",
   },
   {
     id: "vik_stara_zagora",
@@ -54,6 +59,7 @@ export const waterProviders: WaterProvider[] = [
     sewerageRate: 0.24,
     treatmentRate: 0.66,
     totalRateWithVat: 3.276,
+    url: "https://www.viksz.bg",
   },
   {
     id: "vik_veliko_tarnovo",
@@ -63,6 +69,7 @@ export const waterProviders: WaterProvider[] = [
     sewerageRate: 0.36,
     treatmentRate: 0.68,
     totalRateWithVat: 4.296,
+    url: "https://www.yokovtsi.com",
   },
   {
     id: "vik_blagoevgrad",
@@ -72,6 +79,7 @@ export const waterProviders: WaterProvider[] = [
     sewerageRate: 0.32,
     treatmentRate: 0.58,
     totalRateWithVat: 3.336,
+    url: "https://www.vikblg.com",
   },
   {
     id: "vik_dobrich",
@@ -81,6 +89,7 @@ export const waterProviders: WaterProvider[] = [
     sewerageRate: 0.41,
     treatmentRate: 0.72,
     totalRateWithVat: 3.972,
+    url: "https://www.vik-dobrich.bg",
   },
   {
     id: "vik_pernik",
@@ -90,6 +99,7 @@ export const waterProviders: WaterProvider[] = [
     sewerageRate: 0.38,
     treatmentRate: 0.71,
     totalRateWithVat: 4.128,
+    url: "https://www.vik-pernik.eu",
   },
   {
     id: "vik_shumen",
@@ -99,6 +109,7 @@ export const waterProviders: WaterProvider[] = [
     sewerageRate: 0.35,
     treatmentRate: 0.65,
     totalRateWithVat: 3.744,
+    url: "https://www.vik-shumen.com",
   },
   {
     id: "vik_haskovo",
@@ -108,6 +119,7 @@ export const waterProviders: WaterProvider[] = [
     sewerageRate: 0.29,
     treatmentRate: 0.55,
     totalRateWithVat: 3.348,
+    url: "https://www.vik-haskovo.bg",
   },
   {
     id: "vik_sliven",
@@ -117,6 +129,7 @@ export const waterProviders: WaterProvider[] = [
     sewerageRate: 0.34,
     treatmentRate: 0.61,
     totalRateWithVat: 3.636,
+    url: "https://www.vik-sliven.com",
   },
   {
     id: "vik_pleven",
@@ -126,6 +139,7 @@ export const waterProviders: WaterProvider[] = [
     sewerageRate: 0.42,
     treatmentRate: 0.74,
     totalRateWithVat: 4.056,
+    url: "https://www.vik-pleven.com",
   },
   {
     id: "vik_yambol",
@@ -135,6 +149,7 @@ export const waterProviders: WaterProvider[] = [
     sewerageRate: 0.28,
     treatmentRate: 0.54,
     totalRateWithVat: 3.288,
+    url: "https://www.vik-yambol.com",
   },
   {
     id: "vik_pazardzhik",
@@ -144,6 +159,7 @@ export const waterProviders: WaterProvider[] = [
     sewerageRate: 0.31,
     treatmentRate: 0.57,
     totalRateWithVat: 3.288,
+    url: "https://www.vik-pz.com",
   },
   {
     id: "vik_gabrovo",
@@ -153,6 +169,7 @@ export const waterProviders: WaterProvider[] = [
     sewerageRate: 0.39,
     treatmentRate: 0.70,
     totalRateWithVat: 4.248,
+    url: "https://www.vik-gabrovo.com",
   },
   {
     id: "vik_vratsa",
@@ -162,6 +179,7 @@ export const waterProviders: WaterProvider[] = [
     sewerageRate: 0.37,
     treatmentRate: 0.69,
     totalRateWithVat: 4.032,
+    url: "https://www.vik-vratsa.com",
   },
   {
     id: "vik_kardzhali",
@@ -171,6 +189,7 @@ export const waterProviders: WaterProvider[] = [
     sewerageRate: 0.33,
     treatmentRate: 0.62,
     totalRateWithVat: 3.72,
+    url: "https://www.vik-kardzhali.bg",
   },
   {
     id: "vik_montana",
@@ -180,6 +199,7 @@ export const waterProviders: WaterProvider[] = [
     sewerageRate: 0.36,
     treatmentRate: 0.68,
     totalRateWithVat: 4.128,
+    url: "https://www.vik-montana.com",
   },
   {
     id: "vik_vidin",
@@ -189,6 +209,7 @@ export const waterProviders: WaterProvider[] = [
     sewerageRate: 0.40,
     treatmentRate: 0.73,
     totalRateWithVat: 4.416,
+    url: "https://www.vik-vidin.com",
   },
   {
     id: "vik_smolyan",
@@ -198,6 +219,7 @@ export const waterProviders: WaterProvider[] = [
     sewerageRate: 0.35,
     treatmentRate: 0.66,
     totalRateWithVat: 3.948,
+    url: "https://www.vik-smolyan.com",
   },
   {
     id: "vik_lovech",
@@ -207,5 +229,6 @@ export const waterProviders: WaterProvider[] = [
     sewerageRate: 0.38,
     treatmentRate: 0.70,
     totalRateWithVat: 4.08,
+    url: "https://www.vik-lovech.bg",
   },
 ];
