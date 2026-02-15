@@ -13,6 +13,7 @@ const navLinks = [
   { href: "/krediti", label: messages.nav.loans },
   { href: "/zastrahovki", label: messages.nav.insurance },
   { href: "/kombiniran", label: messages.nav.combined },
+  { href: "/blog", label: "Блог" },
 ];
 
 export function Header() {
