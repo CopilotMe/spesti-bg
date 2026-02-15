@@ -218,6 +218,78 @@ export async function fetchEcbRate(): Promise<EcbRate | null> {
   return null;
 }
 
+// ---- Eurostat Quarterly GDP Growth (Bulgaria) ----
+
+export interface GdpGrowthData {
+  quarters: { period: string; value: number }[];
+}
+
+export async function fetchGdpGrowth(): Promise<GdpGrowthData | null> {
+  const url =
+    "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/namq_10_gdp?geo=BG&na_item=B1GQ&unit=CLV_PCH_SM&s_adj=SCA&sinceTimePeriod=2023-Q1";
+
+  try {
+    const res = await fetch(url, { next: { revalidate: 86400 } });
+    const data = await res.json();
+    const quarters = parseEurostatJson(data);
+    return { quarters };
+  } catch {
+    return null;
+  }
+}
+
+export interface GdpComparisonData {
+  countries: { geo: string; label: string; quarters: { period: string; value: number }[] }[];
+}
+
+export async function fetchGdpComparison(): Promise<GdpComparisonData | null> {
+  const geos = ["BG", "RO", "EU27_2020", "EL"];
+  const labels: Record<string, string> = {
+    BG: "България",
+    RO: "Румъния",
+    EU27_2020: "ЕС средно",
+    EL: "Гърция",
+  };
+
+  const url = `https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/namq_10_gdp?geo=${geos.join("&geo=")}&na_item=B1GQ&unit=CLV_PCH_SM&s_adj=SCA&sinceTimePeriod=2024-Q1`;
+
+  try {
+    const res = await fetch(url, { next: { revalidate: 86400 } });
+    const data = await res.json();
+
+    const dim = data.dimension as Record<string, unknown>;
+    const geoObj = dim.geo as Record<string, unknown>;
+    const geoCat = geoObj.category as Record<string, unknown>;
+    const geoIndex = geoCat.index as Record<string, number>;
+    const timeObj = dim.time as Record<string, unknown>;
+    const timeCat = timeObj.category as Record<string, unknown>;
+    const timeIndex = timeCat.index as Record<string, number>;
+    const vals = data.value as Record<string, number>;
+
+    const numTimes = Object.keys(timeIndex).length;
+    const sortedPeriods = Object.entries(timeIndex).sort((a, b) => a[1] - b[1]);
+
+    const countries = geos.map((geo) => {
+      const gIdx = geoIndex[geo];
+      if (gIdx === undefined) return { geo, label: labels[geo] || geo, quarters: [] };
+
+      const quarters = sortedPeriods
+        .map(([period, tIdx]) => {
+          const flatIdx = gIdx * numTimes + tIdx;
+          const v = vals[String(flatIdx)];
+          return v !== undefined ? { period, value: v } : null;
+        })
+        .filter(Boolean) as { period: string; value: number }[];
+
+      return { geo, label: labels[geo] || geo, quarters };
+    });
+
+    return { countries };
+  } catch {
+    return null;
+  }
+}
+
 // ---- Eurostat Food HICP (for consumer basket trends) ----
 
 export interface FoodHicpData {

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Zap, Droplets, Wifi, Flame, Landmark, ShieldCheck, LayoutDashboard, Fuel, Wallet, ShoppingBasket, type LucideIcon } from "lucide-react";
+import { Zap, Droplets, Wifi, Flame, Landmark, ShieldCheck, LayoutDashboard, Fuel, Wallet, ShoppingBasket, TrendingUp, type LucideIcon } from "lucide-react";
 
 const iconMap: Record<string, LucideIcon> = {
   Zap,
@@ -12,6 +12,7 @@ const iconMap: Record<string, LucideIcon> = {
   Fuel,
   Wallet,
   ShoppingBasket,
+  TrendingUp,
 };
 
 interface CategoryCardProps {

@@ -218,6 +218,15 @@ export interface BasketHistoryPoint {
   totalEur: number;
 }
 
+// ============ GDP ============
+
+export interface GdpQuarter {
+  period: string; // "2025-Q4"
+  growthYoY: number; // % year-over-year
+  growthQoQ: number | null; // % quarter-over-quarter
+  valueMlnEur: number | null;
+}
+
 // ============ Explanations ============
 
 export interface Explanation {

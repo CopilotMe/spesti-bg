@@ -90,6 +90,12 @@ export default function Home() {
             href="/koshnitsa"
           />
           <CategoryCard
+            title={t.categories.gdp.title}
+            description={t.categories.gdp.description}
+            icon={t.categories.gdp.icon}
+            href="/bvp"
+          />
+          <CategoryCard
             title={t.categories.budget.title}
             description={t.categories.budget.description}
             icon={t.categories.budget.icon}

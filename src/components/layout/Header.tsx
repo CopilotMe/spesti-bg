@@ -15,6 +15,7 @@ const navLinks = [
   { href: "/zastrahovki", label: messages.nav.insurance },
   { href: "/budget", label: messages.nav.budget },
   { href: "/koshnitsa", label: messages.nav.basket },
+  { href: "/bvp", label: messages.nav.gdp },
   { href: "/kombiniran", label: messages.nav.combined },
   { href: "/blog", label: "Блог" },
 ];
