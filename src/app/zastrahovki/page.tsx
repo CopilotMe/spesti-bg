@@ -2,9 +2,10 @@ import { Metadata } from "next";
 import { InsuranceComparison } from "@/components/calculator/InsuranceComparison";
 
 export const metadata: Metadata = {
-  title: "Застраховки – Сравни ГО, КАСКО, здравни | Спести.бг",
+  title: "Застраховки – Сравни ГО, КАСКО, здравни и имуществени",
   description:
-    "Сравни застраховки от ДЗИ, Булстрад, Алианц, Лев Инс и Евроинс. ГО, КАСКО, здравни и имуществени застраховки.",
+    "Сравни застраховки от ДЗИ, Булстрад, Алианц, Лев Инс и Евроинс. ГО, КАСКО, здравни и имуществени застраховки на едно място.",
+  alternates: { canonical: "/zastrahovki" },
 };
 
 export default function InsurancePage() {

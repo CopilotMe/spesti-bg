@@ -2,9 +2,10 @@ import { Metadata } from "next";
 import { GasCalculator } from "@/components/calculator/GasCalculator";
 
 export const metadata: Metadata = {
-  title: "Газ калкулатор – Сравни цените на газ | Спести.бг",
+  title: "Газ калкулатор – Сравни цените на природен газ",
   description:
-    "Сравни цените на природния газ от Овергаз, Ситигаз и други доставчици. Виж разбивка на сметката с ДДС.",
+    "Сравни цените на природния газ от Овергаз, Ситигаз и други доставчици. Виж разбивка на сметката с ДДС. Актуални тарифи.",
+  alternates: { canonical: "/gaz" },
 };
 
 export default function GasPage() {

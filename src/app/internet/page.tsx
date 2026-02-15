@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import { TelecomComparison } from "@/components/calculator/TelecomComparison";
 
 export const metadata: Metadata = {
-  title: "Сравнение на мобилни планове и домашен интернет",
+  title: "Сравнение на мобилни планове и домашен интернет – A1, Vivacom, Yettel",
   description:
     "Сравни мобилните планове на A1, Vivacom и Yettel и намери най-евтиния домашен интернет. Филтрирай по данни, скорост и оператор.",
+  alternates: { canonical: "/internet" },
 };
 
 export default function InternetPage() {

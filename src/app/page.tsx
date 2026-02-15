@@ -1,7 +1,17 @@
+import { Metadata } from "next";
 import Link from "next/link";
 import { CategoryCard } from "@/components/layout/CategoryCard";
 import { ArrowRight, Shield, TrendingDown, Eye } from "lucide-react";
 import messages from "@/messages/bg.json";
+
+export const metadata: Metadata = {
+  title: "Спести.бг – Сравни сметки за ток, вода, газ и интернет | Безплатен калкулатор",
+  description:
+    "Безплатен калкулатор за сравнение на сметки за ток, вода, газ, интернет, кредити и застраховки в България. Виж кой доставчик е най-евтин. Данни от КЕВР.",
+  alternates: {
+    canonical: "/",
+  },
+};
 
 export default function Home() {
   const t = messages;

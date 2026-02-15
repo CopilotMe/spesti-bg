@@ -2,9 +2,10 @@ import { Metadata } from "next";
 import { LoanCalculator } from "@/components/calculator/LoanCalculator";
 
 export const metadata: Metadata = {
-  title: "Кредитен калкулатор – Сравни лихви по кредити | Спести.бг",
+  title: "Кредитен калкулатор – Сравни лихви по кредити",
   description:
-    "Сравни потребителски и жилищни кредити от ДСК, УниКредит, Райфайзен и други банки. Изчисли вноската и общата лихва.",
+    "Сравни потребителски и жилищни кредити от ДСК, УниКредит, Райфайзен и други банки. Изчисли месечната вноска и общата лихва.",
+  alternates: { canonical: "/krediti" },
 };
 
 export default function LoansPage() {

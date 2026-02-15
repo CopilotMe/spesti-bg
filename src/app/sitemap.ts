@@ -1,7 +1,9 @@
 import type { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://spesti-bg-git-main-shteryo-dzhimovs-projects.vercel.app";
+  const baseUrl =
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    "https://spesti-bg-git-main-shteryo-dzhimovs-projects.vercel.app";
 
   return [
     {

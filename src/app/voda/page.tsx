@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import { WaterCalculator } from "@/components/calculator/WaterCalculator";
 
 export const metadata: Metadata = {
-  title: "Калкулатор за сметка за вода",
+  title: "Калкулатор сметка за вода – Сравни ВиК цени по градове",
   description:
-    "Изчисли месечната си сметка за вода и сравни цените по градове в България. Виж разбивката на водоснабдяване, канализация и пречистване.",
+    "Изчисли месечната си сметка за вода и сравни ВиК цените в 23 града. Виж разбивка на водоснабдяване, канализация и пречистване с ДДС.",
+  alternates: { canonical: "/voda" },
 };
 
 export default function WaterPage() {

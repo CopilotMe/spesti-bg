@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import { ElectricityCalculator } from "@/components/calculator/ElectricityCalculator";
 
 export const metadata: Metadata = {
-  title: "Калкулатор за сметка за ток",
+  title: "Калкулатор сметка за ток – Сравни EVN, Електрохолд, Енерго-Про",
   description:
-    "Изчисли месечната си сметка за електричество и сравни цените на EVN, Електрохолд и Енерго-Про. Разбери от какво се формира сметката ти.",
+    "Изчисли месечната си сметка за електричество и сравни цените на EVN, Електрохолд и Енерго-Про. Разбери от какво се формира сметката ти. Актуални цени от КЕВР.",
+  alternates: { canonical: "/elektrichestvo" },
 };
 
 export default function ElectricityPage() {

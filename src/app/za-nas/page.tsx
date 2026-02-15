@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import { Shield, Users, BarChart3, HelpCircle } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "За нас",
+  title: "За Спести.бг – Безплатен сравнител на комунални сметки",
   description:
-    "Спести.бг е безплатна платформа за сравнение на комунални сметки в България. Научете повече за нашата мисия.",
+    "Спести.бг е безплатна платформа за сравнение на комунални сметки в България. Научете повече за нашата мисия и данните.",
+  alternates: { canonical: "/za-nas" },
 };
 
 export default function AboutPage() {
