@@ -77,6 +77,18 @@ export default function Home() {
             icon={t.categories.insurance.icon}
             href="/zastrahovki"
           />
+          <CategoryCard
+            title={t.categories.fuel.title}
+            description={t.categories.fuel.description}
+            icon={t.categories.fuel.icon}
+            href="/goriva"
+          />
+          <CategoryCard
+            title={t.categories.budget.title}
+            description={t.categories.budget.description}
+            icon={t.categories.budget.icon}
+            href="/budget"
+          />
         </div>
         <div className="mx-auto mt-6 max-w-5xl">
           <CategoryCard

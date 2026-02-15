@@ -1,0 +1,26 @@
+import { Metadata } from "next";
+import { FuelComparison } from "@/components/calculator/FuelComparison";
+
+export const metadata: Metadata = {
+  title: "Сравнение на цени на горива – Бензин, дизел, LPG",
+  description:
+    "Сравни цените на бензин A95, A98, дизел и автогаз в Shell, OMV, Лукойл, Еко, Петрол. Виж кой е най-евтин и колко спестяваш годишно.",
+  alternates: { canonical: "/goriva" },
+};
+
+export default function FuelPage() {
+  return (
+    <div className="mx-auto max-w-5xl px-4 py-8">
+      <div className="mb-8">
+        <h1 className="text-2xl font-bold text-text md:text-3xl">
+          Сравнение на цени на горива
+        </h1>
+        <p className="mt-2 text-muted">
+          Сравни цените на бензин, дизел и автогаз в Shell, OMV, Лукойл, Еко и Петрол.
+          Виж колко спестяваш годишно при различните вериги.
+        </p>
+      </div>
+      <FuelComparison />
+    </div>
+  );
+}

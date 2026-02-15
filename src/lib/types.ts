@@ -167,6 +167,35 @@ export interface InsuranceProduct {
   url?: string;
 }
 
+// ============ Fuel ============
+
+export type FuelType = "A95" | "A98" | "diesel" | "lpg";
+
+export interface FuelStation {
+  id: string;
+  chain: string;
+  chainName: string;
+  prices: Record<FuelType, number | null>; // лв/литър
+  hasLoyalty: boolean;
+  loyaltyDiscount: number; // ст./литър отстъпка с карта
+  stationCount: number; // брой бензиностанции в БГ
+  url?: string;
+}
+
+export interface FuelResult {
+  station: FuelStation;
+  pricePerLiter: number;
+  monthlyCost: number;
+  yearlyCost: number;
+  differenceFromCheapest: number;
+  isCheapest: boolean;
+}
+
+export interface FuelInput {
+  fuelType: FuelType;
+  monthlyLiters: number;
+}
+
 // ============ Explanations ============
 
 export interface Explanation {

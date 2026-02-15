@@ -10,8 +10,10 @@ const navLinks = [
   { href: "/voda", label: messages.nav.water },
   { href: "/gaz", label: messages.nav.gas },
   { href: "/internet", label: messages.nav.internet },
+  { href: "/goriva", label: messages.nav.fuel },
   { href: "/krediti", label: messages.nav.loans },
   { href: "/zastrahovki", label: messages.nav.insurance },
+  { href: "/budget", label: messages.nav.budget },
   { href: "/kombiniran", label: messages.nav.combined },
   { href: "/blog", label: "Блог" },
 ];
