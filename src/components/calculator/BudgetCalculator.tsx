@@ -55,44 +55,44 @@ const COLORS = [
   "#14b8a6", "#a855f7",
 ];
 
-// Average Bulgarian household monthly data (Eurostat / NSI 2024)
+// Average Bulgarian household monthly data (Eurostat / NSI 2024, in EUR)
 const BG_AVERAGE = {
-  income: 2200,
-  electricity: 85,
-  water: 22,
-  gas: 45,
-  internet: 25,
-  fuel: 200,
+  income: 1125,
+  electricity: 43,
+  water: 11,
+  gas: 23,
+  internet: 13,
+  fuel: 102,
   loan: 0,
-  insurance: 40,
-  food: 500,
-  health: 80,
-  education: 50,
-  transport: 100,
-  entertainment: 60,
-  other: 150,
+  insurance: 20,
+  food: 256,
+  health: 41,
+  education: 26,
+  transport: 51,
+  entertainment: 31,
+  other: 77,
 };
 
 export function BudgetCalculator() {
   // Income
-  const [income, setIncome] = useState(3000);
+  const [income, setIncome] = useState(1500);
 
   // Utility categories (linked to our calculators)
   const [electricityKwh, setElectricityKwh] = useState(200);
   const [waterM3, setWaterM3] = useState(5);
   const [gasM3, setGasM3] = useState(50);
-  const [internetFee, setInternetFee] = useState(25);
+  const [internetFee, setInternetFee] = useState(13);
   const [fuelLiters, setFuelLiters] = useState(80);
   const [loanAmount, setLoanAmount] = useState(0);
-  const [insuranceFee, setInsuranceFee] = useState(40);
+  const [insuranceFee, setInsuranceFee] = useState(20);
 
   // Personal categories (manual input)
-  const [food, setFood] = useState(500);
-  const [health, setHealth] = useState(80);
-  const [education, setEducation] = useState(50);
-  const [transport, setTransport] = useState(100);
-  const [entertainment, setEntertainment] = useState(60);
-  const [other, setOther] = useState(150);
+  const [food, setFood] = useState(256);
+  const [health, setHealth] = useState(41);
+  const [education, setEducation] = useState(26);
+  const [transport, setTransport] = useState(51);
+  const [entertainment, setEntertainment] = useState(31);
+  const [other, setOther] = useState(77);
 
   // Calculate from our calculators
   const elecCheapest = useMemo(() => {
@@ -312,7 +312,7 @@ export function BudgetCalculator() {
           <BudgetInput label="Газ (m³)" value={gasM3} onChange={setGasM3} min={0} max={500} step={10} linked icon={<Flame className="h-3.5 w-3.5 text-orange-500" />} result={formatCurrency(gasCheapest)} />
           <BudgetInput label="Интернет (€)" value={internetFee} onChange={setInternetFee} min={0} max={100} step={1} linked icon={<Wifi className="h-3.5 w-3.5 text-green-500" />} />
           <BudgetInput label="Горива (литри)" value={fuelLiters} onChange={setFuelLiters} min={0} max={400} step={10} linked icon={<Fuel className="h-3.5 w-3.5 text-blue-600" />} result={formatCurrency(fuelCheapest)} />
-          <BudgetInput label="Кредит сума (€)" value={loanAmount} onChange={setLoanAmount} min={0} max={80000} step={500} linked icon={<Landmark className="h-3.5 w-3.5 text-purple-500" />} result={loanPayment > 0 ? `${formatCurrency(loanPayment)}/мес` : undefined} />
+          <BudgetInput label="Кредит сума (€)" value={loanAmount} onChange={setLoanAmount} min={0} max={40000} step={250} linked icon={<Landmark className="h-3.5 w-3.5 text-purple-500" />} result={loanPayment > 0 ? `${formatCurrency(loanPayment)}/мес` : undefined} />
           <BudgetInput label="Застраховки (€)" value={insuranceFee} onChange={setInsuranceFee} min={0} max={500} step={5} linked icon={<ShieldCheck className="h-3.5 w-3.5 text-teal-500" />} />
           <BudgetInput label="Храна и напитки (€)" value={food} onChange={setFood} min={0} max={3000} step={50} icon={<ShoppingCart className="h-3.5 w-3.5 text-gray-500" />} />
           <BudgetInput label="Здраве (€)" value={health} onChange={setHealth} min={0} max={1000} step={10} icon={<Heart className="h-3.5 w-3.5 text-red-500" />} />

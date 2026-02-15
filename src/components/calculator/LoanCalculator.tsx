@@ -8,7 +8,7 @@ import { LoanInput } from "@/lib/types";
 
 export function LoanCalculator() {
   const [loanType, setLoanType] = useState<"consumer" | "mortgage">("consumer");
-  const [amount, setAmount] = useState(10000);
+  const [amount, setAmount] = useState(5000);
   const [termMonths, setTermMonths] = useState(60);
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
@@ -42,7 +42,7 @@ export function LoanCalculator() {
             <label className="text-sm font-medium text-text">Тип кредит</label>
             <div className="flex gap-2">
               <button
-                onClick={() => { setLoanType("consumer"); setAmount(10000); setTermMonths(60); }}
+                onClick={() => { setLoanType("consumer"); setAmount(5000); setTermMonths(60); }}
                 className={`flex-1 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
                   loanType === "consumer"
                     ? "bg-primary text-white"
@@ -52,7 +52,7 @@ export function LoanCalculator() {
                 Потребителски
               </button>
               <button
-                onClick={() => { setLoanType("mortgage"); setAmount(100000); setTermMonths(240); }}
+                onClick={() => { setLoanType("mortgage"); setAmount(50000); setTermMonths(240); }}
                 className={`flex-1 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
                   loanType === "mortgage"
                     ? "bg-primary text-white"
@@ -67,24 +67,24 @@ export function LoanCalculator() {
           {/* Amount */}
           <div className="space-y-2">
             <label className="text-sm font-medium text-text">
-              Сума ({loanType === "consumer" ? "500 - 80 000" : "10 000 - 500 000"} €)
+              Сума ({loanType === "consumer" ? "250 - 40 000" : "5 000 - 255 000"} €)
             </label>
             <input
               type="number"
               value={amount}
               onChange={(e) => setAmount(Number(e.target.value))}
-              min={loanType === "consumer" ? 500 : 10000}
-              max={loanType === "consumer" ? 80000 : 500000}
-              step={loanType === "consumer" ? 500 : 5000}
+              min={loanType === "consumer" ? 250 : 5000}
+              max={loanType === "consumer" ? 40000 : 255000}
+              step={loanType === "consumer" ? 250 : 5000}
               className="w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm text-text focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
             />
             <input
               type="range"
               value={amount}
               onChange={(e) => setAmount(Number(e.target.value))}
-              min={loanType === "consumer" ? 500 : 10000}
-              max={loanType === "consumer" ? 80000 : 500000}
-              step={loanType === "consumer" ? 500 : 5000}
+              min={loanType === "consumer" ? 250 : 5000}
+              max={loanType === "consumer" ? 40000 : 255000}
+              step={loanType === "consumer" ? 250 : 5000}
               className="w-full accent-primary"
             />
           </div>

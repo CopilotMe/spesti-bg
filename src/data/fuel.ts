@@ -1,14 +1,14 @@
 import { FuelStation, FuelType } from "@/lib/types";
 
-// Цени към февруари 2025 — актуализирай регулярно
+// Цени към февруари 2025 (конвертирани в EUR, 1 EUR = 1.95583 BGN)
 export const fuelStations: FuelStation[] = [
   {
     id: "shell",
     chain: "shell",
     chainName: "Shell",
-    prices: { A95: 2.55, A98: 2.75, diesel: 2.52, lpg: 1.35 },
+    prices: { A95: 1.30, A98: 1.41, diesel: 1.29, lpg: 0.69 },
     hasLoyalty: true,
-    loyaltyDiscount: 3, // 3 ст./л с Shell ClubSmart
+    loyaltyDiscount: 1.5, // ~1.5 цент/л с Shell ClubSmart
     stationCount: 115,
     url: "https://www.shell.bg",
   },
@@ -16,9 +16,9 @@ export const fuelStations: FuelStation[] = [
     id: "omv",
     chain: "omv",
     chainName: "OMV",
-    prices: { A95: 2.53, A98: 2.73, diesel: 2.50, lpg: 1.33 },
+    prices: { A95: 1.29, A98: 1.40, diesel: 1.28, lpg: 0.68 },
     hasLoyalty: true,
-    loyaltyDiscount: 4, // 4 ст./л с OMV MOVE
+    loyaltyDiscount: 2, // ~2 цент/л с OMV MOVE
     stationCount: 95,
     url: "https://www.omv.bg",
   },
@@ -26,9 +26,9 @@ export const fuelStations: FuelStation[] = [
     id: "lukoil",
     chain: "lukoil",
     chainName: "Лукойл",
-    prices: { A95: 2.49, A98: 2.69, diesel: 2.47, lpg: 1.30 },
+    prices: { A95: 1.27, A98: 1.38, diesel: 1.26, lpg: 0.66 },
     hasLoyalty: true,
-    loyaltyDiscount: 3,
+    loyaltyDiscount: 1.5,
     stationCount: 210,
     url: "https://www.lukoil.bg",
   },
@@ -36,9 +36,9 @@ export const fuelStations: FuelStation[] = [
     id: "eko",
     chain: "eko",
     chainName: "Еко",
-    prices: { A95: 2.51, A98: 2.71, diesel: 2.49, lpg: 1.32 },
+    prices: { A95: 1.28, A98: 1.39, diesel: 1.27, lpg: 0.67 },
     hasLoyalty: true,
-    loyaltyDiscount: 2,
+    loyaltyDiscount: 1,
     stationCount: 100,
     url: "https://www.eko.bg",
   },
@@ -46,7 +46,7 @@ export const fuelStations: FuelStation[] = [
     id: "petrol",
     chain: "petrol",
     chainName: "Петрол",
-    prices: { A95: 2.47, A98: null, diesel: 2.45, lpg: 1.28 },
+    prices: { A95: 1.26, A98: null, diesel: 1.25, lpg: 0.65 },
     hasLoyalty: false,
     loyaltyDiscount: 0,
     stationCount: 300,
@@ -56,9 +56,9 @@ export const fuelStations: FuelStation[] = [
     id: "gazprom",
     chain: "gazprom",
     chainName: "NIS Петрол (Газпром)",
-    prices: { A95: 2.48, A98: 2.68, diesel: 2.46, lpg: 1.29 },
+    prices: { A95: 1.27, A98: 1.37, diesel: 1.26, lpg: 0.66 },
     hasLoyalty: true,
-    loyaltyDiscount: 2,
+    loyaltyDiscount: 1,
     stationCount: 75,
     url: "https://www.nispetrol.bg",
   },

@@ -177,7 +177,7 @@ export interface FuelStation {
   chainName: string;
   prices: Record<FuelType, number | null>; // €/литър
   hasLoyalty: boolean;
-  loyaltyDiscount: number; // ст./литър отстъпка с карта
+  loyaltyDiscount: number; // цент/литър отстъпка с карта
   stationCount: number; // брой бензиностанции в БГ
   url?: string;
 }

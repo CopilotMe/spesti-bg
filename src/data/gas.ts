@@ -1,5 +1,6 @@
 import { GasProvider } from "@/lib/types";
 
+// Тарифи КЕВР (конвертирани в EUR, 1 EUR = 1.95583 BGN)
 export const gasProviders: GasProvider[] = [
   {
     id: "overgas",
@@ -14,10 +15,10 @@ export const gasProviders: GasProvider[] = [
       "Банско",
       "Ботевград",
     ],
-    pricePerM3: 0.981,
-    distributionFee: 0.184,
-    transmissionFee: 0.042,
-    excise: 0.0069,
+    pricePerM3: 0.5016,
+    distributionFee: 0.0941,
+    transmissionFee: 0.0215,
+    excise: 0.0035,
     url: "https://www.overgas.bg",
   },
   {
@@ -31,10 +32,10 @@ export const gasProviders: GasProvider[] = [
       "Кърджали",
       "Пазарджик",
     ],
-    pricePerM3: 0.995,
-    distributionFee: 0.196,
-    transmissionFee: 0.042,
-    excise: 0.0069,
+    pricePerM3: 0.5088,
+    distributionFee: 0.1002,
+    transmissionFee: 0.0215,
+    excise: 0.0035,
     url: "https://www.citygas.bg",
   },
   {
@@ -42,10 +43,10 @@ export const gasProviders: GasProvider[] = [
     name: "Черноморска технологична компания",
     region: "Черноморие",
     coverageCities: ["Варна", "Бургас", "Добрич"],
-    pricePerM3: 1.012,
-    distributionFee: 0.205,
-    transmissionFee: 0.042,
-    excise: 0.0069,
+    pricePerM3: 0.5175,
+    distributionFee: 0.1048,
+    transmissionFee: 0.0215,
+    excise: 0.0035,
     url: "https://www.chtk.bg",
   },
   {
@@ -53,20 +54,20 @@ export const gasProviders: GasProvider[] = [
     name: "Рилгаз",
     region: "Западна България",
     coverageCities: ["Враца", "Монтана", "Видин"],
-    pricePerM3: 1.025,
-    distributionFee: 0.21,
-    transmissionFee: 0.042,
-    excise: 0.0069,
+    pricePerM3: 0.5241,
+    distributionFee: 0.1074,
+    transmissionFee: 0.0215,
+    excise: 0.0035,
   },
   {
     id: "sevliegas",
     name: "Севлиевогаз",
     region: "Централна България",
     coverageCities: ["Севлиево", "Габрово", "Велико Търново", "Ловеч"],
-    pricePerM3: 1.008,
-    distributionFee: 0.198,
-    transmissionFee: 0.042,
-    excise: 0.0069,
+    pricePerM3: 0.5154,
+    distributionFee: 0.1013,
+    transmissionFee: 0.0215,
+    excise: 0.0035,
   },
 ];
 
