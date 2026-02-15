@@ -84,6 +84,12 @@ export default function Home() {
             href="/goriva"
           />
           <CategoryCard
+            title={t.categories.basket.title}
+            description={t.categories.basket.description}
+            icon={t.categories.basket.icon}
+            href="/koshnitsa"
+          />
+          <CategoryCard
             title={t.categories.budget.title}
             description={t.categories.budget.description}
             icon={t.categories.budget.icon}

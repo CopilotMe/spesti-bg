@@ -14,6 +14,7 @@ const navLinks = [
   { href: "/krediti", label: messages.nav.loans },
   { href: "/zastrahovki", label: messages.nav.insurance },
   { href: "/budget", label: messages.nav.budget },
+  { href: "/koshnitsa", label: messages.nav.basket },
   { href: "/kombiniran", label: messages.nav.combined },
   { href: "/blog", label: "Блог" },
 ];

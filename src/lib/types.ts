@@ -196,6 +196,28 @@ export interface FuelInput {
   monthlyLiters: number;
 }
 
+// ============ Consumer Basket ============
+
+export interface BasketProduct {
+  id: string;
+  name: string;
+  category: "bread" | "dairy" | "meat" | "oil" | "vegetables" | "fruits" | "other";
+  unit: string; // "кг", "л", "бр", "125г", etc.
+  priceEur: number; // текуща цена в EUR
+  previousPriceEur: number | null; // цена от предходния месец
+}
+
+export interface BasketSnapshot {
+  month: string; // "2026-02"
+  totalEur: number;
+  products: BasketProduct[];
+}
+
+export interface BasketHistoryPoint {
+  month: string;
+  totalEur: number;
+}
+
 // ============ Explanations ============
 
 export interface Explanation {

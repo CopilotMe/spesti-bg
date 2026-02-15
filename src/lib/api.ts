@@ -218,6 +218,41 @@ export async function fetchEcbRate(): Promise<EcbRate | null> {
   return null;
 }
 
+// ---- Eurostat Food HICP (for consumer basket trends) ----
+
+export interface FoodHicpData {
+  food: HicpDataPoint[]; // CP0111 — храни
+  nonAlcoholic: HicpDataPoint[]; // CP0122 — безалкохолни
+  overall: HicpDataPoint[]; // CP00 — обща инфлация
+}
+
+export async function fetchFoodHicp(): Promise<FoodHicpData | null> {
+  const base =
+    "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/prc_hicp_manr?geo=BG&sinceTimePeriod=2024-01";
+
+  const codes: Record<keyof FoodHicpData, string> = {
+    food: "CP0111",
+    nonAlcoholic: "CP0122",
+    overall: "CP00",
+  };
+
+  try {
+    const entries = Object.entries(codes) as [keyof FoodHicpData, string][];
+    const results = await Promise.all(
+      entries.map(async ([key, coicop]) => {
+        const res = await fetch(`${base}&coicop=${coicop}`, {
+          next: { revalidate: 86400 },
+        });
+        const json = await res.json();
+        return [key, parseEurostatJson(json)] as const;
+      })
+    );
+    return Object.fromEntries(results) as unknown as FoodHicpData;
+  } catch {
+    return null;
+  }
+}
+
 // ---- Air Quality ----
 
 export interface AirQuality {
