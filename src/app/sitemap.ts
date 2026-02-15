@@ -3,8 +3,7 @@ import { blogPosts } from "@/data/blog";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl =
-    process.env.NEXT_PUBLIC_SITE_URL ||
-    "https://spesti-bg-git-main-shteryo-dzhimovs-projects.vercel.app";
+    process.env.NEXT_PUBLIC_SITE_URL || "https://spesti.app";
 
   const blogEntries: MetadataRoute.Sitemap = [
     {

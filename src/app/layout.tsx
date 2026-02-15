@@ -4,6 +4,7 @@ import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
+import { PWARegister } from "@/components/PWARegister";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -11,8 +12,7 @@ const inter = Inter({
 });
 
 const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ||
-  "https://spesti-bg-git-main-shteryo-dzhimovs-projects.vercel.app";
+  process.env.NEXT_PUBLIC_SITE_URL || "https://spesti.app";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -68,6 +68,12 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "Спести",
+  },
   verification: {
     google: process.env.NEXT_PUBLIC_GOOGLE_VERIFICATION || undefined,
   },
@@ -81,6 +87,9 @@ export default function RootLayout({
   return (
     <html lang="bg">
       <head>
+        <meta name="theme-color" content="#059669" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <link rel="apple-touch-icon" href="/icons/icon-192x192.svg" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -107,7 +116,7 @@ export default function RootLayout({
                 "@type": "Organization",
                 name: "Спести.бг",
                 url: SITE_URL,
-                logo: `${SITE_URL}/favicon.ico`,
+                logo: `${SITE_URL}/icons/icon-512x512.svg`,
                 description:
                   "Безплатна платформа за сравнение на комунални сметки в България.",
                 areaServed: {
@@ -152,6 +161,7 @@ export default function RootLayout({
       </head>
       <body className={`${inter.variable} font-sans antialiased`}>
         <GoogleAnalytics />
+        <PWARegister />
         <Header />
         <main className="min-h-screen">{children}</main>
         <Footer />
