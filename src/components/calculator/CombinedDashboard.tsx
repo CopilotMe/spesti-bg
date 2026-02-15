@@ -75,8 +75,8 @@ export function CombinedDashboard() {
           <InputCard icon={<Zap className="h-4 w-4 text-yellow-500" />} label="Ток (kWh/мес)" value={electricityKwh} onChange={setElectricityKwh} min={0} max={1000} step={10} />
           <InputCard icon={<Droplets className="h-4 w-4 text-blue-500" />} label="Вода (m³/мес)" value={waterM3} onChange={setWaterM3} min={0} max={50} step={1} />
           <InputCard icon={<Flame className="h-4 w-4 text-orange-500" />} label="Газ (m³/мес)" value={gasM3} onChange={setGasM3} min={0} max={500} step={10} />
-          <InputCard icon={<Wifi className="h-4 w-4 text-green-500" />} label="Интернет (лв/мес)" value={internetFee} onChange={setInternetFee} min={0} max={100} step={1} />
-          <InputCard icon={<Landmark className="h-4 w-4 text-purple-500" />} label="Кредит сума (лв)" value={loanAmount} onChange={setLoanAmount} min={0} max={80000} step={500} />
+          <InputCard icon={<Wifi className="h-4 w-4 text-green-500" />} label="Интернет (€/мес)" value={internetFee} onChange={setInternetFee} min={0} max={100} step={1} />
+          <InputCard icon={<Landmark className="h-4 w-4 text-purple-500" />} label="Кредит сума (€)" value={loanAmount} onChange={setLoanAmount} min={0} max={80000} step={500} />
           {loanAmount > 0 && (
             <InputCard icon={<Landmark className="h-4 w-4 text-purple-500" />} label="Кредит срок (мес)" value={loanTermMonths} onChange={setLoanTermMonths} min={6} max={120} step={6} />
           )}

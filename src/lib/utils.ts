@@ -1,5 +1,5 @@
 export function formatCurrency(amount: number): string {
-  return `${amount.toFixed(2)} лв.`;
+  return `${amount.toFixed(2)} €`;
 }
 
 export function formatNumber(value: number, decimals: number = 2): string {

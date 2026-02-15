@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { PiggyBank } from "lucide-react";
+import { BadgeEuro } from "lucide-react";
 import messages from "@/messages/bg.json";
 
 const footerLinks = [
@@ -24,7 +24,7 @@ export function Footer() {
           {/* Brand */}
           <div>
             <div className="mb-2 flex items-center gap-2">
-              <PiggyBank className="h-5 w-5 text-primary" />
+              <BadgeEuro className="h-5 w-5 text-primary" />
               <span className="font-bold text-text">{messages.site.name}</span>
             </div>
             <p className="text-sm text-muted">

@@ -33,7 +33,7 @@ export function FuelComparison() {
 
   async function handleShare(idx: number) {
     const r = results[idx];
-    const text = `${r.station.chainName}: ${r.pricePerLiter.toFixed(2)} лв/л ${fuelTypeLabels[fuelType]} = ${formatCurrency(r.monthlyCost)}/мес | spesti.app/goriva`;
+    const text = `${r.station.chainName}: ${r.pricePerLiter.toFixed(2)} €/л ${fuelTypeLabels[fuelType]} = ${formatCurrency(r.monthlyCost)}/мес | spesti.app/goriva`;
     try {
       if (navigator.share) {
         await navigator.share({ text });
@@ -144,7 +144,7 @@ export function FuelComparison() {
                   )}
                 </td>
                 <td className="px-4 py-3 text-right font-bold text-text">
-                  {r.pricePerLiter.toFixed(2)} лв
+                  {r.pricePerLiter.toFixed(2)} €
                 </td>
                 <td className="px-4 py-3 text-right text-text">
                   {formatCurrency(r.monthlyCost)}
@@ -163,7 +163,7 @@ export function FuelComparison() {
                 </td>
                 <td className="px-4 py-3 text-center text-xs text-muted">
                   {r.station.hasLoyalty ? (
-                    <span className="text-primary">-{r.station.loyaltyDiscount} ст.</span>
+                    <span className="text-primary">-{r.station.loyaltyDiscount} цент</span>
                   ) : (
                     "—"
                   )}

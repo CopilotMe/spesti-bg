@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { Shield, Users, BarChart3, HelpCircle } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "За Спести.бг – Безплатен сравнител на комунални сметки",
+  title: "За Спести – Безплатен сравнител на комунални сметки",
   description:
-    "Спести.бг е безплатна платформа за сравнение на комунални сметки в България. Научете повече за нашата мисия и данните.",
+    "Спести е безплатна платформа за сравнение на комунални сметки в България. Научете повече за нашата мисия и данните.",
   alternates: { canonical: "/za-nas" },
 };
 
@@ -12,12 +12,12 @@ export default function AboutPage() {
   return (
     <div className="mx-auto max-w-3xl px-4 py-8">
       <h1 className="mb-6 text-2xl font-bold text-text md:text-3xl">
-        За Спести.бг
+        За Спести
       </h1>
 
       <div className="space-y-6 text-text">
         <p className="text-lg text-muted">
-          Спести.бг е безплатна платформа, която помага на българските
+          Спести е безплатна платформа, която помага на българските
           потребители да разберат своите комунални сметки и да намерят
           най-изгодните оферти.
         </p>
@@ -52,9 +52,9 @@ export default function AboutPage() {
 
           <div className="rounded-xl border border-border bg-surface p-5">
             <HelpCircle className="mb-3 h-6 w-6 text-primary" />
-            <h3 className="mb-2 font-semibold">Прост език</h3>
+            <h3 className="mb-2 font-semibold">Достъпност</h3>
             <p className="text-sm text-muted">
-              Всяка такса и термин е обяснен на прост, разбираем език.
+              Всяка такса и термин е обяснен достъпно и разбираемо.
               Платформата е подходяща за всеки, независимо от възрастта.
             </p>
           </div>

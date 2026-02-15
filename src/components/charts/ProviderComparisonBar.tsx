@@ -54,7 +54,7 @@ export function ProviderComparisonBar({
       <div className="h-64">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={data} layout="vertical">
-            <XAxis type="number" tickFormatter={(v) => `${v} лв.`} />
+            <XAxis type="number" tickFormatter={(v) => `${v} €`} />
             <YAxis
               type="category"
               dataKey="name"

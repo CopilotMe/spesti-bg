@@ -102,11 +102,11 @@ export default async function BlogPostPage({ params }: Props) {
             datePublished: post.date,
             author: {
               "@type": "Organization",
-              name: "Спести.бг",
+              name: "Спести",
             },
             publisher: {
               "@type": "Organization",
-              name: "Спести.бг",
+              name: "Спести",
             },
             mainEntityOfPage: {
               "@type": "WebPage",

@@ -48,11 +48,11 @@ export function TelecomComparison() {
   );
 
   const handleShareMobile = async (planId: string, operatorName: string, planName: string, fee: number) => {
-    const text = `${operatorName} ${planName} — ${formatCurrency(fee)}/мес.\n\nВиж сравнението на Спести.бг: ${window.location.href}`;
+    const text = `${operatorName} ${planName} — ${formatCurrency(fee)}/мес.\n\nВиж сравнението на Спести: ${window.location.href}`;
 
     if (navigator.share) {
       try {
-        await navigator.share({ title: "Спести.бг", text });
+        await navigator.share({ title: "Спести", text });
         return;
       } catch { /* cancelled */ }
     }
@@ -66,11 +66,11 @@ export function TelecomComparison() {
 
   const handleShareInternet = async (planId: string, providerName: string, planName: string, fee: number, speed: number) => {
     const speedText = speed >= 1000 ? `${speed / 1000} Gbps` : `${speed} Mbps`;
-    const text = `${providerName} ${planName} — ${speedText} за ${formatCurrency(fee)}/мес.\n\nВиж сравнението на Спести.бг: ${window.location.href}`;
+    const text = `${providerName} ${planName} — ${speedText} за ${formatCurrency(fee)}/мес.\n\nВиж сравнението на Спести: ${window.location.href}`;
 
     if (navigator.share) {
       try {
-        await navigator.share({ title: "Спести.бг", text });
+        await navigator.share({ title: "Спести", text });
         return;
       } catch { /* cancelled */ }
     }

@@ -16,9 +16,9 @@ export function LoanCalculator() {
   const results = useMemo(() => calculateLoans(input), [amount, termMonths, loanType]);
 
   const handleShare = async (bankName: string, monthly: number, total: number, id: string) => {
-    const text = `${bankName} — ${formatCurrency(monthly)}/мес., общо ${formatCurrency(total)} за кредит от ${formatCurrency(amount)} за ${termMonths} мес.\n\nВиж сравнението на Спести.бг: ${window.location.href}`;
+    const text = `${bankName} — ${formatCurrency(monthly)}/мес., общо ${formatCurrency(total)} за кредит от ${formatCurrency(amount)} за ${termMonths} мес.\n\nВиж сравнението на Спести: ${window.location.href}`;
     if (navigator.share) {
-      try { await navigator.share({ title: "Спести.бг", text }); return; } catch { /* cancelled */ }
+      try { await navigator.share({ title: "Спести", text }); return; } catch { /* cancelled */ }
     }
     try {
       await navigator.clipboard.writeText(text);
@@ -67,7 +67,7 @@ export function LoanCalculator() {
           {/* Amount */}
           <div className="space-y-2">
             <label className="text-sm font-medium text-text">
-              Сума ({loanType === "consumer" ? "500 - 80 000" : "10 000 - 500 000"} лв.)
+              Сума ({loanType === "consumer" ? "500 - 80 000" : "10 000 - 500 000"} €)
             </label>
             <input
               type="number"

@@ -3,7 +3,7 @@
 export interface BillComponent {
   id: string;
   name: string;
-  rate: number; // лв/kWh без ДДС
+  rate: number; // €/kWh без ДДС
   explanationKey: string;
 }
 
@@ -12,7 +12,7 @@ export interface ElectricityProvider {
   name: string;
   region: string;
   coverageAreas: string[];
-  dayRate: number; // лв/kWh с ДДС
+  dayRate: number; // €/kWh с ДДС
   nightRate: number;
   singleRate: number;
   breakdown: BillComponent[];
@@ -41,7 +41,7 @@ export interface WaterProvider {
   id: string;
   name: string;
   city: string;
-  supplyRate: number; // лв/m³ без ДДС
+  supplyRate: number; // €/m³ без ДДС
   sewerageRate: number;
   treatmentRate: number;
   totalRateWithVat: number;
@@ -97,8 +97,8 @@ export interface GasProvider {
   name: string;
   region: string;
   coverageCities: string[];
-  pricePerM3: number; // лв/m³ без ДДС
-  distributionFee: number; // лв/m³ без ДДС
+  pricePerM3: number; // €/m³ без ДДС
+  distributionFee: number; // €/m³ без ДДС
   transmissionFee: number;
   excise: number;
   url?: string;
@@ -175,7 +175,7 @@ export interface FuelStation {
   id: string;
   chain: string;
   chainName: string;
-  prices: Record<FuelType, number | null>; // лв/литър
+  prices: Record<FuelType, number | null>; // €/литър
   hasLoyalty: boolean;
   loyaltyDiscount: number; // ст./литър отстъпка с карта
   stationCount: number; // брой бензиностанции в БГ

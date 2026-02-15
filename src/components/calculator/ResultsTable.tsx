@@ -24,11 +24,11 @@ export function ResultsTable({ rows }: ResultsTableProps) {
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
   const handleShare = async (row: ResultRow) => {
-    const text = `${row.providerName}${row.region ? ` (${row.region})` : ""} — ${formatCurrency(row.total)}/мес.${row.isCheapest ? " ✅ Най-евтин!" : ` (+${formatCurrency(row.difference)} спрямо най-евтиния)`}\n\nВиж сравнението на Спести.бг: ${window.location.href}`;
+    const text = `${row.providerName}${row.region ? ` (${row.region})` : ""} — ${formatCurrency(row.total)}/мес.${row.isCheapest ? " ✅ Най-евтин!" : ` (+${formatCurrency(row.difference)} спрямо най-евтиния)`}\n\nВиж сравнението на Спести: ${window.location.href}`;
 
     if (navigator.share) {
       try {
-        await navigator.share({ title: "Спести.бг", text });
+        await navigator.share({ title: "Спести", text });
         return;
       } catch {
         // User cancelled or share failed, fall through to clipboard

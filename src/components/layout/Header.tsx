@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Menu, X, PiggyBank } from "lucide-react";
+import { Menu, X, BadgeEuro } from "lucide-react";
 import messages from "@/messages/bg.json";
 
 const navLinks = [
@@ -25,7 +25,7 @@ export function Header() {
     <header className="sticky top-0 z-50 border-b border-border bg-surface/95 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
         <Link href="/" className="flex items-center gap-2">
-          <PiggyBank className="h-7 w-7 text-primary" />
+          <BadgeEuro className="h-7 w-7 text-primary" />
           <span className="text-xl font-bold text-text">
             {messages.site.name}
           </span>

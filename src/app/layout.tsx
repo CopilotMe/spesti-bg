@@ -20,8 +20,8 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   title: {
-    default: "Спести.бг – Сравни сметки за ток, вода, газ и интернет | Безплатен калкулатор",
-    template: "%s | Спести.бг",
+    default: "Спести – Сравни сметки за ток, вода, газ и интернет | Безплатен калкулатор",
+    template: "%s | Спести",
   },
   description:
     "Безплатен калкулатор за сравнение на сметки за ток, вода, газ, интернет, кредити и застраховки в България. Виж кой доставчик е най-изгоден и спести. Актуални цени от КЕВР.",
@@ -46,17 +46,17 @@ export const metadata: Metadata = {
     "бензин дизел LPG цени",
   ],
   openGraph: {
-    title: "Спести.бг – Сравни сметките си и спести",
+    title: "Спести – Сравни сметките си и спести",
     description:
       "Безплатен калкулатор за сравнение на сметки за ток, вода, газ и интернет в България. Актуални цени от КЕВР.",
     locale: "bg_BG",
     type: "website",
-    siteName: "Спести.бг",
+    siteName: "Спести",
     url: SITE_URL,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Спести.бг – Сравни сметките си и спести",
+    title: "Спести – Сравни сметките си и спести",
     description:
       "Безплатен калкулатор за сравнение на комунални сметки в България.",
   },
@@ -100,7 +100,7 @@ export default function RootLayout({
               {
                 "@context": "https://schema.org",
                 "@type": "WebApplication",
-                name: "Спести.бг",
+                name: "Спести",
                 description:
                   "Безплатен калкулатор за сравнение на сметки за ток, вода, газ, интернет, кредити и застраховки в България.",
                 url: SITE_URL,
@@ -109,7 +109,7 @@ export default function RootLayout({
                 offers: {
                   "@type": "Offer",
                   price: "0",
-                  priceCurrency: "BGN",
+                  priceCurrency: "EUR",
                 },
                 inLanguage: "bg",
                 availableLanguage: "bg",
@@ -117,7 +117,7 @@ export default function RootLayout({
               {
                 "@context": "https://schema.org",
                 "@type": "Organization",
-                name: "Спести.бг",
+                name: "Спести",
                 url: SITE_URL,
                 logo: `${SITE_URL}/icons/icon-512x512.svg`,
                 description:
@@ -145,7 +145,7 @@ export default function RootLayout({
                     name: "Безплатен ли е калкулаторът?",
                     acceptedAnswer: {
                       "@type": "Answer",
-                      text: "Да, Спести.бг е напълно безплатен. Не изисква регистрация и няма скрити такси.",
+                      text: "Да, Спести е напълно безплатен. Не изисква регистрация и няма скрити такси.",
                     },
                   },
                   {

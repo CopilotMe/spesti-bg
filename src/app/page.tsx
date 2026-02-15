@@ -5,7 +5,7 @@ import { ArrowRight, Shield, TrendingDown, Eye } from "lucide-react";
 import messages from "@/messages/bg.json";
 
 export const metadata: Metadata = {
-  title: "Спести.бг – Сравни сметки за ток, вода, газ и интернет | Безплатен калкулатор",
+  title: "Спести – Сравни сметки за ток, вода, газ и интернет | Безплатен калкулатор",
   description:
     "Безплатен калкулатор за сравнение на сметки за ток, вода, газ, интернет, кредити и застраховки в България. Виж кой доставчик е най-евтин. Данни от КЕВР.",
   alternates: {
@@ -146,7 +146,7 @@ export default function Home() {
             <div>
               <h4 className="font-semibold text-text">Прозрачност</h4>
               <p className="text-sm text-muted">
-                Всяка такса е обяснена на прост, разбираем език.
+                Всяка такса е обяснена достъпно и разбираемо.
               </p>
             </div>
           </div>

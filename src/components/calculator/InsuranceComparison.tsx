@@ -18,9 +18,9 @@ export function InsuranceComparison() {
   );
 
   const handleShare = async (id: string, insurerName: string, productName: string, annual: number) => {
-    const text = `${insurerName} — ${productName}: ${formatCurrency(annual)}/год.\n\nВиж сравнението на Спести.бг: ${window.location.href}`;
+    const text = `${insurerName} — ${productName}: ${formatCurrency(annual)}/год.\n\nВиж сравнението на Спести: ${window.location.href}`;
     if (navigator.share) {
-      try { await navigator.share({ title: "Спести.бг", text }); return; } catch { /* cancelled */ }
+      try { await navigator.share({ title: "Спести", text }); return; } catch { /* cancelled */ }
     }
     try {
       await navigator.clipboard.writeText(text);

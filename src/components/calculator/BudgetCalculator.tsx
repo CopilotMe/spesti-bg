@@ -16,7 +16,6 @@ import {
   GraduationCap,
   Bus,
   Tv,
-  PiggyBank,
   TrendingDown,
   ArrowRight,
 } from "lucide-react";
@@ -283,7 +282,7 @@ export function BudgetCalculator() {
             onChange={(e) => setIncome(Number(e.target.value))}
             className="w-32 rounded-lg border border-border bg-surface px-3 py-2 text-lg font-bold text-text"
           />
-          <span className="text-muted">лв/месец</span>
+          <span className="text-muted">€/месец</span>
           <input
             type="range"
             value={income}
@@ -311,16 +310,16 @@ export function BudgetCalculator() {
           <BudgetInput label="Ток (kWh)" value={electricityKwh} onChange={setElectricityKwh} min={0} max={1000} step={10} linked icon={<Zap className="h-3.5 w-3.5 text-yellow-500" />} result={formatCurrency(elecCheapest)} />
           <BudgetInput label="Вода (m³)" value={waterM3} onChange={setWaterM3} min={0} max={50} step={1} linked icon={<Droplets className="h-3.5 w-3.5 text-blue-500" />} result={formatCurrency(waterCheapest)} />
           <BudgetInput label="Газ (m³)" value={gasM3} onChange={setGasM3} min={0} max={500} step={10} linked icon={<Flame className="h-3.5 w-3.5 text-orange-500" />} result={formatCurrency(gasCheapest)} />
-          <BudgetInput label="Интернет (лв)" value={internetFee} onChange={setInternetFee} min={0} max={100} step={1} linked icon={<Wifi className="h-3.5 w-3.5 text-green-500" />} />
+          <BudgetInput label="Интернет (€)" value={internetFee} onChange={setInternetFee} min={0} max={100} step={1} linked icon={<Wifi className="h-3.5 w-3.5 text-green-500" />} />
           <BudgetInput label="Горива (литри)" value={fuelLiters} onChange={setFuelLiters} min={0} max={400} step={10} linked icon={<Fuel className="h-3.5 w-3.5 text-blue-600" />} result={formatCurrency(fuelCheapest)} />
-          <BudgetInput label="Кредит сума (лв)" value={loanAmount} onChange={setLoanAmount} min={0} max={80000} step={500} linked icon={<Landmark className="h-3.5 w-3.5 text-purple-500" />} result={loanPayment > 0 ? `${formatCurrency(loanPayment)}/мес` : undefined} />
-          <BudgetInput label="Застраховки (лв)" value={insuranceFee} onChange={setInsuranceFee} min={0} max={500} step={5} linked icon={<ShieldCheck className="h-3.5 w-3.5 text-teal-500" />} />
-          <BudgetInput label="Храна и напитки (лв)" value={food} onChange={setFood} min={0} max={3000} step={50} icon={<ShoppingCart className="h-3.5 w-3.5 text-gray-500" />} />
-          <BudgetInput label="Здраве (лв)" value={health} onChange={setHealth} min={0} max={1000} step={10} icon={<Heart className="h-3.5 w-3.5 text-red-500" />} />
-          <BudgetInput label="Образование (лв)" value={education} onChange={setEducation} min={0} max={2000} step={25} icon={<GraduationCap className="h-3.5 w-3.5 text-indigo-500" />} />
-          <BudgetInput label="Транспорт (лв)" value={transport} onChange={setTransport} min={0} max={500} step={10} icon={<Bus className="h-3.5 w-3.5 text-amber-500" />} />
-          <BudgetInput label="Развлечения (лв)" value={entertainment} onChange={setEntertainment} min={0} max={500} step={10} icon={<Tv className="h-3.5 w-3.5 text-pink-500" />} />
-          <BudgetInput label="Други разходи (лв)" value={other} onChange={setOther} min={0} max={2000} step={25} icon={<Wallet className="h-3.5 w-3.5 text-gray-400" />} />
+          <BudgetInput label="Кредит сума (€)" value={loanAmount} onChange={setLoanAmount} min={0} max={80000} step={500} linked icon={<Landmark className="h-3.5 w-3.5 text-purple-500" />} result={loanPayment > 0 ? `${formatCurrency(loanPayment)}/мес` : undefined} />
+          <BudgetInput label="Застраховки (€)" value={insuranceFee} onChange={setInsuranceFee} min={0} max={500} step={5} linked icon={<ShieldCheck className="h-3.5 w-3.5 text-teal-500" />} />
+          <BudgetInput label="Храна и напитки (€)" value={food} onChange={setFood} min={0} max={3000} step={50} icon={<ShoppingCart className="h-3.5 w-3.5 text-gray-500" />} />
+          <BudgetInput label="Здраве (€)" value={health} onChange={setHealth} min={0} max={1000} step={10} icon={<Heart className="h-3.5 w-3.5 text-red-500" />} />
+          <BudgetInput label="Образование (€)" value={education} onChange={setEducation} min={0} max={2000} step={25} icon={<GraduationCap className="h-3.5 w-3.5 text-indigo-500" />} />
+          <BudgetInput label="Транспорт (€)" value={transport} onChange={setTransport} min={0} max={500} step={10} icon={<Bus className="h-3.5 w-3.5 text-amber-500" />} />
+          <BudgetInput label="Развлечения (€)" value={entertainment} onChange={setEntertainment} min={0} max={500} step={10} icon={<Tv className="h-3.5 w-3.5 text-pink-500" />} />
+          <BudgetInput label="Други разходи (€)" value={other} onChange={setOther} min={0} max={2000} step={25} icon={<Wallet className="h-3.5 w-3.5 text-gray-400" />} />
         </div>
       </div>
 
@@ -395,7 +394,7 @@ export function BudgetCalculator() {
               <BarChart data={barData}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
                 <XAxis dataKey="name" tick={{ fontSize: 10 }} />
-                <YAxis tick={{ fontSize: 10 }} tickFormatter={(v) => `${v} лв`} />
+                <YAxis tick={{ fontSize: 10 }} tickFormatter={(v) => `${v} €`} />
                 <Tooltip formatter={(value) => formatCurrency(Number(value))} />
                 <Bar dataKey="you" name="Твоите" fill="#059669" radius={[4, 4, 0, 0]} />
                 <Bar dataKey="avg" name="Средно БГ" fill="#d1d5db" radius={[4, 4, 0, 0]} />
