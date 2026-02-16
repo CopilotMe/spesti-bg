@@ -1,11 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import { MessageSquare, Send, CheckCircle, AlertCircle } from "lucide-react";
+import {
+  MessageSquare,
+  Send,
+  CheckCircle,
+  AlertCircle,
+  Loader2,
+} from "lucide-react";
 
-// Obfuscated to prevent scraping from source
-const _p = ["sg", "ace", "11"].join(".");
-const CONTACT_EMAIL = `${_p}@${"gmail"}.com`;
+// Web3Forms access key — public-safe alias for the recipient email.
+// Set NEXT_PUBLIC_WEB3FORMS_KEY in Vercel / .env.local
+const WEB3FORMS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_KEY ?? "";
 
 const TOPIC_OPTIONS = [
   { value: "error", label: "Неточни данни / грешка" },
@@ -18,26 +24,65 @@ const TOPIC_OPTIONS = [
 export default function ContactPage() {
   const [topic, setTopic] = useState("question");
   const [subject, setSubject] = useState("");
+  const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
-  const [sent, setSent] = useState(false);
-  const [error, setError] = useState(false);
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
+    "idle"
+  );
+  const [errorMsg, setErrorMsg] = useState("");
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
     if (!subject.trim() || !message.trim()) {
-      setError(true);
+      setStatus("error");
+      setErrorMsg("Моля, попълнете тема и съобщение.");
       return;
     }
 
+    if (!WEB3FORMS_KEY) {
+      setStatus("error");
+      setErrorMsg("Формата не е конфигурирана. Моля, опитайте по-късно.");
+      return;
+    }
+
+    setStatus("sending");
+
     const topicLabel =
       TOPIC_OPTIONS.find((t) => t.value === topic)?.label ?? topic;
-    const fullSubject = `[Спести] ${topicLabel}: ${subject}`;
-    const mailtoUrl = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(fullSubject)}&body=${encodeURIComponent(message)}`;
 
-    window.location.href = mailtoUrl;
-    setSent(true);
-    setError(false);
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_KEY,
+          subject: `[Спести] ${topicLabel}: ${subject}`,
+          from_name: "Спести – Обратна връзка",
+          ...(email.trim() && { email: email.trim(), replyto: email.trim() }),
+          topic: topicLabel,
+          message,
+          // Honeypot anti-spam
+          botcheck: "",
+        }),
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        setStatus("sent");
+        setSubject("");
+        setEmail("");
+        setMessage("");
+        setTopic("question");
+      } else {
+        setStatus("error");
+        setErrorMsg(data.message || "Грешка при изпращане. Опитайте отново.");
+      }
+    } catch {
+      setStatus("error");
+      setErrorMsg("Няма връзка. Проверете интернета и опитайте отново.");
+    }
   }
 
   return (
@@ -49,23 +94,21 @@ export default function ContactPage() {
         Забелязахте грешка, имате предложение или въпрос? Пишете ни.
       </p>
 
-      {sent ? (
+      {status === "sent" ? (
         <div className="rounded-xl border border-green-200 bg-green-50 p-8 text-center">
           <CheckCircle className="mx-auto mb-3 h-10 w-10 text-green-500" />
           <h2 className="mb-2 text-lg font-semibold text-text">
-            Благодарим ви!
+            Съобщението е изпратено!
           </h2>
           <p className="text-sm text-muted">
-            Вашият имейл клиент трябва да се е отворил с попълнено съобщение.
-            Ако не се е отворил,{" "}
-            <button
-              onClick={() => setSent(false)}
-              className="text-primary underline"
-            >
-              опитайте отново
-            </button>
-            .
+            Благодарим ви за обратната връзка. Ще отговорим възможно най-бързо.
           </p>
+          <button
+            onClick={() => setStatus("idle")}
+            className="mt-4 text-sm text-primary underline"
+          >
+            Изпрати ново съобщение
+          </button>
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="space-y-5">
@@ -97,7 +140,7 @@ export default function ContactPage() {
               htmlFor="subject"
               className="mb-1.5 block text-sm font-medium text-text"
             >
-              Тема
+              Тема <span className="text-red-400">*</span>
             </label>
             <input
               id="subject"
@@ -105,9 +148,28 @@ export default function ContactPage() {
               value={subject}
               onChange={(e) => {
                 setSubject(e.target.value);
-                setError(false);
+                if (status === "error") setStatus("idle");
               }}
               placeholder="Напр. Грешна цена на водата в Пловдив"
+              className="w-full rounded-lg border border-border bg-surface px-3 py-2.5 text-sm text-text placeholder:text-muted/50 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+            />
+          </div>
+
+          {/* Email (optional) */}
+          <div>
+            <label
+              htmlFor="email"
+              className="mb-1.5 block text-sm font-medium text-text"
+            >
+              Вашият имейл{" "}
+              <span className="font-normal text-muted">(по желание, за отговор)</span>
+            </label>
+            <input
+              id="email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="ime@example.com"
               className="w-full rounded-lg border border-border bg-surface px-3 py-2.5 text-sm text-text placeholder:text-muted/50 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
             />
           </div>
@@ -118,7 +180,7 @@ export default function ContactPage() {
               htmlFor="message"
               className="mb-1.5 block text-sm font-medium text-text"
             >
-              Съобщение
+              Съобщение <span className="text-red-400">*</span>
             </label>
             <textarea
               id="message"
@@ -126,32 +188,52 @@ export default function ContactPage() {
               value={message}
               onChange={(e) => {
                 setMessage(e.target.value);
-                setError(false);
+                if (status === "error") setStatus("idle");
               }}
               placeholder="Опишете какво забелязахте или какво предлагате..."
               className="w-full resize-y rounded-lg border border-border bg-surface px-3 py-2.5 text-sm text-text placeholder:text-muted/50 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
             />
           </div>
 
-          {error && (
+          {/* Honeypot — hidden from users, catches bots */}
+          <input
+            type="checkbox"
+            name="botcheck"
+            className="hidden"
+            style={{ display: "none" }}
+            tabIndex={-1}
+            autoComplete="off"
+          />
+
+          {status === "error" && errorMsg && (
             <div className="flex items-center gap-2 text-sm text-red-600">
-              <AlertCircle className="h-4 w-4" />
-              Моля, попълнете тема и съобщение.
+              <AlertCircle className="h-4 w-4 shrink-0" />
+              {errorMsg}
             </div>
           )}
 
           {/* Submit */}
           <button
             type="submit"
-            className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-primary/90"
+            disabled={status === "sending"}
+            className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-primary/90 disabled:opacity-60"
           >
-            <Send className="h-4 w-4" />
-            Изпрати
+            {status === "sending" ? (
+              <>
+                <Loader2 className="h-4 w-4 animate-spin" />
+                Изпращане...
+              </>
+            ) : (
+              <>
+                <Send className="h-4 w-4" />
+                Изпрати
+              </>
+            )}
           </button>
 
           <p className="text-xs text-muted">
-            Натискането на &quot;Изпрати&quot; ще отвори вашия имейл клиент с
-            попълнено съобщение. Не съхраняваме никакви данни от тази форма.
+            Съобщението се изпраща директно до екипа на Спести.
+            Не съхраняваме данни от тази форма.
           </p>
         </form>
       )}
