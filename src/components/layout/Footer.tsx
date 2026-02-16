@@ -13,14 +13,20 @@ const footerLinks = [
   { href: "/budget", label: "Бюджет" },
   { href: "/kombiniran", label: "Комбиниран" },
   { href: "/blog", label: "Блог" },
+];
+
+const legalLinks = [
   { href: "/za-nas", label: "За нас" },
+  { href: "/metodologia", label: "Източници и методология" },
+  { href: "/poveritelnost", label: "Политика за поверителност" },
+  { href: "/usloviya", label: "Условия за ползване" },
 ];
 
 export function Footer() {
   return (
     <footer className="border-t border-border bg-surface">
       <div className="mx-auto max-w-6xl px-4 py-8">
-        <div className="grid gap-8 md:grid-cols-3">
+        <div className="grid gap-8 md:grid-cols-4">
           {/* Brand */}
           <div>
             <div className="mb-2 flex items-center gap-2">
@@ -32,11 +38,27 @@ export function Footer() {
             </p>
           </div>
 
-          {/* Links */}
+          {/* Calculator Links */}
           <div>
             <h4 className="mb-2 text-sm font-semibold text-text">Калкулатори</h4>
             <nav className="grid grid-cols-2 gap-1">
               {footerLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="text-sm text-muted hover:text-primary transition-colors"
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </nav>
+          </div>
+
+          {/* Legal / About */}
+          <div>
+            <h4 className="mb-2 text-sm font-semibold text-text">Информация</h4>
+            <nav className="flex flex-col gap-1">
+              {legalLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
