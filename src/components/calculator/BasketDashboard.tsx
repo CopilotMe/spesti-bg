@@ -13,6 +13,10 @@ import {
   Loader2,
   Wallet,
   CalendarClock,
+  SearchCheck,
+  AlertTriangle,
+  Leaf,
+  Euro,
 } from "lucide-react";
 import {
   ResponsiveContainer,
@@ -122,6 +126,75 @@ export function BasketDashboard() {
 
   // How many baskets can min wage buy
   const basketsPerWage = minimumWageEur / displayTotal;
+
+  // Root-cause analysis: защо поскъпва кошницата
+  const rcaData = useMemo(() => {
+    // Per-product absolute change
+    const productChanges = basketProducts
+      .filter((p) => p.previousPriceEur != null)
+      .map((p) => {
+        const absChange = p.priceEur - (p.previousPriceEur ?? p.priceEur);
+        const pctChange = p.previousPriceEur
+          ? (absChange / p.previousPriceEur) * 100
+          : 0;
+        return { ...p, absChange, pctChange };
+      })
+      .sort((a, b) => b.absChange - a.absChange);
+
+    // Top 5 drivers (biggest absolute increase)
+    const topDrivers = productChanges.filter((p) => p.absChange > 0).slice(0, 5);
+
+    // Total absolute increase
+    const totalIncrease = productChanges
+      .filter((p) => p.absChange > 0)
+      .reduce((s, p) => s + p.absChange, 0);
+    const totalDecrease = productChanges
+      .filter((p) => p.absChange < 0)
+      .reduce((s, p) => s + p.absChange, 0);
+
+    // Category-level contribution
+    const catContrib = new Map<string, number>();
+    for (const p of productChanges) {
+      if (p.absChange > 0) {
+        const cat = categoryLabels[p.category];
+        catContrib.set(cat, (catContrib.get(cat) || 0) + p.absChange);
+      }
+    }
+    const categoryContribs = Array.from(catContrib.entries())
+      .map(([name, contrib]) => ({
+        name,
+        contrib: parseFloat(contrib.toFixed(3)),
+        pct: totalIncrease > 0 ? (contrib / totalIncrease) * 100 : 0,
+      }))
+      .sort((a, b) => b.contrib - a.contrib);
+
+    // Products that got cheaper
+    const cheaper = productChanges.filter((p) => p.absChange < 0);
+
+    // Euro effect: Jan 2026 jump (52.10 → 57.00)
+    const decTotal = basketHistory.find((h) => h.month === "2025-12")?.totalEur;
+    const janTotal = basketHistory.find((h) => h.month === "2026-01")?.totalEur;
+    const euroJump = decTotal && janTotal ? janTotal - decTotal : null;
+    const euroJumpPct = decTotal && euroJump ? (euroJump / decTotal) * 100 : null;
+
+    // Seasonality: зимни зеленчуци
+    const winterVeg = productChanges.filter(
+      (p) => p.category === "vegetables" && p.absChange > 0
+    );
+    const winterVegTotal = winterVeg.reduce((s, p) => s + p.absChange, 0);
+
+    return {
+      topDrivers,
+      totalIncrease,
+      totalDecrease,
+      categoryContribs,
+      cheaper,
+      euroJump,
+      euroJumpPct,
+      winterVeg,
+      winterVegTotal,
+    };
+  }, []);
 
   function handleSort(key: SortKey) {
     if (sortKey === key) {
@@ -255,6 +328,142 @@ export function BasketDashboard() {
             <> Февруари 2026 е изключен от графиката — данните от КНСБ все още са непълни.</>
           )}
         </p>
+      </div>
+
+      {/* ROOT-CAUSE ANALYSIS */}
+      <div className="rounded-2xl border border-amber-200 bg-amber-50/50 p-5">
+        <div className="mb-5 flex items-center gap-2">
+          <SearchCheck className="h-5 w-5 text-amber-600" />
+          <h3 className="font-semibold text-text">
+            Защо поскъпва кошницата?
+          </h3>
+        </div>
+
+        <div className="space-y-5">
+          {/* Top drivers — waterfall */}
+          <div>
+            <h4 className="mb-3 text-sm font-medium text-text">
+              Топ 5 продукта, движещи поскъпването
+            </h4>
+            <div className="space-y-2">
+              {rcaData.topDrivers.map((p) => {
+                const widthPct =
+                  rcaData.totalIncrease > 0
+                    ? (p.absChange / rcaData.totalIncrease) * 100
+                    : 0;
+                return (
+                  <div key={p.id} className="flex items-center gap-3">
+                    <span className="w-32 shrink-0 text-sm text-text truncate">
+                      {p.name}
+                    </span>
+                    <div className="flex-1 rounded-full bg-gray-100 h-5 relative overflow-hidden">
+                      <div
+                        className="absolute inset-y-0 left-0 rounded-full bg-red-400/70"
+                        style={{ width: `${Math.max(widthPct, 4)}%` }}
+                      />
+                      <span className="absolute inset-0 flex items-center px-2 text-xs font-medium text-text">
+                        +{formatCurrency(p.absChange)} ({p.pctChange.toFixed(1)}%)
+                      </span>
+                    </div>
+                    <span className="shrink-0 text-xs text-muted w-14 text-right">
+                      {widthPct.toFixed(0)}%
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+            <p className="mt-2 text-xs text-muted">
+              Процентът показва дела от общото поскъпване ({formatCurrency(rcaData.totalIncrease)}).
+            </p>
+          </div>
+
+          {/* Category contribution */}
+          <div>
+            <h4 className="mb-3 text-sm font-medium text-text">
+              Принос по категории към поскъпването
+            </h4>
+            <div className="grid gap-2 sm:grid-cols-2">
+              {rcaData.categoryContribs.map((c) => (
+                <div
+                  key={c.name}
+                  className="flex items-center justify-between rounded-lg border border-border bg-white px-3 py-2"
+                >
+                  <span className="text-sm text-text">{c.name}</span>
+                  <div className="text-right">
+                    <span className="text-sm font-semibold text-red-600">
+                      +{formatCurrency(c.contrib)}
+                    </span>
+                    <span className="ml-1 text-xs text-muted">
+                      ({c.pct.toFixed(0)}%)
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Factors */}
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {/* Euro effect */}
+            {rcaData.euroJump != null && rcaData.euroJumpPct != null && (
+              <div className="rounded-xl border border-blue-200 bg-blue-50 p-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <Euro className="h-4 w-4 text-blue-600" />
+                  <span className="text-sm font-medium text-text">Евро ефект</span>
+                </div>
+                <p className="text-xs text-muted">
+                  При преминаването към еврото (яну 2026) кошницата скочи с{" "}
+                  <strong className="text-blue-700">
+                    +{formatCurrency(rcaData.euroJump)} (+{rcaData.euroJumpPct.toFixed(1)}%)
+                  </strong>{" "}
+                  за един месец. Това е най-рязката месечна промяна в данните и
+                  вероятно отразява закръгляване на цени нагоре.
+                </p>
+              </div>
+            )}
+
+            {/* Seasonality */}
+            {rcaData.winterVeg.length > 0 && (
+              <div className="rounded-xl border border-green-200 bg-green-50 p-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <Leaf className="h-4 w-4 text-green-600" />
+                  <span className="text-sm font-medium text-text">Сезонност</span>
+                </div>
+                <p className="text-xs text-muted">
+                  Зимните зеленчуци ({rcaData.winterVeg.map((v) => v.name).join(", ")}){" "}
+                  поскъпват с общо{" "}
+                  <strong className="text-green-700">
+                    +{formatCurrency(rcaData.winterVegTotal)}
+                  </strong>
+                  . Типична сезонна тенденция — внос замества местно производство.
+                </p>
+              </div>
+            )}
+
+            {/* Net balance */}
+            <div className="rounded-xl border border-gray-200 bg-gray-50 p-4">
+              <div className="flex items-center gap-2 mb-2">
+                <AlertTriangle className="h-4 w-4 text-amber-500" />
+                <span className="text-sm font-medium text-text">Нетен баланс</span>
+              </div>
+              <p className="text-xs text-muted">
+                Общо поскъпване:{" "}
+                <strong className="text-red-600">
+                  +{formatCurrency(rcaData.totalIncrease)}
+                </strong>{" "}
+                | Поевтиняване:{" "}
+                <strong className="text-green-600">
+                  {formatCurrency(rcaData.totalDecrease)}
+                </strong>
+                {rcaData.cheaper.length > 0 && (
+                  <>
+                    {" "}({rcaData.cheaper.map((p) => p.name).join(", ")})
+                  </>
+                )}
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Category breakdown */}
