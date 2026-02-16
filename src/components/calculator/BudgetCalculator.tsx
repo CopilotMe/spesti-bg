@@ -18,6 +18,12 @@ import {
   Tv,
   TrendingDown,
   ArrowRight,
+  Home,
+  Shirt,
+  PlayCircle,
+  Plane,
+  Wrench,
+  Coffee,
 } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
 import { calculateElectricityBills } from "@/lib/calculators/electricity";
@@ -52,7 +58,8 @@ interface BudgetCategory {
 const COLORS = [
   "#059669", "#3b82f6", "#f97316", "#eab308", "#8b5cf6",
   "#ec4899", "#06b6d4", "#84cc16", "#f43f5e", "#6366f1",
-  "#14b8a6", "#a855f7",
+  "#14b8a6", "#a855f7", "#0ea5e9", "#d946ef", "#f59e0b",
+  "#10b981", "#e11d48", "#7c3aed", "#0891b2",
 ];
 
 // Average Bulgarian household monthly data (Eurostat / NSI 2024, in EUR)
@@ -70,6 +77,12 @@ const BG_AVERAGE = {
   education: 26,
   transport: 51,
   entertainment: 31,
+  rent: 200,
+  clothing: 35,
+  subscriptions: 15,
+  vacation: 50,
+  homeMaintenance: 25,
+  personal: 40,
   other: 77,
 };
 
@@ -92,6 +105,12 @@ export function BudgetCalculator() {
   const [education, setEducation] = useState(26);
   const [transport, setTransport] = useState(51);
   const [entertainment, setEntertainment] = useState(31);
+  const [rent, setRent] = useState(0);
+  const [clothing, setClothing] = useState(35);
+  const [subscriptions, setSubscriptions] = useState(15);
+  const [vacation, setVacation] = useState(50);
+  const [homeMaintenance, setHomeMaintenance] = useState(25);
+  const [personal, setPersonal] = useState(40);
   const [other, setOther] = useState(77);
 
   // Calculate from our calculators
@@ -234,6 +253,54 @@ export function BudgetCalculator() {
           },
         ]
       : []),
+    ...(rent > 0
+      ? [
+          {
+            id: "rent",
+            label: "Наем / Ипотека",
+            icon: <Home className="h-4 w-4" />,
+            color: COLORS[12],
+            amount: rent,
+          },
+        ]
+      : []),
+    {
+      id: "clothing",
+      label: "Дрехи и обувки",
+      icon: <Shirt className="h-4 w-4" />,
+      color: COLORS[13],
+      amount: clothing,
+    },
+    {
+      id: "subscriptions",
+      label: "Абонаменти",
+      icon: <PlayCircle className="h-4 w-4" />,
+      color: COLORS[14],
+      amount: subscriptions,
+      savingTip: "Провери неизползвани абонаменти",
+    },
+    {
+      id: "vacation",
+      label: "Почивка / Ваканции",
+      icon: <Plane className="h-4 w-4" />,
+      color: COLORS[15],
+      amount: vacation,
+    },
+    {
+      id: "homeMaintenance",
+      label: "Поддръжка на дома",
+      icon: <Wrench className="h-4 w-4" />,
+      color: COLORS[16],
+      amount: homeMaintenance,
+    },
+    {
+      id: "personal",
+      label: "Лични разходи",
+      icon: <Coffee className="h-4 w-4" />,
+      color: COLORS[17],
+      amount: personal,
+      savingTip: "Кафе вкъщи = 30 €/мес спестени",
+    },
     {
       id: "other",
       label: "Други разходи",
@@ -247,24 +314,24 @@ export function BudgetCalculator() {
   const savings = income - totalExpenses;
   const savingsPercent = income > 0 ? ((savings / income) * 100).toFixed(1) : "0";
 
-  // Compare with average
-  const avgTotal =
-    BG_AVERAGE.electricity + BG_AVERAGE.water + BG_AVERAGE.gas +
-    BG_AVERAGE.internet + BG_AVERAGE.fuel + BG_AVERAGE.insurance +
-    BG_AVERAGE.food + BG_AVERAGE.health + BG_AVERAGE.education +
-    BG_AVERAGE.transport + BG_AVERAGE.entertainment + BG_AVERAGE.other;
+  // Compare with average (sum all expense keys, excluding income)
+  const avgTotal = Object.entries(BG_AVERAGE)
+    .filter(([key]) => key !== "income")
+    .reduce((sum, [, val]) => sum + val, 0);
 
   const pieData = categories
     .filter((c) => c.amount > 0)
     .sort((a, b) => b.amount - a.amount);
 
   const barData = [
-    { name: "Ток", you: elecCheapest, avg: BG_AVERAGE.electricity },
-    { name: "Вода", you: waterCheapest, avg: BG_AVERAGE.water },
-    { name: "Газ", you: gasCheapest, avg: BG_AVERAGE.gas },
-    { name: "Интернет", you: internetFee, avg: BG_AVERAGE.internet },
-    { name: "Горива", you: fuelCheapest, avg: BG_AVERAGE.fuel },
     { name: "Храна", you: food, avg: BG_AVERAGE.food },
+    ...(rent > 0 ? [{ name: "Наем", you: rent, avg: BG_AVERAGE.rent }] : []),
+    { name: "Горива", you: fuelCheapest, avg: BG_AVERAGE.fuel },
+    { name: "Ток", you: elecCheapest, avg: BG_AVERAGE.electricity },
+    { name: "Почивка", you: vacation, avg: BG_AVERAGE.vacation },
+    { name: "Лични", you: personal, avg: BG_AVERAGE.personal },
+    { name: "Дрехи", you: clothing, avg: BG_AVERAGE.clothing },
+    { name: "Здраве", you: health, avg: BG_AVERAGE.health },
   ];
 
   return (
@@ -319,6 +386,12 @@ export function BudgetCalculator() {
           <BudgetInput label="Образование (€)" value={education} onChange={setEducation} min={0} max={2000} step={25} icon={<GraduationCap className="h-3.5 w-3.5 text-indigo-500" />} />
           <BudgetInput label="Транспорт (€)" value={transport} onChange={setTransport} min={0} max={500} step={10} icon={<Bus className="h-3.5 w-3.5 text-amber-500" />} />
           <BudgetInput label="Развлечения (€)" value={entertainment} onChange={setEntertainment} min={0} max={500} step={10} icon={<Tv className="h-3.5 w-3.5 text-pink-500" />} />
+          <BudgetInput label="Наем / Ипотека (€)" value={rent} onChange={setRent} min={0} max={2000} step={25} icon={<Home className="h-3.5 w-3.5 text-sky-500" />} />
+          <BudgetInput label="Дрехи и обувки (€)" value={clothing} onChange={setClothing} min={0} max={500} step={5} icon={<Shirt className="h-3.5 w-3.5 text-fuchsia-500" />} />
+          <BudgetInput label="Абонаменти (€)" value={subscriptions} onChange={setSubscriptions} min={0} max={200} step={5} icon={<PlayCircle className="h-3.5 w-3.5 text-amber-500" />} />
+          <BudgetInput label="Почивка / Ваканции (€)" value={vacation} onChange={setVacation} min={0} max={500} step={10} icon={<Plane className="h-3.5 w-3.5 text-emerald-500" />} />
+          <BudgetInput label="Поддръжка на дома (€)" value={homeMaintenance} onChange={setHomeMaintenance} min={0} max={500} step={5} icon={<Wrench className="h-3.5 w-3.5 text-rose-500" />} />
+          <BudgetInput label="Лични разходи (€)" value={personal} onChange={setPersonal} min={0} max={500} step={5} icon={<Coffee className="h-3.5 w-3.5 text-amber-700" />} />
           <BudgetInput label="Други разходи (€)" value={other} onChange={setOther} min={0} max={2000} step={25} icon={<Wallet className="h-3.5 w-3.5 text-gray-400" />} />
         </div>
       </div>
@@ -377,7 +450,7 @@ export function BudgetCalculator() {
             </ResponsiveContainer>
           </div>
           <div className="mt-2 flex flex-wrap justify-center gap-2">
-            {pieData.slice(0, 6).map((c) => (
+            {pieData.slice(0, 8).map((c) => (
               <span key={c.id} className="flex items-center gap-1 text-xs text-muted">
                 <span className="h-2.5 w-2.5 rounded-full" style={{ background: c.color }} />
                 {c.label}
