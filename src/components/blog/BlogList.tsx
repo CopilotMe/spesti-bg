@@ -19,6 +19,7 @@ const CATEGORIES: { label: string; tags: string[]; href: string }[] = [
   { label: "Вода", tags: ["вода", "ВиК"], href: "/voda" },
   { label: "Горива", tags: ["горива", "бензин", "дизел"], href: "/goriva" },
   { label: "Бюджет", tags: ["бюджет", "домакинство"], href: "/budget" },
+  { label: "Икономика", tags: ["БВП", "икономика", "кошница", "инфлация"], href: "/bvp" },
   { label: "Спестяване", tags: ["спестяване", "съвети"], href: "#" },
 ];
 
