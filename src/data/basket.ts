@@ -38,8 +38,9 @@ export const basketProducts: BasketProduct[] = [
 // Обща стойност на кошницата
 export const currentBasketTotal = basketProducts.reduce((sum, p) => sum + p.priceEur, 0);
 
-// Историческа стойност на кошницата (месечни данни от юни 2025 до февруари 2026)
+// Историческа стойност на кошницата (месечни данни от юни 2025 до януари 2026)
 // Стойностите до декември 2025 са конвертирани от BGN (÷ 1.95583)
+// Февруари 2026 е изключен — данните от КНСБ все още са непълни/предварителни
 export const basketHistory: BasketHistoryPoint[] = [
   { month: "2025-06", totalEur: 49.20 },
   { month: "2025-07", totalEur: 49.80 },
@@ -49,8 +50,13 @@ export const basketHistory: BasketHistoryPoint[] = [
   { month: "2025-11", totalEur: 51.80 },
   { month: "2025-12", totalEur: 52.10 },
   { month: "2026-01", totalEur: 57.00 },
-  { month: "2026-02", totalEur: currentBasketTotal },
 ];
+
+// Последният пълен месец (януари 2026) се използва за summary изчисления
+export const latestCompleteTotal = 57.00;
+
+// Флаг дали текущите (февруарски) данни са пълни
+export const isCurrentMonthComplete = false;
 
 // Минимална работна заплата в EUR
 export const minimumWageEur = 620.20;

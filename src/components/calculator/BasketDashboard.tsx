@@ -11,6 +11,8 @@ import {
   Info,
   BarChart3,
   Loader2,
+  Wallet,
+  CalendarClock,
 } from "lucide-react";
 import {
   ResponsiveContainer,
@@ -28,6 +30,8 @@ import {
   basketProducts,
   currentBasketTotal,
   basketHistory,
+  latestCompleteTotal,
+  isCurrentMonthComplete,
   minimumWageEur,
   categoryLabels,
   basketLastUpdated,
@@ -102,19 +106,22 @@ export function BasketDashboard() {
     return { period: label, total: parseFloat(h.totalEur.toFixed(2)) };
   });
 
-  // Month-over-month change
+  // Използваме последния пълен месец за изчисления
+  const displayTotal = isCurrentMonthComplete ? currentBasketTotal : latestCompleteTotal;
+
+  // Month-over-month change (последен пълен vs предпоследен)
   const prevMonthTotal = basketHistory.length >= 2
     ? basketHistory[basketHistory.length - 2].totalEur
     : null;
   const monthChange = prevMonthTotal
-    ? currentBasketTotal - prevMonthTotal
+    ? displayTotal - prevMonthTotal
     : 0;
   const monthChangePct = prevMonthTotal
     ? ((monthChange / prevMonthTotal) * 100)
     : 0;
 
   // How many baskets can min wage buy
-  const basketsPerWage = minimumWageEur / currentBasketTotal;
+  const basketsPerWage = minimumWageEur / displayTotal;
 
   function handleSort(key: SortKey) {
     if (sortKey === key) {
@@ -133,8 +140,11 @@ export function BasketDashboard() {
         <div className="rounded-2xl border border-border bg-surface p-5 text-center">
           <ShoppingBasket className="mx-auto mb-2 h-8 w-8 text-primary" />
           <p className="text-sm text-muted">Обща стойност на кошницата</p>
-          <p className="text-3xl font-bold text-text">{formatCurrency(currentBasketTotal)}</p>
-          <p className="text-xs text-muted">{basketProducts.length} продукта</p>
+          <p className="text-3xl font-bold text-text">{formatCurrency(displayTotal)}</p>
+          <p className="text-xs text-muted">
+            {basketProducts.length} продукта
+            {!isCurrentMonthComplete && " (яну 2026)"}
+          </p>
         </div>
 
         {/* Monthly change */}
@@ -155,6 +165,7 @@ export function BasketDashboard() {
 
         {/* Min wage comparison */}
         <div className="rounded-2xl border border-border bg-surface p-5 text-center">
+          <Wallet className="mx-auto mb-2 h-8 w-8 text-primary" />
           <p className="text-sm text-muted">Кошници от минимална заплата</p>
           <p className="text-3xl font-bold text-primary">{basketsPerWage.toFixed(1)}x</p>
           <p className="text-xs text-muted">при МРЗ от {formatCurrency(minimumWageEur)}</p>
@@ -162,18 +173,20 @@ export function BasketDashboard() {
 
         {/* Since June 2025 */}
         <div className="rounded-2xl border border-border bg-surface p-5 text-center">
+          <CalendarClock className="mx-auto mb-2 h-8 w-8 text-primary" />
           <p className="text-sm text-muted">Промяна от юни 2025</p>
           {(() => {
-            const june = basketHistory[0]?.totalEur || currentBasketTotal;
-            const diff = currentBasketTotal - june;
+            const june = basketHistory[0]?.totalEur || displayTotal;
+            const diff = displayTotal - june;
             const pct = ((diff / june) * 100);
+            const months = basketHistory.length - 1;
             return (
               <>
                 <p className={`text-3xl font-bold ${diff > 0 ? "text-red-600" : "text-green-600"}`}>
                   {diff > 0 ? "+" : ""}{pct.toFixed(1)}%
                 </p>
                 <p className="text-xs text-muted">
-                  {diff > 0 ? "+" : ""}{formatCurrency(diff)} за 9 месеца
+                  {diff > 0 ? "+" : ""}{formatCurrency(diff)} за {months} месеца
                 </p>
               </>
             );
@@ -238,6 +251,9 @@ export function BasketDashboard() {
         </div>
         <p className="mt-2 text-xs text-muted">
           Стойности до декември 2025 конвертирани от BGN (1 EUR = 1.95583 BGN).
+          {!isCurrentMonthComplete && (
+            <> Февруари 2026 е изключен от графиката — данните от КНСБ все още са непълни.</>
+          )}
         </p>
       </div>
 
@@ -359,7 +375,14 @@ export function BasketDashboard() {
             </tbody>
             <tfoot>
               <tr className="border-t-2 border-border bg-gray-50 font-bold">
-                <td className="px-4 py-3 text-text" colSpan={3}>Общо</td>
+                <td className="px-4 py-3 text-text" colSpan={3}>
+                  Общо
+                  {!isCurrentMonthComplete && (
+                    <span className="ml-2 text-xs font-normal text-amber-600">
+                      (февруарските цени са предварителни)
+                    </span>
+                  )}
+                </td>
                 <td className="px-4 py-3 text-right text-text text-lg">
                   {formatCurrency(currentBasketTotal)}
                 </td>
