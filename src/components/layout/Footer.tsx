@@ -20,6 +20,7 @@ const legalLinks = [
   { href: "/metodologia", label: "Източници и методология" },
   { href: "/poveritelnost", label: "Политика за поверителност" },
   { href: "/usloviya", label: "Условия за ползване" },
+  { href: "/kontakt", label: "Обратна връзка" },
 ];
 
 export function Footer() {

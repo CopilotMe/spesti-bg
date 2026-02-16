@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import {
   BookOpen,
   Zap,
@@ -232,10 +233,10 @@ export default function MethodologyPage() {
 
         {/* Disclaimer */}
         <p className="text-center text-xs text-muted">
-          Ако забележите неточност или остарели данни, моля пишете ни на{" "}
-          <a href="mailto:info@spesti.app" className="text-primary underline">
-            info@spesti.app
-          </a>
+          Ако забележите неточност или остарели данни,{" "}
+          <Link href="/kontakt" className="text-primary underline">
+            пишете ни
+          </Link>
           . Стремим се към максимална точност и ще коригираме възможно
           най-бързо.
         </p>

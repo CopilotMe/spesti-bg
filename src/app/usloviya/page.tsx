@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { FileText, AlertTriangle, Scale, RefreshCw, Mail } from "lucide-react";
+import Link from "next/link";
+import { FileText, AlertTriangle, Scale, RefreshCw, MessageSquare } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Условия за ползване – Спести",
@@ -145,17 +146,14 @@ export default function TermsPage() {
         {/* Contact */}
         <div className="rounded-xl border border-border bg-surface p-5">
           <div className="flex items-center gap-2">
-            <Mail className="h-5 w-5 text-primary" />
+            <MessageSquare className="h-5 w-5 text-primary" />
             <h2 className="font-semibold">Контакт</h2>
           </div>
           <p className="mt-2 text-sm text-muted">
             За въпроси относно условията:{" "}
-            <a
-              href="mailto:info@spesti.app"
-              className="text-primary underline"
-            >
-              info@spesti.app
-            </a>
+            <Link href="/kontakt" className="text-primary underline">
+              пишете ни тук
+            </Link>
           </p>
         </div>
       </div>
