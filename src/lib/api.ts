@@ -290,6 +290,66 @@ export async function fetchGdpComparison(): Promise<GdpComparisonData | null> {
   }
 }
 
+// ---- Eurostat GDP Expenditure Breakdown (BG) ----
+
+export interface GdpExpenditureData {
+  /** Each component has quarterly year-on-year % growth */
+  components: {
+    code: string;
+    label: string;
+    quarters: { period: string; value: number }[];
+  }[];
+}
+
+export async function fetchGdpExpenditure(): Promise<GdpExpenditureData | null> {
+  // na_item codes: B1GQ=GDP, P31_S14=Household consumption, P51G=Investment, P6=Exports, P7=Imports
+  const url =
+    "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/namq_10_gdp?geo=BG&unit=CLV_PCH_SM&s_adj=SCA&na_item=B1GQ&na_item=P31_S14&na_item=P51G&na_item=P6&na_item=P7&sinceTimePeriod=2023-Q1";
+
+  const labels: Record<string, string> = {
+    B1GQ: "БВП общо",
+    P31_S14: "Потребление на домакинствата",
+    P51G: "Инвестиции",
+    P6: "Износ",
+    P7: "Внос",
+  };
+
+  try {
+    const res = await fetch(url, { next: { revalidate: 86400 } });
+    const data = await res.json();
+
+    const dim = data.dimension as Record<string, unknown>;
+    const naObj = dim.na_item as Record<string, unknown>;
+    const naCat = naObj.category as Record<string, unknown>;
+    const naIndex = naCat.index as Record<string, number>;
+    const timeObj = dim.time as Record<string, unknown>;
+    const timeCat = timeObj.category as Record<string, unknown>;
+    const timeIndex = timeCat.index as Record<string, number>;
+    const vals = data.value as Record<string, number>;
+
+    const numTimes = Object.keys(timeIndex).length;
+    const sortedPeriods = Object.entries(timeIndex).sort((a, b) => a[1] - b[1]);
+
+    const components = Object.entries(naIndex)
+      .sort((a, b) => a[1] - b[1])
+      .map(([code, naIdx]) => {
+        const quarters = sortedPeriods
+          .map(([period, tIdx]) => {
+            const flatIdx = naIdx * numTimes + tIdx;
+            const v = vals[String(flatIdx)];
+            return v !== undefined ? { period, value: v } : null;
+          })
+          .filter(Boolean) as { period: string; value: number }[];
+
+        return { code, label: labels[code] || code, quarters };
+      });
+
+    return { components };
+  } catch {
+    return null;
+  }
+}
+
 // ---- Eurostat Food HICP (for consumer basket trends) ----
 
 export interface FoodHicpData {

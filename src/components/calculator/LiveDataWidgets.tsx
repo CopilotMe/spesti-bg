@@ -122,11 +122,12 @@ export function HicpTrendsWidget() {
               tickFormatter={(v: number) => `${v}%`}
             />
             <Tooltip
-              formatter={(value) => [`${Number(value).toFixed(1)}%`, ""]}
+              formatter={(value, name) => [`${Number(value).toFixed(1)}%`, name]}
               contentStyle={{ fontSize: 12 }}
+              itemStyle={{ padding: "2px 0" }}
             />
             <Legend
-              wrapperStyle={{ fontSize: 11 }}
+              wrapperStyle={{ fontSize: 11, paddingTop: 8 }}
             />
             <Line
               type="monotone"
@@ -283,7 +284,7 @@ export function EuPriceComparisonWidget() {
                 name === "EUR/kWh"
                   ? `${Number(value).toFixed(4)} EUR/kWh`
                   : `${Number(value).toFixed(2)} ст./kWh`,
-                "",
+                name,
               ]}
               contentStyle={{ fontSize: 12 }}
             />

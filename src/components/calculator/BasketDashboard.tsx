@@ -26,6 +26,7 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
+  Legend,
   BarChart,
   Bar,
   Cell,
@@ -670,9 +671,11 @@ export function BasketDashboard() {
                   <XAxis dataKey="period" tick={{ fontSize: 10 }} interval="preserveStartEnd" />
                   <YAxis tick={{ fontSize: 10 }} tickFormatter={(v: number) => `${v}%`} />
                   <Tooltip
-                    formatter={(value) => [`${Number(value).toFixed(1)}%`, ""]}
+                    formatter={(value, name) => [`${Number(value).toFixed(1)}%`, name]}
                     contentStyle={{ fontSize: 12 }}
+                    itemStyle={{ padding: "2px 0" }}
                   />
+                  <Legend wrapperStyle={{ fontSize: 11, paddingTop: 8 }} />
                   <Line type="monotone" dataKey="food" name="Храни" stroke="#22c55e" strokeWidth={2} dot={false} />
                   <Line type="monotone" dataKey="nonAlcoholic" name="Безалкохолни" stroke="#3b82f6" strokeWidth={1.5} dot={false} />
                   <Line
