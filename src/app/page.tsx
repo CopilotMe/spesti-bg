@@ -29,7 +29,7 @@ export default function Home() {
           </p>
           <Link
             href="/elektrichestvo"
-            className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 font-semibold text-white shadow-md transition-colors hover:bg-primary-dark"
+            className="inline-flex items-center gap-2 rounded-full bg-primary-dark px-6 py-3 font-semibold text-white shadow-md transition-colors hover:bg-primary"
           >
             {t.hero.cta}
             <ArrowRight className="h-4 w-4" />
@@ -40,6 +40,9 @@ export default function Home() {
 
       {/* Categories */}
       <section className="px-4 py-12">
+        <h2 className="mx-auto mb-8 max-w-5xl text-center text-2xl font-bold text-text">
+          Калкулатори
+        </h2>
         <div className="mx-auto grid max-w-5xl gap-6 sm:grid-cols-2 lg:grid-cols-3">
           <CategoryCard
             title={t.categories.electricity.title}

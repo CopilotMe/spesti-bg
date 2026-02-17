@@ -80,7 +80,7 @@ export function Footer() {
         </div>
 
         <div className="mt-6 border-t border-border pt-4 text-center">
-          <p className="text-xs text-muted/70">
+          <p className="text-xs text-muted">
             {messages.footer.disclaimer}
           </p>
         </div>
