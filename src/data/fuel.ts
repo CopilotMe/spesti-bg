@@ -122,16 +122,17 @@ export const fuelStations: FuelStation[] = [
     stationCount: 20,
   },
 
-  // ── Вериги с частични данни (без LPG) ──
   {
     id: "avia",
     chain: "avia",
     chainName: "AVIA",
-    prices: { A95: 1.23, A98: null, diesel: 1.22, lpg: null },
+    prices: { A95: 1.23, A98: null, diesel: 1.22, lpg: 0.57 },
     hasLoyalty: false,
     loyaltyDiscount: 0,
     stationCount: 40,
   },
+
+  // ── Вериги с частични данни (без LPG) ──
   {
     id: "kruiz",
     chain: "kruiz",
