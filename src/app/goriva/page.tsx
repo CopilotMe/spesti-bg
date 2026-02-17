@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import { FuelComparison } from "@/components/calculator/FuelComparison";
+import { fetchFuelPrices } from "@/lib/api";
 
 export const metadata: Metadata = {
   title: "Сравнение на цени на горива – Бензин, дизел, LPG",
@@ -8,7 +9,9 @@ export const metadata: Metadata = {
   alternates: { canonical: "/goriva" },
 };
 
-export default function FuelPage() {
+export default async function FuelPage() {
+  const livePrices = await fetchFuelPrices();
+
   return (
     <div className="mx-auto max-w-5xl px-4 py-8">
       <div className="mb-8">
@@ -20,7 +23,7 @@ export default function FuelPage() {
           Виж колко спестяваш годишно при различните вериги.
         </p>
       </div>
-      <FuelComparison />
+      <FuelComparison livePrices={livePrices} />
     </div>
   );
 }

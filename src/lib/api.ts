@@ -1,4 +1,4 @@
-// ============ Live API integrations (all free, no auth) ============
+// ============ Live API integrations (all free, no auth unless noted) ============
 
 const EUR_TO_BGN = 1.95583;
 
@@ -416,6 +416,55 @@ export async function fetchAirQuality(
       pm25: data.current.pm2_5,
       aqi,
       label,
+    };
+  } catch {
+    return null;
+  }
+}
+
+// ---- Fuelo.net Live Fuel Prices ----
+
+export interface FuelPriceData {
+  /** National average prices in EUR per liter, from fuelo.net */
+  gasoline: number | null; // A95
+  diesel: number | null;
+  lpg: number | null;
+  date: string; // "2026-02-17"
+}
+
+export async function fetchFuelPrices(): Promise<FuelPriceData | null> {
+  const apiKey = process.env.FUELO_API_KEY;
+  if (!apiKey) return null;
+
+  const fuels = ["gasoline", "diesel", "lpg"] as const;
+
+  try {
+    const results = await Promise.all(
+      fuels.map(async (fuel) => {
+        const res = await fetch(
+          `https://fuelo.net/api/price?key=${apiKey}&fuel=${fuel}`,
+          { next: { revalidate: 3600 } } // refresh every hour
+        );
+        const data = await res.json();
+        if (data.status === "OK") {
+          return { fuel, price: data.price as number, date: data.date as string };
+        }
+        return { fuel, price: null, date: "" };
+      })
+    );
+
+    const map: Record<string, number | null> = {};
+    let latestDate = "";
+    for (const r of results) {
+      map[r.fuel] = r.price;
+      if (r.date > latestDate) latestDate = r.date;
+    }
+
+    return {
+      gasoline: map.gasoline ?? null,
+      diesel: map.diesel ?? null,
+      lpg: map.lpg ?? null,
+      date: latestDate,
     };
   } catch {
     return null;
