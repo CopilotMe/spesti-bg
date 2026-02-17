@@ -32,8 +32,8 @@ function CustomTooltip({
 }) {
   if (active && payload && payload.length) {
     return (
-      <div className="rounded-lg border border-border bg-surface px-3 py-2 shadow-sm">
-        <p className="text-xs font-medium text-text">{payload[0].name}</p>
+      <div className="rounded-lg border border-border bg-surface px-3 py-2 shadow-sm min-w-[120px]">
+        <p className="text-xs font-medium text-text truncate">{payload[0].name}</p>
         <p className="text-sm font-semibold text-primary">
           {formatCurrency(payload[0].value)}
         </p>
