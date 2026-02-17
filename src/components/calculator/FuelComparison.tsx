@@ -133,10 +133,11 @@ export function FuelComparison({ livePrices }: FuelComparisonProps) {
           </div>
 
           <div>
-            <label className="mb-1 block text-sm font-medium text-muted">
+            <label htmlFor="fuel-liters" className="mb-1 block text-sm font-medium text-muted">
               Месечно потребление: {monthlyLiters} литра
             </label>
             <input
+              id="fuel-liters"
               type="range"
               value={monthlyLiters}
               onChange={(e) => setMonthlyLiters(Number(e.target.value))}

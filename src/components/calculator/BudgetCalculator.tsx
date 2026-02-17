@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useId } from "react";
 import Link from "next/link";
 import {
   Wallet,
@@ -344,12 +344,14 @@ export function BudgetCalculator() {
         </div>
         <div className="flex items-center gap-4">
           <input
+            id="budget-income"
             type="number"
             value={income}
             onChange={(e) => setIncome(Number(e.target.value))}
             className="w-32 rounded-lg border border-border bg-surface px-3 py-2 text-lg font-bold text-text"
+            aria-label="Месечен доход"
           />
-          <span className="text-muted">€/месец</span>
+          <label htmlFor="budget-income" className="text-muted">€/месец</label>
           <input
             type="range"
             value={income}
@@ -358,6 +360,7 @@ export function BudgetCalculator() {
             max={15000}
             step={100}
             className="flex-1 accent-primary"
+            aria-label="Месечен доход"
           />
         </div>
       </div>
@@ -537,18 +540,23 @@ function BudgetInput({
   icon: React.ReactNode;
   result?: string;
 }) {
+  const id = useId();
+  const numberId = `${id}-number`;
+  const rangeId = `${id}-range`;
+
   return (
     <div className={`rounded-lg border p-2.5 ${linked ? "border-primary/20 bg-primary/5" : "border-border"}`}>
       <div className="flex items-center justify-between mb-1">
         <div className="flex items-center gap-1.5">
           {icon}
-          <label className="text-xs font-medium text-muted">{label}</label>
+          <label htmlFor={numberId} className="text-xs font-medium text-muted">{label}</label>
         </div>
         {result && (
           <span className="text-xs font-bold text-primary">{result}</span>
         )}
       </div>
       <input
+        id={numberId}
         type="number"
         value={value}
         onChange={(e) => onChange(Number(e.target.value))}
@@ -558,6 +566,7 @@ function BudgetInput({
         className="w-full rounded border border-border bg-surface px-2 py-1 text-sm text-text focus:border-primary focus:outline-none"
       />
       <input
+        id={rangeId}
         type="range"
         value={value}
         onChange={(e) => onChange(Number(e.target.value))}
@@ -565,6 +574,7 @@ function BudgetInput({
         max={max}
         step={step}
         className="mt-1 w-full accent-primary"
+        aria-label={label}
       />
     </div>
   );

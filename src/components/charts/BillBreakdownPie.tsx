@@ -46,7 +46,7 @@ function CustomTooltip({
 export function BillBreakdownPie({ data, title }: BillBreakdownPieProps) {
   return (
     <div className="rounded-xl border border-border bg-surface p-4">
-      <h4 className="mb-4 text-sm font-semibold text-text">{title}</h4>
+      <h3 className="mb-4 text-sm font-semibold text-text">{title}</h3>
       <div className="h-64">
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>

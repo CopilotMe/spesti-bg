@@ -138,7 +138,7 @@ export default function Home() {
           <div className="flex items-start gap-3">
             <Shield className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
             <div>
-              <h4 className="font-semibold text-text">Официални данни</h4>
+              <h3 className="font-semibold text-text">Официални данни</h3>
               <p className="text-sm text-muted">
                 Цените са от КЕВР и официалните сайтове на доставчиците.
               </p>
@@ -147,7 +147,7 @@ export default function Home() {
           <div className="flex items-start gap-3">
             <TrendingDown className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
             <div>
-              <h4 className="font-semibold text-text">100% безплатно</h4>
+              <h3 className="font-semibold text-text">100% безплатно</h3>
               <p className="text-sm text-muted">
                 Без регистрация, без реклами, без скрити условия.
               </p>
@@ -156,7 +156,7 @@ export default function Home() {
           <div className="flex items-start gap-3">
             <Eye className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
             <div>
-              <h4 className="font-semibold text-text">Прозрачност</h4>
+              <h3 className="font-semibold text-text">Прозрачност</h3>
               <p className="text-sm text-muted">
                 Всяка такса е обяснена достъпно и разбираемо.
               </p>

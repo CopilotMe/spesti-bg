@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useId } from "react";
 import { LayoutDashboard, Zap, Droplets, Flame, Wifi, Landmark } from "lucide-react";
 import { calculateElectricityBills } from "@/lib/calculators/electricity";
 import { calculateWaterBills } from "@/lib/calculators/water";
@@ -127,13 +127,18 @@ function InputCard({ icon, label, value, onChange, min, max, step }: {
   max: number;
   step: number;
 }) {
+  const id = useId();
+  const numberId = `${id}-number`;
+  const rangeId = `${id}-range`;
+
   return (
     <div className="space-y-1">
       <div className="flex items-center gap-1.5">
         {icon}
-        <label className="text-xs font-medium text-muted">{label}</label>
+        <label htmlFor={numberId} className="text-xs font-medium text-muted">{label}</label>
       </div>
       <input
+        id={numberId}
         type="number"
         value={value}
         onChange={(e) => onChange(Number(e.target.value))}
@@ -143,6 +148,7 @@ function InputCard({ icon, label, value, onChange, min, max, step }: {
         className="w-full rounded-lg border border-border bg-surface px-3 py-1.5 text-sm text-text focus:border-primary focus:outline-none"
       />
       <input
+        id={rangeId}
         type="range"
         value={value}
         onChange={(e) => onChange(Number(e.target.value))}
@@ -150,6 +156,7 @@ function InputCard({ icon, label, value, onChange, min, max, step }: {
         max={max}
         step={step}
         className="w-full accent-primary"
+        aria-label={label}
       />
     </div>
   );

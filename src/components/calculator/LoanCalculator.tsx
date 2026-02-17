@@ -66,10 +66,11 @@ export function LoanCalculator() {
 
           {/* Amount */}
           <div className="space-y-2">
-            <label className="text-sm font-medium text-text">
+            <label htmlFor="loan-amount" className="text-sm font-medium text-text">
               Сума ({loanType === "consumer" ? "250 - 40 000" : "5 000 - 255 000"} €)
             </label>
             <input
+              id="loan-amount"
               type="number"
               value={amount}
               onChange={(e) => setAmount(Number(e.target.value))}
@@ -86,15 +87,17 @@ export function LoanCalculator() {
               max={loanType === "consumer" ? 40000 : 255000}
               step={loanType === "consumer" ? 250 : 5000}
               className="w-full accent-primary"
+              aria-label="Сума на кредита"
             />
           </div>
 
           {/* Term */}
           <div className="space-y-2">
-            <label className="text-sm font-medium text-text">
+            <label htmlFor="loan-term" className="text-sm font-medium text-text">
               Срок ({termMonths} месеца = {Math.round(termMonths / 12)} год.)
             </label>
             <input
+              id="loan-term"
               type="number"
               value={termMonths}
               onChange={(e) => setTermMonths(Number(e.target.value))}
@@ -111,6 +114,7 @@ export function LoanCalculator() {
               max={loanType === "consumer" ? 120 : 420}
               step={6}
               className="w-full accent-primary"
+              aria-label="Срок на кредита"
             />
           </div>
         </div>

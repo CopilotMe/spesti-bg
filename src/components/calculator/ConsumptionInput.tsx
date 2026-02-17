@@ -1,5 +1,7 @@
 "use client";
 
+import { useId } from "react";
+
 interface ConsumptionInputProps {
   label: string;
   value: number;
@@ -19,15 +21,20 @@ export function ConsumptionInput({
   step = 1,
   unit,
 }: ConsumptionInputProps) {
+  const id = useId();
+  const rangeId = `${id}-range`;
+  const numberId = `${id}-number`;
+
   return (
     <div className="space-y-2">
       <div className="flex items-baseline justify-between">
-        <label className="text-sm font-medium text-text">{label}</label>
+        <label htmlFor={rangeId} className="text-sm font-medium text-text">{label}</label>
         <span className="text-sm font-semibold text-primary">
           {value} {unit}
         </span>
       </div>
       <input
+        id={rangeId}
         type="range"
         min={min}
         max={max}
@@ -38,6 +45,7 @@ export function ConsumptionInput({
       />
       <div className="flex items-center gap-2">
         <input
+          id={numberId}
           type="number"
           min={min}
           max={max}
@@ -48,6 +56,7 @@ export function ConsumptionInput({
             if (v >= min && v <= max) onChange(v);
           }}
           className="w-24 rounded-lg border border-border bg-surface px-3 py-1.5 text-sm text-text focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+          aria-label={label}
         />
         <span className="text-xs text-muted">{unit}</span>
       </div>
