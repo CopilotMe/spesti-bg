@@ -131,6 +131,7 @@ export function ResultsTable({ rows }: ResultsTableProps) {
                   onClick={() => handleShare(row)}
                   className="inline-flex items-center gap-1 rounded-full bg-gray-100 px-2.5 py-1 text-xs text-muted transition-colors hover:bg-gray-200 hover:text-text"
                   title="Сподели тази оферта"
+                  aria-label={`Сподели ${row.providerName}`}
                 >
                   {copiedId === row.providerName ? (
                     <>

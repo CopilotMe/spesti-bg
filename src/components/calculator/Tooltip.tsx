@@ -38,6 +38,7 @@ export function ExplainTooltip({ explanationKey }: TooltipProps) {
               <button
                 onClick={() => setIsOpen(false)}
                 className="text-muted hover:text-text"
+                aria-label="Затвори"
               >
                 <X className="h-3.5 w-3.5" />
               </button>

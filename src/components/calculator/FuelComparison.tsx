@@ -264,6 +264,7 @@ export function FuelComparison({ livePrices }: FuelComparisonProps) {
                   <button
                     onClick={() => handleShare(i)}
                     className="rounded-full p-1.5 text-muted hover:bg-gray-100 hover:text-primary transition-colors"
+                    aria-label={`Сподели ${r.station.chainName}`}
                   >
                     {sharedIdx === i ? (
                       <Check className="h-3.5 w-3.5 text-primary" />
