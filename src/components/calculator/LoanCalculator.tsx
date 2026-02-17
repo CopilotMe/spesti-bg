@@ -4,6 +4,7 @@ import { useState, useMemo } from "react";
 import { Landmark, TrendingDown, Trophy, ExternalLink, Share2, Check } from "lucide-react";
 import { calculateLoans } from "@/lib/calculators/loans";
 import { formatCurrency } from "@/lib/utils";
+import { refUrl } from "@/lib/ref";
 import { LoanInput } from "@/lib/types";
 
 export function LoanCalculator() {
@@ -156,7 +157,7 @@ export function LoanCalculator() {
                 <th className="px-4 py-3 text-right font-medium text-muted">ГПР</th>
                 <th className="px-4 py-3 text-right font-medium text-muted">Вноска</th>
                 <th className="px-4 py-3 text-right font-medium text-muted">Общо лихва</th>
-                <th className="px-4 py-3 text-center font-medium text-muted">Сайт</th>
+                <th className="px-4 py-3 text-center font-medium text-muted">Оферта</th>
                 <th className="px-4 py-3 text-center font-medium text-muted">
                   <span className="sr-only">Споделяне</span>
                 </th>
@@ -198,7 +199,7 @@ export function LoanCalculator() {
                   <td className="px-4 py-3 text-center">
                     {r.product.url && (
                       <a
-                        href={r.product.url}
+                        href={refUrl(r.product.url, "loans")}
                         target="_blank"
                         rel="noopener noreferrer"
                         className={`inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-medium transition-colors ${
@@ -207,7 +208,7 @@ export function LoanCalculator() {
                             : "bg-gray-100 text-muted hover:bg-gray-200 hover:text-text"
                         }`}
                       >
-                        Към сайта
+                        Виж оферта
                         <ExternalLink className="h-3 w-3" />
                       </a>
                     )}

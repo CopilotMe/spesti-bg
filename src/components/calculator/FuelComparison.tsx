@@ -5,6 +5,7 @@ import { Fuel, ExternalLink, Share2, Check, TrendingDown, Radio } from "lucide-r
 import { calculateFuelCosts } from "@/lib/calculators/fuel";
 import { fuelTypeLabels } from "@/data/fuel";
 import { formatCurrency } from "@/lib/utils";
+import { refUrl } from "@/lib/ref";
 import type { FuelType } from "@/lib/types";
 import type { FuelPriceData } from "@/lib/api";
 import { ProviderComparisonBar } from "@/components/charts/ProviderComparisonBar";
@@ -197,7 +198,7 @@ export function FuelComparison({ livePrices }: FuelComparisonProps) {
               <th className="px-4 py-3 text-right font-medium text-muted">Годишно</th>
               <th className="px-4 py-3 text-right font-medium text-muted">Разлика</th>
               <th className="px-4 py-3 text-center font-medium text-muted">Карта</th>
-              <th className="px-4 py-3 text-center font-medium text-muted">Сайт</th>
+              <th className="px-4 py-3 text-center font-medium text-muted">Оферта</th>
               <th className="px-4 py-3 text-center font-medium text-muted">Сподели</th>
             </tr>
           </thead>
@@ -245,7 +246,7 @@ export function FuelComparison({ livePrices }: FuelComparisonProps) {
                 <td className="px-4 py-3 text-center">
                   {r.station.url ? (
                     <a
-                      href={r.station.url}
+                      href={refUrl(r.station.url, "fuel")}
                       target="_blank"
                       rel="noopener noreferrer"
                       className={`inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs font-medium transition-colors ${
@@ -255,7 +256,7 @@ export function FuelComparison({ livePrices }: FuelComparisonProps) {
                       }`}
                     >
                       <ExternalLink className="h-3 w-3" />
-                      Сайт
+                      Оферта
                     </a>
                   ) : (
                     "—"

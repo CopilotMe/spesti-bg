@@ -21,6 +21,7 @@ const legalLinks = [
   { href: "/poveritelnost", label: "Политика за поверителност" },
   { href: "/usloviya", label: "Условия за ползване" },
   { href: "/kontakt", label: "Обратна връзка" },
+  { href: "/partnyorstvo", label: "Партньорство" },
 ];
 
 export function Footer() {

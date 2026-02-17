@@ -142,6 +142,7 @@ export function ElectricityCalculator() {
           {t.comparison}
         </h3>
         <ResultsTable
+          campaign="electricity"
           rows={results.map((r) => ({
             providerName: r.provider.name,
             region: r.provider.region,

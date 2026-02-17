@@ -4,6 +4,7 @@ import { useState, useMemo } from "react";
 import { ShieldCheck, Trophy, ExternalLink, Share2, Check } from "lucide-react";
 import { insuranceProducts, insuranceTypes } from "@/data/insurance";
 import { formatCurrency } from "@/lib/utils";
+import { refUrl } from "@/lib/ref";
 
 export function InsuranceComparison() {
   const [selectedType, setSelectedType] = useState<string>("go");
@@ -68,7 +69,7 @@ export function InsuranceComparison() {
               <th className="px-4 py-3 text-right font-medium text-muted">Месечно</th>
               <th className="px-4 py-3 text-right font-medium text-muted">Годишно</th>
               <th className="px-4 py-3 text-left font-medium text-muted">Покритие</th>
-              <th className="px-4 py-3 text-center font-medium text-muted">Сайт</th>
+              <th className="px-4 py-3 text-center font-medium text-muted">Оферта</th>
               <th className="px-4 py-3 text-center font-medium text-muted">
                 <span className="sr-only">Споделяне</span>
               </th>
@@ -125,7 +126,7 @@ export function InsuranceComparison() {
                   <td className="px-4 py-3 text-center">
                     {product.url && (
                       <a
-                        href={product.url}
+                        href={refUrl(product.url, "insurance")}
                         target="_blank"
                         rel="noopener noreferrer"
                         className={`inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-medium transition-colors ${
@@ -134,7 +135,7 @@ export function InsuranceComparison() {
                             : "bg-gray-100 text-muted hover:bg-gray-200 hover:text-text"
                         }`}
                       >
-                        Към сайта
+                        Виж оферта
                         <ExternalLink className="h-3 w-3" />
                       </a>
                     )}

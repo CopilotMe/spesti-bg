@@ -86,6 +86,7 @@ export function GasCalculator() {
           {t.comparison} (за {consumptionM3} m³ газ)
         </h3>
         <ResultsTable
+          campaign="gas"
           rows={results.map((r) => ({
             providerName: r.provider.name,
             region: r.provider.region,

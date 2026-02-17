@@ -4,6 +4,7 @@ import { useState, useMemo } from "react";
 import { Wifi, Smartphone, Trophy, ExternalLink, Share2, Check } from "lucide-react";
 import { filterMobilePlans, filterInternetPlans } from "@/lib/calculators/telecom";
 import { formatCurrency } from "@/lib/utils";
+import { refUrl } from "@/lib/ref";
 import messages from "@/messages/bg.json";
 
 const operatorUrls: Record<string, string> = {
@@ -189,7 +190,7 @@ export function TelecomComparison() {
                     {t.extras}
                   </th>
                   <th className="px-4 py-3 text-center font-medium text-muted">
-                    Сайт
+                    Оферта
                   </th>
                   <th className="px-4 py-3 text-center font-medium text-muted">
                     <span className="sr-only">Споделяне</span>
@@ -249,7 +250,7 @@ export function TelecomComparison() {
                     </td>
                     <td className="px-4 py-3 text-center">
                       <a
-                        href={operatorUrls[plan.operator] || "#"}
+                        href={refUrl(operatorUrls[plan.operator] || "#", "telecom")}
                         target="_blank"
                         rel="noopener noreferrer"
                         className={`inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-medium transition-colors ${
@@ -258,7 +259,7 @@ export function TelecomComparison() {
                             : "bg-gray-100 text-muted hover:bg-gray-200 hover:text-text"
                         }`}
                       >
-                        Към сайта
+                        Виж оферта
                         <ExternalLink className="h-3 w-3" />
                       </a>
                     </td>
@@ -352,7 +353,7 @@ export function TelecomComparison() {
                     {t.technology}
                   </th>
                   <th className="px-4 py-3 text-center font-medium text-muted">
-                    Сайт
+                    Оферта
                   </th>
                   <th className="px-4 py-3 text-center font-medium text-muted">
                     <span className="sr-only">Споделяне</span>
@@ -399,7 +400,7 @@ export function TelecomComparison() {
                     </td>
                     <td className="px-4 py-3 text-center">
                       <a
-                        href={operatorUrls[plan.provider] || "#"}
+                        href={refUrl(operatorUrls[plan.provider] || "#", "telecom")}
                         target="_blank"
                         rel="noopener noreferrer"
                         className={`inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-medium transition-colors ${
@@ -408,7 +409,7 @@ export function TelecomComparison() {
                             : "bg-gray-100 text-muted hover:bg-gray-200 hover:text-text"
                         }`}
                       >
-                        Към сайта
+                        Виж оферта
                         <ExternalLink className="h-3 w-3" />
                       </a>
                     </td>

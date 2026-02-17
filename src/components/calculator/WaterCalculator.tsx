@@ -78,6 +78,7 @@ export function WaterCalculator() {
           {t.comparison} (за {consumptionM3} m³)
         </h3>
         <ResultsTable
+          campaign="water"
           rows={results.map((r) => ({
             providerName: r.provider.name,
             region: r.provider.city,
