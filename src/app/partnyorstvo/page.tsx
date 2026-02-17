@@ -12,7 +12,6 @@ import {
   Landmark,
   Crown,
   Bell,
-  FileText,
   Sparkles,
 } from "lucide-react";
 
@@ -36,7 +35,7 @@ export default function PartnershipPage() {
           Партньорство със Спести
         </h1>
         <p className="mx-auto max-w-2xl text-lg text-muted">
-          100+ потребителя сравняват комунални сметки всеки месец.
+          Над 100 потребители сравняват комунални сметки всеки месец.
           Присъединете се към нашата партньорска мрежа и достигнете до
           аудитория, която активно търси по-добра оферта.
         </p>
@@ -46,15 +45,15 @@ export default function PartnershipPage() {
       <div className="mb-12 grid gap-4 md:grid-cols-3">
         <div className="rounded-xl border border-border bg-surface p-5 text-center">
           <p className="text-3xl font-bold text-primary">100+</p>
-          <p className="text-sm text-muted">месечни потребители</p>
+          <p className="text-sm text-muted">активни потребители месечно</p>
         </div>
         <div className="rounded-xl border border-border bg-surface p-5 text-center">
           <p className="text-3xl font-bold text-primary">10+</p>
-          <p className="text-sm text-muted">калкулатора</p>
+          <p className="text-sm text-muted">калкулатори</p>
         </div>
         <div className="rounded-xl border border-border bg-surface p-5 text-center">
           <p className="text-3xl font-bold text-primary">50+</p>
-          <p className="text-sm text-muted">сравнени доставчика</p>
+          <p className="text-sm text-muted">сравнени доставчици</p>
         </div>
       </div>
 
@@ -86,7 +85,7 @@ export default function PartnershipPage() {
             <h3 className="mb-1 font-semibold text-text">Прозрачно позициониране</h3>
             <p className="text-sm text-muted">
               Партньорските линкове са ясно маркирани с бадж &quot;Партньор&quot;. Позицията в
-              сравненията зависи само от цената.
+              таблицата зависи единствено от цената.
             </p>
           </div>
           <div className="rounded-xl border border-border bg-surface p-5">
@@ -102,9 +101,9 @@ export default function PartnershipPage() {
         <div className="mt-6 rounded-xl border border-primary/20 bg-primary/5 p-6">
           <h3 className="mb-2 font-semibold text-text">Как да започнем?</h3>
           <ol className="list-inside list-decimal space-y-1 text-sm text-muted">
-            <li>Свържете се с нас на имейла по-долу</li>
-            <li>Договаряме модел и условия (CPA/CPL/CPC)</li>
-            <li>Получавате tracking линк за вашия продукт</li>
+            <li>Пишете ни на имейла по-долу</li>
+            <li>Договаряме модела и условията (CPA/CPL/CPC)</li>
+            <li>Получавате проследяващ линк за вашия продукт</li>
             <li>Вашата оферта се показва с бадж &quot;Партньор&quot; в калкулаторите</li>
           </ol>
         </div>
@@ -121,7 +120,7 @@ export default function PartnershipPage() {
         <p className="mb-6 text-xs font-medium text-primary">Tier 1 — Готово за стартиране</p>
         <p className="mb-6 text-muted">
           Кредитният ни калкулатор вече сравнява банки по лихва и ГПР.
-          С referral линк потребителят отива директно към вашата оферта.
+          С препоръчителен линк потребителят отива директно към вашата оферта.
         </p>
 
         <div className="grid gap-4 md:grid-cols-2">
@@ -130,8 +129,8 @@ export default function PartnershipPage() {
             <ul className="space-y-1 text-sm text-muted">
               <li>Потребителят въвежда сума и срок</li>
               <li>Калкулаторът показва вашата банка с вноска и ГПР</li>
-              <li>Бутон &quot;Виж оферта&quot; води към вашия referral линк</li>
-              <li>Получавате commission при одобрен кредит</li>
+              <li>Бутон &quot;Виж оферта&quot; води към вашия препоръчителен линк</li>
+              <li>Получавате комисиона при одобрен кредит</li>
             </ul>
           </div>
           <div className="rounded-xl border border-border bg-surface p-5">
@@ -171,8 +170,8 @@ export default function PartnershipPage() {
             <ShieldCheck className="mb-3 h-5 w-5 text-amber-600" />
             <h3 className="mb-1 font-semibold text-text">Честна класация</h3>
             <p className="text-sm text-muted">
-              Позицията в таблицата остава по цена. Спонсорирането добавя само
-              визуална маркировка.
+              Позицията в таблицата остава по цена. Спонсорирането добавя единствено
+              визуален маркер.
             </p>
           </div>
           <div className="rounded-xl border border-amber-200 bg-amber-50/50 p-5">
@@ -203,12 +202,12 @@ export default function PartnershipPage() {
           <div className="rounded-xl border border-purple-200 bg-purple-50/50 p-5">
             <div className="mb-3 flex items-center gap-2">
               <Bell className="h-5 w-5 text-purple-600" />
-              <h3 className="font-semibold text-text">Известия и следене</h3>
+              <h3 className="font-semibold text-text">Известия и проследяване</h3>
             </div>
             <ul className="space-y-1 text-sm text-muted">
-              <li>Email известие при промяна на тарифа</li>
+              <li>Имейл известие при промяна на тарифата</li>
               <li>Месечен доклад за разходите</li>
-              <li>Алерт &quot;Сметката ти се покачи с 15%&quot;</li>
+              <li>Известие „Сметката ти се повиши с 15%"</li>
             </ul>
           </div>
           <div className="rounded-xl border border-purple-200 bg-purple-50/50 p-5">
@@ -256,7 +255,7 @@ export default function PartnershipPage() {
               <li>Вграден калкулатор с ваш бранд</li>
               <li>Персонализирани цветове и лого</li>
               <li>Iframe или React компонент</li>
-              <li>Автоматично обновяване на данните</li>
+              <li>Автоматично актуализиране на данните</li>
               <li>SLA и техническа поддръжка</li>
             </ul>
           </div>
@@ -271,7 +270,7 @@ export default function PartnershipPage() {
                 <li><strong>Банки:</strong> калкулатор за комунални разходи към ипотечното кредитиране</li>
                 <li><strong>Имотни агенции:</strong> оценка на месечните разходи при покупка на имот</li>
                 <li><strong>Финтех:</strong> интегриран бюджет планер с реални цени</li>
-                <li><strong>Медии:</strong> интерактивни визуализации на цените на енергията</li>
+                <li><strong>Медии:</strong> интерактивни визуализации на енергийните цени</li>
               </ul>
             </div>
           </div>
