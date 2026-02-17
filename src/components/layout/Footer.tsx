@@ -41,7 +41,7 @@ export function Footer() {
 
           {/* Calculator Links */}
           <div>
-            <h4 className="mb-2 text-sm font-semibold text-text">Калкулатори</h4>
+            <p className="mb-2 text-sm font-semibold text-text">Калкулатори</p>
             <nav className="grid grid-cols-2 gap-1">
               {footerLinks.map((link) => (
                 <Link
@@ -57,7 +57,7 @@ export function Footer() {
 
           {/* Legal / About */}
           <div>
-            <h4 className="mb-2 text-sm font-semibold text-text">Информация</h4>
+            <p className="mb-2 text-sm font-semibold text-text">Информация</p>
             <nav className="flex flex-col gap-1">
               {legalLinks.map((link) => (
                 <Link
@@ -73,7 +73,7 @@ export function Footer() {
 
           {/* Info */}
           <div>
-            <h4 className="mb-2 text-sm font-semibold text-text">Данни</h4>
+            <p className="mb-2 text-sm font-semibold text-text">Данни</p>
             <p className="text-xs text-muted">{messages.footer.dataSource}</p>
             <p className="mt-1 text-xs text-muted">{messages.footer.lastUpdate}</p>
           </div>
