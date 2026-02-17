@@ -1,5 +1,17 @@
 import type { Metadata } from "next";
-import { ElectricityCalculator } from "@/components/calculator/ElectricityCalculator";
+import dynamic from "next/dynamic";
+
+const ElectricityCalculator = dynamic(
+  () => import("@/components/calculator/ElectricityCalculator").then((m) => m.ElectricityCalculator),
+  {
+    loading: () => (
+      <div className="flex items-center justify-center gap-2 py-16">
+        <div className="h-5 w-5 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+        <span className="text-muted">Зареждане на калкулатора...</span>
+      </div>
+    ),
+  }
+);
 
 export const metadata: Metadata = {
   title: "Калкулатор сметка за ток – Сравни EVN, Електрохолд, Енерго-Про",

@@ -1,5 +1,17 @@
 import { Metadata } from "next";
-import { LoanCalculator } from "@/components/calculator/LoanCalculator";
+import dynamic from "next/dynamic";
+
+const LoanCalculator = dynamic(
+  () => import("@/components/calculator/LoanCalculator").then((m) => m.LoanCalculator),
+  {
+    loading: () => (
+      <div className="flex items-center justify-center gap-2 py-16">
+        <div className="h-5 w-5 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+        <span className="text-muted">Зареждане на калкулатора...</span>
+      </div>
+    ),
+  }
+);
 
 export const metadata: Metadata = {
   title: "Кредитен калкулатор – Сравни лихви по кредити",

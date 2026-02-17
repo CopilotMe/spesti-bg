@@ -1,5 +1,17 @@
 import type { Metadata } from "next";
-import { WaterCalculator } from "@/components/calculator/WaterCalculator";
+import dynamic from "next/dynamic";
+
+const WaterCalculator = dynamic(
+  () => import("@/components/calculator/WaterCalculator").then((m) => m.WaterCalculator),
+  {
+    loading: () => (
+      <div className="flex items-center justify-center gap-2 py-16">
+        <div className="h-5 w-5 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+        <span className="text-muted">Зареждане на калкулатора...</span>
+      </div>
+    ),
+  }
+);
 
 export const metadata: Metadata = {
   title: "Калкулатор сметка за вода – Сравни ВиК цени по градове",

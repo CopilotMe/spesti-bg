@@ -1,5 +1,17 @@
 import { Metadata } from "next";
-import { BasketDashboard } from "@/components/calculator/BasketDashboard";
+import dynamic from "next/dynamic";
+
+const BasketDashboard = dynamic(
+  () => import("@/components/calculator/BasketDashboard").then((m) => m.BasketDashboard),
+  {
+    loading: () => (
+      <div className="flex items-center justify-center gap-2 py-16">
+        <div className="h-5 w-5 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+        <span className="text-muted">Зареждане на данни от КНСБ...</span>
+      </div>
+    ),
+  }
+);
 
 export const metadata: Metadata = {
   title: "Малка потребителска кошница – Цени на 21 основни продукта",
