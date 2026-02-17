@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { formatCurrency } from "@/lib/utils";
 import { refUrl } from "@/lib/ref";
-import { Trophy, ExternalLink, Share2, Check, Handshake } from "lucide-react";
+import { Trophy, ExternalLink, Share2, Check, Handshake, Megaphone } from "lucide-react";
 import messages from "@/messages/bg.json";
 
 interface ResultRow {
@@ -15,6 +15,7 @@ interface ResultRow {
   url?: string;
   affiliateUrl?: string;
   isPartner?: boolean;
+  isSponsored?: boolean;
 }
 
 interface ResultsTableProps {
@@ -27,6 +28,7 @@ export function ResultsTable({ rows, campaign }: ResultsTableProps) {
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
   const hasAnyPartner = rows.some((r) => r.isPartner || r.affiliateUrl);
+  const hasAnySponsored = rows.some((r) => r.isSponsored);
 
   const handleShare = async (row: ResultRow) => {
     const text = `${row.providerName}${row.region ? ` (${row.region})` : ""} — ${formatCurrency(row.total)}/мес.${row.isCheapest ? " ✅ Най-евтин!" : ` (+${formatCurrency(row.difference)} спрямо най-евтиния)`}\n\nВиж сравнението на Спести: ${window.location.href}`;
@@ -95,6 +97,12 @@ export function ResultsTable({ rows, campaign }: ResultsTableProps) {
                             <span className="inline-flex items-center gap-0.5 rounded bg-primary/10 px-1.5 py-0.5 text-[10px] font-medium text-primary">
                               <Handshake className="h-2.5 w-2.5" />
                               Партньор
+                            </span>
+                          )}
+                          {row.isSponsored && (
+                            <span className="inline-flex items-center gap-0.5 rounded bg-amber-100 px-1.5 py-0.5 text-[10px] font-medium text-amber-700">
+                              <Megaphone className="h-2.5 w-2.5" />
+                              Спонсорирано
                             </span>
                           )}
                         </div>
@@ -169,9 +177,13 @@ export function ResultsTable({ rows, campaign }: ResultsTableProps) {
           </tbody>
         </table>
       </div>
-      {hasAnyPartner && (
+      {(hasAnyPartner || hasAnySponsored) && (
         <p className="mt-2 text-center text-[11px] text-muted">
-          Линковете маркирани с &quot;Партньор&quot; са партньорски. Това не влияе на реда на сравнението.
+          {hasAnyPartner && hasAnySponsored
+            ? "Линковете маркирани с \"Партньор\" и \"Спонсорирано\" са рекламни. Това не влияе на реда на сравнението."
+            : hasAnySponsored
+              ? "Офертите маркирани с \"Спонсорирано\" са рекламни. Това не влияе на реда на сравнението."
+              : "Линковете маркирани с \"Партньор\" са партньорски. Това не влияе на реда на сравнението."}
         </p>
       )}
     </div>

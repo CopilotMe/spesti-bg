@@ -1,10 +1,25 @@
 import type { Metadata } from "next";
-import { Handshake, Users, BarChart3, Code2, Mail, Zap, ShieldCheck, TrendingUp } from "lucide-react";
+import {
+  Handshake,
+  Users,
+  BarChart3,
+  Code2,
+  Mail,
+  Zap,
+  ShieldCheck,
+  TrendingUp,
+  Megaphone,
+  Landmark,
+  Crown,
+  Bell,
+  FileText,
+  Sparkles,
+} from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Партньорство със Спести – Affiliate, API & White-Label",
+  title: "Партньорство със Спести – Affiliate, Спонсорирано, API & White-Label",
   description:
-    "Станете партньор на Спести. Affiliate програма за доставчици, API достъп и white-label решения за бизнеса.",
+    "Станете партньор на Спести. Affiliate програма за доставчици, спонсорирани обяви, банков referral, Pro features и white-label решения.",
   alternates: { canonical: "/partnyorstvo" },
 };
 
@@ -43,14 +58,15 @@ export default function PartnershipPage() {
         </div>
       </div>
 
-      {/* Section 1: За доставчици */}
+      {/* Tier 1: Affiliate / CPA за доставчици */}
       <section className="mb-12">
-        <div className="mb-6 flex items-center gap-2">
+        <div className="mb-1 flex items-center gap-2">
           <Users className="h-6 w-6 text-primary" />
           <h2 className="text-2xl font-bold text-text">
-            За доставчици (Affiliate / CPA)
+            Affiliate / CPA за доставчици
           </h2>
         </div>
+        <p className="mb-6 text-xs font-medium text-primary">Tier 1 — Готово за стартиране</p>
         <p className="mb-6 text-muted">
           Достигнете до потребители, които активно търсят по-добра оферта за
           ток, вода, газ, интернет, кредити или застраховки.
@@ -69,8 +85,8 @@ export default function PartnershipPage() {
             <ShieldCheck className="mb-3 h-5 w-5 text-primary" />
             <h3 className="mb-1 font-semibold text-text">Прозрачно позициониране</h3>
             <p className="text-sm text-muted">
-              Партньорските линкове са ясно маркирани. Позицията в
-              сравненията зависи само от цената, не от партньорството.
+              Партньорските линкове са ясно маркирани с бадж &quot;Партньор&quot;. Позицията в
+              сравненията зависи само от цената.
             </p>
           </div>
           <div className="rounded-xl border border-border bg-surface p-5">
@@ -94,14 +110,130 @@ export default function PartnershipPage() {
         </div>
       </section>
 
-      {/* Section 2: API & White-Label */}
+      {/* Tier 1b: Referral за банки */}
       <section className="mb-12">
-        <div className="mb-6 flex items-center gap-2">
+        <div className="mb-1 flex items-center gap-2">
+          <Landmark className="h-6 w-6 text-primary" />
+          <h2 className="text-2xl font-bold text-text">
+            Referral програма за банки
+          </h2>
+        </div>
+        <p className="mb-6 text-xs font-medium text-primary">Tier 1 — Готово за стартиране</p>
+        <p className="mb-6 text-muted">
+          Кредитният ни калкулатор вече сравнява банки по лихва и ГПР.
+          С referral линк потребителят отива директно към вашата оферта.
+        </p>
+
+        <div className="grid gap-4 md:grid-cols-2">
+          <div className="rounded-xl border border-border bg-surface p-5">
+            <h3 className="mb-2 font-semibold text-text">Как работи?</h3>
+            <ul className="space-y-1 text-sm text-muted">
+              <li>Потребителят въвежда сума и срок</li>
+              <li>Калкулаторът показва вашата банка с вноска и ГПР</li>
+              <li>Бутон &quot;Виж оферта&quot; води към вашия referral линк</li>
+              <li>Получавате commission при одобрен кредит</li>
+            </ul>
+          </div>
+          <div className="rounded-xl border border-border bg-surface p-5">
+            <h3 className="mb-2 font-semibold text-text">Подходящо за</h3>
+            <ul className="space-y-1 text-sm text-muted">
+              <li><strong>Потребителски кредити</strong> — сравнение по лихва</li>
+              <li><strong>Жилищни кредити</strong> — сравнение по ГПР</li>
+              <li><strong>Рефинансиране</strong> — показваме спестяването</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* Tier 2a: Спонсорирани обяви */}
+      <section className="mb-12">
+        <div className="mb-1 flex items-center gap-2">
+          <Megaphone className="h-6 w-6 text-amber-600" />
+          <h2 className="text-2xl font-bold text-text">
+            Спонсорирани обяви
+          </h2>
+        </div>
+        <p className="mb-6 text-xs font-medium text-amber-600">Tier 2 — Налично</p>
+        <p className="mb-6 text-muted">
+          Покажете вашата оферта с бадж &quot;Спонсорирано&quot; в сравнителните таблици.
+          Прозрачно за потребителите, ефективно за вас.
+        </p>
+
+        <div className="grid gap-4 md:grid-cols-3">
+          <div className="rounded-xl border border-amber-200 bg-amber-50/50 p-5">
+            <Megaphone className="mb-3 h-5 w-5 text-amber-600" />
+            <h3 className="mb-1 font-semibold text-text">Видимост</h3>
+            <p className="text-sm text-muted">
+              Бадж &quot;Спонсорирано&quot; в жълто, ясно различим от обикновените резултати.
+            </p>
+          </div>
+          <div className="rounded-xl border border-amber-200 bg-amber-50/50 p-5">
+            <ShieldCheck className="mb-3 h-5 w-5 text-amber-600" />
+            <h3 className="mb-1 font-semibold text-text">Честна класация</h3>
+            <p className="text-sm text-muted">
+              Позицията в таблицата остава по цена. Спонсорирането добавя само
+              визуална маркировка.
+            </p>
+          </div>
+          <div className="rounded-xl border border-amber-200 bg-amber-50/50 p-5">
+            <BarChart3 className="mb-3 h-5 w-5 text-amber-600" />
+            <h3 className="mb-1 font-semibold text-text">Фиксирана такса</h3>
+            <p className="text-sm text-muted">
+              Месечна или годишна такса за показване. Без скрити разходи.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Tier 2b: Pro features (Freemium) */}
+      <section className="mb-12">
+        <div className="mb-1 flex items-center gap-2">
+          <Crown className="h-6 w-6 text-purple-600" />
+          <h2 className="text-2xl font-bold text-text">
+            Спести Pro (скоро)
+          </h2>
+        </div>
+        <p className="mb-6 text-xs font-medium text-purple-600">Tier 2 — В разработка</p>
+        <p className="mb-6 text-muted">
+          Премиум функции за потребители, които искат повече контрол
+          над своите разходи и спестявания.
+        </p>
+
+        <div className="grid gap-4 md:grid-cols-2">
+          <div className="rounded-xl border border-purple-200 bg-purple-50/50 p-5">
+            <div className="mb-3 flex items-center gap-2">
+              <Bell className="h-5 w-5 text-purple-600" />
+              <h3 className="font-semibold text-text">Известия и следене</h3>
+            </div>
+            <ul className="space-y-1 text-sm text-muted">
+              <li>Email известие при промяна на тарифа</li>
+              <li>Месечен доклад за разходите</li>
+              <li>Алерт &quot;Сметката ти се покачи с 15%&quot;</li>
+            </ul>
+          </div>
+          <div className="rounded-xl border border-purple-200 bg-purple-50/50 p-5">
+            <div className="mb-3 flex items-center gap-2">
+              <Sparkles className="h-5 w-5 text-purple-600" />
+              <h3 className="font-semibold text-text">Разширени инструменти</h3>
+            </div>
+            <ul className="space-y-1 text-sm text-muted">
+              <li>Персонализирани препоръки за спестяване</li>
+              <li>PDF експорт на сравнения</li>
+              <li>История на тарифите и ценови графики</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* Tier 3: API & White-Label */}
+      <section className="mb-12">
+        <div className="mb-1 flex items-center gap-2">
           <Code2 className="h-6 w-6 text-primary" />
           <h2 className="text-2xl font-bold text-text">
             API & White-Label
           </h2>
         </div>
+        <p className="mb-6 text-xs font-medium text-primary">Tier 3 — B2B</p>
         <p className="mb-6 text-muted">
           Вградете нашите калкулатори и данни във вашия продукт.
           Подходящо за банки, имотни агенции, финтех компании и медии.
@@ -153,7 +285,7 @@ export default function PartnershipPage() {
           Свържете се с нас
         </h2>
         <p className="mb-4 text-muted">
-          Имате въпроси за партньорство, API достъп или white-label интеграция?
+          Имате въпроси за партньорство, спонсорирани обяви, API или white-label?
         </p>
         <a
           href="mailto:partnerships@spesti.app"
