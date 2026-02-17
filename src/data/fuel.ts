@@ -57,7 +57,7 @@ export const fuelStations: FuelStation[] = [
     id: "rompetrol",
     chain: "rompetrol",
     chainName: "Rompetrol",
-    prices: { A95: 1.25, A98: null, diesel: null, lpg: null },
+    prices: { A95: 1.25, A98: null, diesel: 1.28, lpg: 0.58 },
     hasLoyalty: true,
     loyaltyDiscount: 1,
     stationCount: 60,
