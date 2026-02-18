@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import {
   TrendingUp,
   TrendingDown,
@@ -41,6 +41,7 @@ import {
   type InflationDashboardData,
   type InflationCategory,
 } from "@/lib/api";
+import { PdfExportButton } from "@/components/ui/PdfExportButton";
 
 const ICON_MAP: Record<string, typeof TrendingUp> = {
   TrendingUp,
@@ -68,6 +69,7 @@ function formatPeriod(p: string): string {
 }
 
 export function InflationDashboard() {
+  const dashboardRef = useRef<HTMLDivElement>(null);
   const [data, setData] = useState<InflationDashboardData | null>(null);
   const [loading, setLoading] = useState(true);
   const [selectedCategories, setSelectedCategories] = useState<Set<string>>(
@@ -180,7 +182,15 @@ export function InflationDashboard() {
   }
 
   return (
-    <div className="space-y-6">
+    <div ref={dashboardRef} className="space-y-6">
+      <div className="flex justify-end">
+        <PdfExportButton
+          contentRef={dashboardRef}
+          filename="spesti-inflacia"
+          title="Инфлация в България"
+        />
+      </div>
+
       {/* Hero cards */}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {/* Overall inflation */}

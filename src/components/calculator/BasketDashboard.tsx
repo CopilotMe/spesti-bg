@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import {
   ShoppingBasket,
   TrendingUp,
@@ -45,6 +45,7 @@ import {
 } from "@/data/basket";
 import { fetchFoodHicp, type FoodHicpData } from "@/lib/api";
 import { formatCurrency } from "@/lib/utils";
+import { PdfExportButton } from "@/components/ui/PdfExportButton";
 import type { BasketProduct } from "@/lib/types";
 
 type SortKey = "name" | "price" | "change";
@@ -60,6 +61,7 @@ const CATEGORY_COLORS: Record<BasketProduct["category"], string> = {
 };
 
 export function BasketDashboard() {
+  const dashboardRef = useRef<HTMLDivElement>(null);
   const [sortKey, setSortKey] = useState<SortKey>("change");
   const [sortDesc, setSortDesc] = useState(true);
   const [foodHicp, setFoodHicp] = useState<FoodHicpData | null>(null);
@@ -207,7 +209,15 @@ export function BasketDashboard() {
   }
 
   return (
-    <div className="space-y-6">
+    <div ref={dashboardRef} className="space-y-6">
+      <div className="flex justify-end">
+        <PdfExportButton
+          contentRef={dashboardRef}
+          filename="spesti-koshnitsa"
+          title="Потребителска кошница"
+        />
+      </div>
+
       {/* Summary cards */}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {/* Total basket */}

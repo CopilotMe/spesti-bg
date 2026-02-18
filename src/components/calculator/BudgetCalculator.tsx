@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useId } from "react";
+import { useState, useMemo, useId, useRef } from "react";
 import Link from "next/link";
 import {
   Wallet,
@@ -26,6 +26,7 @@ import {
   Coffee,
 } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
+import { PdfExportButton } from "@/components/ui/PdfExportButton";
 import { calculateElectricityBills } from "@/lib/calculators/electricity";
 import { calculateWaterBills } from "@/lib/calculators/water";
 import { calculateGasBills } from "@/lib/calculators/gas";
@@ -87,6 +88,7 @@ const BG_AVERAGE = {
 };
 
 export function BudgetCalculator() {
+  const dashboardRef = useRef<HTMLDivElement>(null);
   // Income
   const [income, setIncome] = useState(1500);
 
@@ -335,7 +337,15 @@ export function BudgetCalculator() {
   ];
 
   return (
-    <div className="space-y-8">
+    <div ref={dashboardRef} className="space-y-8">
+      <div className="flex justify-end">
+        <PdfExportButton
+          contentRef={dashboardRef}
+          filename="spesti-budget"
+          title="Семеен бюджет"
+        />
+      </div>
+
       {/* Income */}
       <div className="rounded-2xl border-2 border-primary bg-primary/5 p-6">
         <div className="flex items-center gap-2 mb-3">

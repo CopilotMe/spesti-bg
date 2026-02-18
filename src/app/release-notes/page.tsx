@@ -11,6 +11,7 @@ import {
   Calculator,
   TrendingUp,
   Banknote,
+  FileDown,
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -32,6 +33,33 @@ interface ReleaseEntry {
 }
 
 const releases: ReleaseEntry[] = [
+  {
+    version: "0.12.0",
+    date: "18 \u0444\u0435\u0432\u0440\u0443\u0430\u0440\u0438 2026",
+    title: "PDF \u0435\u043A\u0441\u043F\u043E\u0440\u0442 \u0438 Feature Flag \u0441\u0438\u0441\u0442\u0435\u043C\u0430 (\u0421\u043F\u0435\u0441\u0442\u0438 Pro)",
+    description:
+      "\u0411\u0443\u0442\u043E\u043D \u201E\u0418\u0437\u0442\u0435\u0433\u043B\u0438 PDF\u201C \u043D\u0430 4 dashboard-\u0430 (\u0417\u0430\u043F\u043B\u0430\u0442\u0438, \u0418\u043D\u0444\u043B\u0430\u0446\u0438\u044F, \u041A\u043E\u0448\u043D\u0438\u0446\u0430, \u0411\u044E\u0434\u0436\u0435\u0442). \u0421\u043A\u0440\u0438\u0442 \u0437\u0430\u0434 feature flag \u0437\u0430 \u0431\u044A\u0434\u0435\u0449\u0430 Pro \u0432\u0435\u0440\u0441\u0438\u044F.",
+    icon: <FileDown className="h-5 w-5" />,
+    color: "text-purple-600 bg-purple-100",
+    changes: [
+      {
+        type: "new",
+        text: "PDF \u0435\u043A\u0441\u043F\u043E\u0440\u0442 \u0441 \u0431\u0440\u0430\u043D\u0434\u0438\u0440\u0430\u043D\u0435 \u043D\u0430 \u0421\u043F\u0435\u0441\u0442\u0438, \u0434\u0430\u0442\u0430 \u0438 disclaimer",
+      },
+      {
+        type: "new",
+        text: "Feature flag \u0441\u0438\u0441\u0442\u0435\u043C\u0430 (NEXT_PUBLIC_ENABLE_PRO) \u0437\u0430 Pro \u0444\u0443\u043D\u043A\u0446\u0438\u0438",
+      },
+      {
+        type: "new",
+        text: "Multi-page PDF \u0437\u0430 \u0434\u044A\u043B\u0433\u0438 dashboard-\u0438 (\u041A\u043E\u0448\u043D\u0438\u0446\u0430 \u0441 21 \u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430)",
+      },
+      {
+        type: "improved",
+        text: "Dynamic import \u043D\u0430 PDF \u0431\u0438\u0431\u043B\u0438\u043E\u0442\u0435\u043A\u0438\u0442\u0435 \u2014 \u043D\u0443\u043B\u0435\u0432 \u0435\u0444\u0435\u043A\u0442 \u0432\u044A\u0440\u0445\u0443 bundle size",
+      },
+    ],
+  },
   {
     version: "0.11.0",
     date: "18 февруари 2026",

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useMemo, useId } from "react";
+import { useState, useEffect, useMemo, useId, useRef } from "react";
 import Link from "next/link";
 import {
   Wallet,
@@ -46,6 +46,7 @@ import {
   type SalaryBreakdown,
 } from "@/lib/salary";
 import { formatCurrency } from "@/lib/utils";
+import { PdfExportButton } from "@/components/ui/PdfExportButton";
 
 const COUNTRY_COLORS: Record<string, string> = {
   BG: "#059669",
@@ -68,6 +69,7 @@ function formatQuarter(q: string): string {
 
 export function SalaryDashboard() {
   const calcId = useId();
+  const dashboardRef = useRef<HTMLDivElement>(null);
   const [mode, setMode] = useState<"gross" | "net">("gross");
   const [inputValue, setInputValue] = useState(1200);
   const [minWages, setMinWages] = useState<MinimumWageData | null>(null);
@@ -148,7 +150,15 @@ export function SalaryDashboard() {
   }, [lci]);
 
   return (
-    <div className="space-y-6">
+    <div ref={dashboardRef} className="space-y-6">
+      <div className="flex justify-end">
+        <PdfExportButton
+          contentRef={dashboardRef}
+          filename="spesti-zaplati"
+          title="Заплати в България"
+        />
+      </div>
+
       {/* НЕТО/БРУТО КАЛКУЛАТОР */}
       <div className="rounded-2xl border-2 border-primary bg-primary/5 p-5">
         <div className="mb-4 flex items-center gap-2">

@@ -1,6 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  turbopack: {
+    resolveAlias: {
+      // jspdf optionally imports canvg for SVG→PDF; we use html2canvas instead
+      canvg: { browser: "./src/lib/empty-module.ts" },
+    },
+  },
   experimental: {
     inlineCss: true,
     optimizePackageImports: ["lucide-react", "recharts"],
