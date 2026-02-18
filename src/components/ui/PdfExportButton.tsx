@@ -50,17 +50,20 @@ export function PdfExportButton({
 
       // A4 dimensions in mm
       const pdfWidth = 210;
+      const pageHeight = 297;
       const margin = 10;
       const contentWidth = pdfWidth - margin * 2;
-      const headerHeight = 20;
-      const footerHeight = 15;
+      const headerH = 16;
+      const footerH = 12;
 
-      // Scale image to fit PDF width
-      const ratio = contentWidth / imgWidth;
-      const scaledHeight = imgHeight * ratio;
+      // Scale factor: image pixels → mm
+      const scale = contentWidth / imgWidth;
+      const totalContentMm = imgHeight * scale;
 
-      // Available content area per page
-      const pageContentHeight = 297 - margin * 2 - headerHeight - footerHeight;
+      // Available content height per page
+      const availableH = pageHeight - margin * 2 - headerH - footerH;
+
+      const totalPages = Math.max(1, Math.ceil(totalContentMm / availableH));
 
       const pdf = new jsPDF("portrait", "mm", "a4");
       const today = new Date().toLocaleDateString("bg-BG", {
@@ -69,79 +72,71 @@ export function PdfExportButton({
         day: "numeric",
       });
 
-      let yOffset = 0;
-      let pageNum = 0;
-
-      while (yOffset < scaledHeight) {
-        if (pageNum > 0) pdf.addPage();
+      for (let page = 0; page < totalPages; page++) {
+        if (page > 0) pdf.addPage();
 
         // --- Header ---
-        pdf.setFontSize(16);
+        pdf.setFontSize(14);
         pdf.setTextColor(5, 150, 105); // #059669 primary
-        pdf.text("Spesti", margin, margin + 8);
-        pdf.setFontSize(9);
+        pdf.text("Spesti", margin, margin + 6);
+        pdf.setFontSize(8);
         pdf.setTextColor(107, 114, 128); // #6b7280 muted
-        pdf.text(`${title}  |  ${today}`, margin + 26, margin + 8);
-        pdf.text("spesti.app", pdfWidth - margin - 22, margin + 8);
+        pdf.text(`${title}  |  ${today}`, margin + 24, margin + 6);
+        pdf.text("spesti.app", pdfWidth - margin, margin + 6, {
+          align: "right",
+        });
 
-        // Thin separator line
+        // Thin separator
         pdf.setDrawColor(229, 231, 235);
-        pdf.line(
-          margin,
-          margin + headerHeight - 2,
-          pdfWidth - margin,
-          margin + headerHeight - 2,
-        );
+        pdf.line(margin, margin + headerH - 2, pdfWidth - margin, margin + headerH - 2);
 
         // --- Content slice ---
-        const sliceHeightMm = Math.min(
-          pageContentHeight,
-          scaledHeight - yOffset,
-        );
-        const sliceHeightPx = sliceHeightMm / ratio;
+        // Calculate which portion of the source canvas to draw on this page
+        const srcYPx = (page * availableH) / scale;
+        const srcHPx = Math.min(availableH / scale, imgHeight - srcYPx);
+        const destHMm = srcHPx * scale;
 
+        if (srcHPx <= 0) break;
+
+        // Create a slice canvas for this page
         const sliceCanvas = document.createElement("canvas");
         sliceCanvas.width = imgWidth;
-        sliceCanvas.height = Math.ceil(sliceHeightPx);
+        sliceCanvas.height = Math.ceil(srcHPx);
         const ctx = sliceCanvas.getContext("2d");
         if (ctx) {
           ctx.drawImage(
             canvas,
-            0,
-            yOffset / ratio,
-            imgWidth,
-            sliceHeightPx,
-            0,
-            0,
-            imgWidth,
-            sliceHeightPx,
+            0, Math.floor(srcYPx), imgWidth, Math.ceil(srcHPx),
+            0, 0, imgWidth, Math.ceil(srcHPx),
           );
         }
 
         pdf.addImage(
-          sliceCanvas.toDataURL("image/png"),
-          "PNG",
+          sliceCanvas.toDataURL("image/jpeg", 0.92),
+          "JPEG",
           margin,
-          margin + headerHeight,
+          margin + headerH,
           contentWidth,
-          sliceHeightMm,
+          destHMm,
         );
 
         // --- Footer ---
-        const footerY = 297 - margin - 5;
-        pdf.setFontSize(7);
-        pdf.setTextColor(107, 114, 128);
+        const footerY = pageHeight - margin - 3;
+        pdf.setFontSize(6);
+        pdf.setTextColor(156, 163, 175);
         pdf.setDrawColor(229, 231, 235);
-        pdf.line(margin, footerY - 3, pdfWidth - margin, footerY - 3);
+        pdf.line(margin, footerY - 4, pdfWidth - margin, footerY - 4);
         pdf.text(
-          "Informaciyata e s informativna cel. Proverete aktualnite ceni pri vashiya dostavchik. | spesti.app",
+          "spesti.app | Informaciyata e s informativna cel.",
           margin,
           footerY,
         );
-        pdf.text(`${pageNum + 1}`, pdfWidth - margin - 5, footerY);
-
-        yOffset += sliceHeightMm;
-        pageNum++;
+        pdf.text(
+          `${page + 1} / ${totalPages}`,
+          pdfWidth - margin,
+          footerY,
+          { align: "right" },
+        );
       }
 
       pdf.save(`${filename}.pdf`);
