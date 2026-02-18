@@ -29,8 +29,9 @@ export function PdfExportButton({
 
     try {
       // Dynamic imports — only loaded on click, zero main-bundle impact
-      const [{ default: html2canvas }, { default: jsPDF }] = await Promise.all([
-        import("html2canvas"),
+      // html2canvas-pro supports modern CSS colors (lab, oklch) used by Tailwind v4
+      const [{ default: html2canvas }, { jsPDF }] = await Promise.all([
+        import("html2canvas-pro"),
         import("jspdf"),
       ]);
 

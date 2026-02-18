@@ -4,7 +4,7 @@ const nextConfig: NextConfig = {
   turbopack: {
     resolveAlias: {
       // jspdf optionally imports canvg for SVG→PDF; we use html2canvas instead
-      canvg: { browser: "./src/lib/empty-module.ts" },
+      canvg: "./src/lib/empty-module.ts",
     },
   },
   experimental: {
