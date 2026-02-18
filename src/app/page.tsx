@@ -99,6 +99,12 @@ export default function Home() {
             href="/bvp"
           />
           <CategoryCard
+            title={t.categories.inflation.title}
+            description={t.categories.inflation.description}
+            icon={t.categories.inflation.icon}
+            href="/inflacia"
+          />
+          <CategoryCard
             title={t.categories.budget.title}
             description={t.categories.budget.description}
             icon={t.categories.budget.icon}

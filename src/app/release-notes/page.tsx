@@ -9,6 +9,7 @@ import {
   ShoppingBasket,
   BookOpen,
   Calculator,
+  TrendingUp,
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -30,6 +31,37 @@ interface ReleaseEntry {
 }
 
 const releases: ReleaseEntry[] = [
+  {
+    version: "0.10.0",
+    date: "18 февруари 2026",
+    title: "Инфлация в България — 12 категории от Eurostat",
+    description:
+      "Нова страница с пълен преглед на инфлацията по 12 категории (храни, жилище, транспорт, здраве и др.) с данни от Eurostat HICP.",
+    icon: <TrendingUp className="h-5 w-5" />,
+    color: "text-red-600 bg-red-100",
+    changes: [
+      {
+        type: "new",
+        text: "Страница /inflacia с 12 COICOP категории на инфлацията",
+      },
+      {
+        type: "new",
+        text: "Сравнение България vs ЕС средно — обща инфлация",
+      },
+      {
+        type: "new",
+        text: "Интерактивна графика — изберете кои категории да сравните",
+      },
+      {
+        type: "new",
+        text: "Хоризонтална стълбовидна диаграма по категории за последния месец",
+      },
+      {
+        type: "improved",
+        text: "Данните се обновяват автоматично от Eurostat (revalidate: 24 часа)",
+      },
+    ],
+  },
   {
     version: "0.9.0",
     date: "17 февруари 2026",

@@ -15,6 +15,7 @@
     "budget": "Бюджет",
     "basket": "Кошница",
     "gdp": "БВП",
+    "inflation": "Инфлация",
     "combined": "Всичко",
     "about": "За нас",
     "methodology": "Методология",
@@ -77,6 +78,11 @@
     "gdp": {
       "title": "БВП на България",
       "description": "Тримесечен растеж на БВП с автоматични данни от Eurostat. Сравни с ЕС и съседите.",
+      "icon": "TrendingUp"
+    },
+    "inflation": {
+      "title": "Инфлация",
+      "description": "Актуална инфлация по 12 категории с данни от Eurostat. Сравни България с ЕС.",
       "icon": "TrendingUp"
     },
     "combined": {

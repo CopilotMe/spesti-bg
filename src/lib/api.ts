@@ -68,6 +68,79 @@ export async function fetchHicpData(): Promise<HicpSeries | null> {
   }
 }
 
+// ---- Expanded Inflation Dashboard Data ----
+
+export interface InflationCategory {
+  key: string;
+  label: string;
+  coicop: string;
+  icon: string;
+  color: string;
+  data: HicpDataPoint[];
+}
+
+export interface InflationDashboardData {
+  categories: InflationCategory[];
+  bgVsEu: { period: string; bg: number | null; eu: number | null }[];
+}
+
+const INFLATION_CATEGORIES: Omit<InflationCategory, "data">[] = [
+  { key: "overall", label: "Обща инфлация", coicop: "CP00", icon: "TrendingUp", color: "#6b7280" },
+  { key: "food", label: "Храни", coicop: "CP01", icon: "ShoppingBasket", color: "#22c55e" },
+  { key: "alcohol", label: "Алкохол и тютюн", coicop: "CP02", icon: "Wine", color: "#a855f7" },
+  { key: "clothing", label: "Облекло и обувки", coicop: "CP03", icon: "Shirt", color: "#ec4899" },
+  { key: "housing", label: "Жилище и енергия", coicop: "CP04", icon: "Home", color: "#f97316" },
+  { key: "furniture", label: "Обзавеждане", coicop: "CP05", icon: "Sofa", color: "#8b5cf6" },
+  { key: "health", label: "Здравеопазване", coicop: "CP06", icon: "Heart", color: "#ef4444" },
+  { key: "transport", label: "Транспорт", coicop: "CP07", icon: "Car", color: "#3b82f6" },
+  { key: "communication", label: "Съобщения", coicop: "CP08", icon: "Phone", color: "#06b6d4" },
+  { key: "recreation", label: "Развлечения", coicop: "CP09", icon: "Gamepad2", color: "#eab308" },
+  { key: "education", label: "Образование", coicop: "CP10", icon: "GraduationCap", color: "#14b8a6" },
+  { key: "restaurants", label: "Ресторанти и хотели", coicop: "CP11", icon: "UtensilsCrossed", color: "#f43f5e" },
+];
+
+export async function fetchInflationDashboard(): Promise<InflationDashboardData | null> {
+  const base =
+    "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/prc_hicp_manr?sinceTimePeriod=2023-01";
+
+  try {
+    // Fetch all BG categories
+    const categoryResults = await Promise.all(
+      INFLATION_CATEGORIES.map(async (cat) => {
+        const res = await fetch(`${base}&geo=BG&coicop=${cat.coicop}`, {
+          next: { revalidate: 86400 },
+        });
+        const json = await res.json();
+        return { ...cat, data: parseEurostatJson(json) };
+      })
+    );
+
+    // Fetch BG vs EU overall (CP00)
+    const [bgRes, euRes] = await Promise.all([
+      fetch(`${base}&geo=BG&coicop=CP00`, { next: { revalidate: 86400 } }).then((r) => r.json()),
+      fetch(`${base}&geo=EU27_2020&coicop=CP00`, { next: { revalidate: 86400 } }).then((r) => r.json()),
+    ]);
+
+    const bgData = parseEurostatJson(bgRes);
+    const euData = parseEurostatJson(euRes);
+
+    const allPeriods = new Set<string>();
+    for (const d of [...bgData, ...euData]) allPeriods.add(d.period);
+
+    const bgVsEu = Array.from(allPeriods)
+      .sort()
+      .map((period) => ({
+        period,
+        bg: bgData.find((d) => d.period === period)?.value ?? null,
+        eu: euData.find((d) => d.period === period)?.value ?? null,
+      }));
+
+    return { categories: categoryResults, bgVsEu };
+  } catch {
+    return null;
+  }
+}
+
 // ---- Eurostat Energy Prices: BG vs EU ----
 
 export interface EnergyPriceComparison {
