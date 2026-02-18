@@ -12,6 +12,7 @@ const footerLinks = [
   { href: "/zastrahovki", label: "Застраховки" },
   { href: "/budget", label: "Бюджет" },
   { href: "/inflacia", label: "Инфлация" },
+  { href: "/zaplati", label: "Заплати" },
   { href: "/kombiniran", label: "Комбиниран" },
   { href: "/blog", label: "Блог" },
 ];

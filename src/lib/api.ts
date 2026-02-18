@@ -543,3 +543,157 @@ export async function fetchFuelPrices(): Promise<FuelPriceData | null> {
     return null;
   }
 }
+
+// ---- Eurostat Minimum Wages (earn_mw_cur) ----
+
+export interface MinimumWageEntry {
+  geo: string;
+  label: string;
+  periods: { period: string; value: number }[];
+}
+
+export interface MinimumWageData {
+  countries: MinimumWageEntry[];
+}
+
+export async function fetchMinimumWages(): Promise<MinimumWageData | null> {
+  const geos = ["BG", "RO", "DE", "EL", "HR"];
+  const labels: Record<string, string> = {
+    BG: "България",
+    RO: "Румъния",
+    DE: "Германия",
+    EL: "Гърция",
+    HR: "Хърватия",
+  };
+
+  const url = `https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/earn_mw_cur?geo=${geos.join("&geo=")}&currency=EUR&sinceTimePeriod=2020-S1`;
+
+  try {
+    const res = await fetch(url, { next: { revalidate: 86400 } });
+    const data = await res.json();
+
+    const dim = data.dimension as Record<string, unknown>;
+    const geoObj = dim.geo as Record<string, unknown>;
+    const geoCat = geoObj.category as Record<string, unknown>;
+    const geoIndex = geoCat.index as Record<string, number>;
+    const timeObj = dim.time as Record<string, unknown>;
+    const timeCat = timeObj.category as Record<string, unknown>;
+    const timeIndex = timeCat.index as Record<string, number>;
+    const vals = data.value as Record<string, number>;
+
+    const numTimes = Object.keys(timeIndex).length;
+    const sortedPeriods = Object.entries(timeIndex).sort((a, b) => a[1] - b[1]);
+
+    const countries = geos.map((geo) => {
+      const gIdx = geoIndex[geo];
+      if (gIdx === undefined) return { geo, label: labels[geo] || geo, periods: [] };
+
+      const periods = sortedPeriods
+        .map(([period, tIdx]) => {
+          const flatIdx = gIdx * numTimes + tIdx;
+          const v = vals[String(flatIdx)];
+          return v !== undefined ? { period, value: v } : null;
+        })
+        .filter(Boolean) as { period: string; value: number }[];
+
+      return { geo, label: labels[geo] || geo, periods };
+    });
+
+    return { countries };
+  } catch {
+    return null;
+  }
+}
+
+// ---- Eurostat Labour Cost Levels (lc_lci_lev) ----
+
+export interface LabourCostEntry {
+  geo: string;
+  label: string;
+  value: number;
+  period: string;
+}
+
+export interface LabourCostData {
+  wagesPerHour: LabourCostEntry[];
+  totalPerHour: LabourCostEntry[];
+}
+
+export async function fetchLabourCosts(): Promise<LabourCostData | null> {
+  const geos = ["BG", "RO", "DE", "EU27_2020", "EL", "HR"];
+  const labels: Record<string, string> = {
+    BG: "България",
+    RO: "Румъния",
+    DE: "Германия",
+    EU27_2020: "ЕС средно",
+    EL: "Гърция",
+    HR: "Хърватия",
+  };
+
+  const url = `https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/lc_lci_lev?geo=${geos.join("&geo=")}&lcstruct=D11&lcstruct=D1_D4_MD5&nace_r2=B-S&sinceTimePeriod=2023`;
+
+  try {
+    const res = await fetch(url, { next: { revalidate: 86400 } });
+    const data = await res.json();
+
+    const dim = data.dimension as Record<string, unknown>;
+    const lcObj = dim.lcstruct as Record<string, unknown>;
+    const lcCat = lcObj.category as Record<string, unknown>;
+    const lcIndex = lcCat.index as Record<string, number>;
+    const geoObj = dim.geo as Record<string, unknown>;
+    const geoCat = geoObj.category as Record<string, unknown>;
+    const geoIndex = geoCat.index as Record<string, number>;
+    const timeObj = dim.time as Record<string, unknown>;
+    const timeCat = timeObj.category as Record<string, unknown>;
+    const timeIndex = timeCat.index as Record<string, number>;
+    const vals = data.value as Record<string, number>;
+
+    const numGeos = Object.keys(geoIndex).length;
+    const numTimes = Object.keys(timeIndex).length;
+    const sortedPeriods = Object.entries(timeIndex).sort((a, b) => b[1] - a[1]);
+    const latestPeriod = sortedPeriods[0]?.[0] || "";
+    const latestTIdx = sortedPeriods[0]?.[1] ?? 0;
+
+    function getEntries(lcStruct: string): LabourCostEntry[] {
+      const lcIdx = lcIndex[lcStruct];
+      if (lcIdx === undefined) return [];
+      return geos
+        .map((geo) => {
+          const gIdx = geoIndex[geo];
+          if (gIdx === undefined) return null;
+          const flatIdx = lcIdx * numGeos * numTimes + gIdx * numTimes + latestTIdx;
+          const v = vals[String(flatIdx)];
+          if (v === undefined) return null;
+          return { geo, label: labels[geo] || geo, value: v, period: latestPeriod };
+        })
+        .filter(Boolean) as LabourCostEntry[];
+    }
+
+    return {
+      wagesPerHour: getEntries("D11").sort((a, b) => a.value - b.value),
+      totalPerHour: getEntries("D1_D4_MD5").sort((a, b) => a.value - b.value),
+    };
+  } catch {
+    return null;
+  }
+}
+
+// ---- Eurostat Labour Cost Index quarterly (lc_lci_r2_q) ----
+
+export interface LabourCostIndexData {
+  quarters: { period: string; value: number }[];
+}
+
+export async function fetchLabourCostIndex(): Promise<LabourCostIndexData | null> {
+  const url =
+    "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/lc_lci_r2_q?geo=BG&unit=I20&s_adj=NSA&nace_r2=B-S&lcstruct=D11&sinceTimePeriod=2022-Q1";
+
+  try {
+    const res = await fetch(url, { next: { revalidate: 86400 } });
+    const data = await res.json();
+    const quarters = parseEurostatJson(data);
+    return { quarters };
+  } catch {
+    return null;
+  }
+}

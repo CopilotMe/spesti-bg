@@ -105,6 +105,12 @@ export default function Home() {
             href="/inflacia"
           />
           <CategoryCard
+            title={t.categories.salary.title}
+            description={t.categories.salary.description}
+            icon={t.categories.salary.icon}
+            href="/zaplati"
+          />
+          <CategoryCard
             title={t.categories.budget.title}
             description={t.categories.budget.description}
             icon={t.categories.budget.icon}

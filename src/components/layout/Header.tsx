@@ -17,6 +17,7 @@ const navLinks = [
   { href: "/koshnitsa", label: messages.nav.basket },
   { href: "/bvp", label: messages.nav.gdp },
   { href: "/inflacia", label: messages.nav.inflation },
+  { href: "/zaplati", label: messages.nav.salary },
   { href: "/kombiniran", label: messages.nav.combined },
   { href: "/blog", label: "Блог" },
 ];
