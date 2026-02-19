@@ -12,6 +12,7 @@ const footerGroups = [
       { href: "/internet", label: "Интернет" },
       { href: "/goriva", label: "Горива" },
       { href: "/mobilni-planove", label: "Мобилни планове" },
+      { href: "/otoplenie", label: "Отопление" },
     ],
   },
   {
@@ -22,6 +23,7 @@ const footerGroups = [
       { href: "/budget", label: "Бюджет" },
       { href: "/evro-konvertor", label: "Евро конвертор" },
       { href: "/kombiniran", label: "Комбиниран" },
+      { href: "/cena-na-truda", label: "Цена на труда" },
     ],
   },
   {
@@ -33,6 +35,7 @@ const footerGroups = [
       { href: "/zaplati", label: "Заплати" },
       { href: "/kupuvatelna-sposobnost", label: "Покупателна сп." },
       { href: "/bulgaria-vs-eu", label: "БГ vs ЕС" },
+      { href: "/kachestvo-na-vazduh", label: "Качество на въздуха" },
     ],
   },
 ];

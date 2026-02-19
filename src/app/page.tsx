@@ -140,6 +140,24 @@ export default function Home() {
             icon={t.categories.purchasingPower.icon}
             href="/kupuvatelna-sposobnost"
           />
+          <CategoryCard
+            title={t.categories.airQuality.title}
+            description={t.categories.airQuality.description}
+            icon={t.categories.airQuality.icon}
+            href="/kachestvo-na-vazduh"
+          />
+          <CategoryCard
+            title={t.categories.heating.title}
+            description={t.categories.heating.description}
+            icon={t.categories.heating.icon}
+            href="/otoplenie"
+          />
+          <CategoryCard
+            title={t.categories.labourCost.title}
+            description={t.categories.labourCost.description}
+            icon={t.categories.labourCost.icon}
+            href="/cena-na-truda"
+          />
         </div>
         <div className="mx-auto mt-6 max-w-5xl">
           <CategoryCard

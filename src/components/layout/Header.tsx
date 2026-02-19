@@ -15,6 +15,7 @@ const navGroups = [
       { href: "/internet", label: messages.nav.internet },
       { href: "/goriva", label: messages.nav.fuel },
       { href: "/mobilni-planove", label: messages.nav.mobilePlans },
+      { href: "/otoplenie", label: "Отопление" },
     ],
   },
   {
@@ -24,6 +25,7 @@ const navGroups = [
       { href: "/zastrahovki", label: messages.nav.insurance },
       { href: "/budget", label: messages.nav.budget },
       { href: "/evro-konvertor", label: messages.nav.euroConverter },
+      { href: "/cena-na-truda", label: "Цена на труда" },
     ],
   },
   {
@@ -35,6 +37,7 @@ const navGroups = [
       { href: "/zaplati", label: messages.nav.salary },
       { href: "/kupuvatelna-sposobnost", label: messages.nav.purchasingPower },
       { href: "/bulgaria-vs-eu", label: messages.nav.euComparison },
+      { href: "/kachestvo-na-vazduh", label: "Въздух" },
     ],
   },
 ];
