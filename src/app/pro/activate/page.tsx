@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import {
   CheckCircle,
@@ -17,6 +18,7 @@ import {
 } from "@/lib/features";
 
 export default function ProActivatePage() {
+  const router = useRouter();
   const [alreadyActive, setAlreadyActive] = useState(false);
   const [code, setCode] = useState("");
   const [loading, setLoading] = useState(false);
@@ -24,8 +26,13 @@ export default function ProActivatePage() {
   const [error, setError] = useState("");
 
   useEffect(() => {
+    // If Pro feature is not enabled at all (no env flag), redirect to home
+    if (process.env.NEXT_PUBLIC_ENABLE_PRO !== "true" && !isProActive()) {
+      router.replace("/");
+      return;
+    }
     setAlreadyActive(isProActive());
-  }, []);
+  }, [router]);
 
   async function handleActivate(e: React.FormEvent) {
     e.preventDefault();

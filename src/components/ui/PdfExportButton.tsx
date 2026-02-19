@@ -85,17 +85,9 @@ export function PdfExportButton({
     setIsPro(isProEnabled());
   }, []);
 
-  // Not Pro → show upgrade CTA linking to activation page
+  // Not Pro → hide completely (no CTA until payment provider is set up)
   if (!isPro) {
-    return (
-      <a
-        href="/pro/activate"
-        className="inline-flex items-center gap-2 rounded-lg border border-amber-300 bg-amber-50 px-4 py-2 text-sm font-medium text-amber-700 transition-colors hover:bg-amber-100"
-      >
-        <Sparkles className="h-4 w-4" />
-        Активирай Pro за {PRO_PRICE} — PDF експорт
-      </a>
-    );
+    return null;
   }
 
   async function handleExport() {
