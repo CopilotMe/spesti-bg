@@ -29,7 +29,6 @@ export function PdfExportButton({
 
     try {
       // Dynamic imports — only loaded on click, zero main-bundle impact
-      // html2canvas-pro supports modern CSS colors (lab, oklch) used by Tailwind v4
       const [{ default: html2canvas }, { jsPDF }] = await Promise.all([
         import("html2canvas-pro"),
         import("jspdf"),
@@ -45,99 +44,62 @@ export function PdfExportButton({
         logging: false,
       });
 
-      const imgWidth = canvas.width;
-      const imgHeight = canvas.height;
-
-      // A4 dimensions in mm
-      const pdfWidth = 210;
-      const pageHeight = 297;
+      // Page layout constants (mm)
+      const pageW = 210; // A4 width
       const margin = 10;
-      const contentWidth = pdfWidth - margin * 2;
-      const headerH = 16;
-      const footerH = 12;
+      const contentW = pageW - margin * 2;
+      const headerH = 14;
+      const footerH = 10;
 
-      // Scale factor: image pixels → mm
-      const scale = contentWidth / imgWidth;
-      const totalContentMm = imgHeight * scale;
+      // Scale canvas to fit content width, calculate proportional height
+      const scale = contentW / canvas.width;
+      const contentH = canvas.height * scale;
+      const pageH = margin + headerH + contentH + footerH + margin;
 
-      // Available content height per page
-      const availableH = pageHeight - margin * 2 - headerH - footerH;
+      // Custom-sized page: exact fit, zero slicing
+      const pdf = new jsPDF({
+        orientation: "portrait",
+        unit: "mm",
+        format: [pageW, pageH],
+      });
 
-      const totalPages = Math.max(1, Math.ceil(totalContentMm / availableH));
-
-      const pdf = new jsPDF("portrait", "mm", "a4");
       const today = new Date().toLocaleDateString("bg-BG", {
         year: "numeric",
         month: "long",
         day: "numeric",
       });
 
-      for (let page = 0; page < totalPages; page++) {
-        if (page > 0) pdf.addPage();
+      // --- Header ---
+      pdf.setFontSize(14);
+      pdf.setTextColor(5, 150, 105); // primary green
+      pdf.text("Spesti", margin, margin + 6);
+      pdf.setFontSize(8);
+      pdf.setTextColor(107, 114, 128); // muted gray
+      pdf.text(`${title}  |  ${today}`, margin + 24, margin + 6);
+      pdf.text("spesti.app", pageW - margin, margin + 6, { align: "right" });
 
-        // --- Header ---
-        pdf.setFontSize(14);
-        pdf.setTextColor(5, 150, 105); // #059669 primary
-        pdf.text("Spesti", margin, margin + 6);
-        pdf.setFontSize(8);
-        pdf.setTextColor(107, 114, 128); // #6b7280 muted
-        pdf.text(`${title}  |  ${today}`, margin + 24, margin + 6);
-        pdf.text("spesti.app", pdfWidth - margin, margin + 6, {
-          align: "right",
-        });
+      // separator line
+      pdf.setDrawColor(229, 231, 235);
+      pdf.line(margin, margin + headerH - 2, pageW - margin, margin + headerH - 2);
 
-        // Thin separator
-        pdf.setDrawColor(229, 231, 235);
-        pdf.line(margin, margin + headerH - 2, pdfWidth - margin, margin + headerH - 2);
+      // --- Content: full image, no slicing ---
+      pdf.addImage(
+        canvas.toDataURL("image/jpeg", 0.92),
+        "JPEG",
+        margin,
+        margin + headerH,
+        contentW,
+        contentH,
+      );
 
-        // --- Content slice ---
-        // Calculate which portion of the source canvas to draw on this page
-        const srcYPx = (page * availableH) / scale;
-        const srcHPx = Math.min(availableH / scale, imgHeight - srcYPx);
-        const destHMm = srcHPx * scale;
-
-        if (srcHPx <= 0) break;
-
-        // Create a slice canvas for this page
-        const sliceCanvas = document.createElement("canvas");
-        sliceCanvas.width = imgWidth;
-        sliceCanvas.height = Math.ceil(srcHPx);
-        const ctx = sliceCanvas.getContext("2d");
-        if (ctx) {
-          ctx.drawImage(
-            canvas,
-            0, Math.floor(srcYPx), imgWidth, Math.ceil(srcHPx),
-            0, 0, imgWidth, Math.ceil(srcHPx),
-          );
-        }
-
-        pdf.addImage(
-          sliceCanvas.toDataURL("image/jpeg", 0.92),
-          "JPEG",
-          margin,
-          margin + headerH,
-          contentWidth,
-          destHMm,
-        );
-
-        // --- Footer ---
-        const footerY = pageHeight - margin - 3;
-        pdf.setFontSize(6);
-        pdf.setTextColor(156, 163, 175);
-        pdf.setDrawColor(229, 231, 235);
-        pdf.line(margin, footerY - 4, pdfWidth - margin, footerY - 4);
-        pdf.text(
-          "spesti.app | Informaciyata e s informativna cel.",
-          margin,
-          footerY,
-        );
-        pdf.text(
-          `${page + 1} / ${totalPages}`,
-          pdfWidth - margin,
-          footerY,
-          { align: "right" },
-        );
-      }
+      // --- Footer ---
+      const footerY = pageH - margin - 2;
+      pdf.setDrawColor(229, 231, 235);
+      pdf.line(margin, footerY - 4, pageW - margin, footerY - 4);
+      pdf.setFontSize(6);
+      pdf.setTextColor(156, 163, 175);
+      pdf.text("spesti.app | Informaciyata e s informativna cel.", margin, footerY);
+      pdf.text(today, pageW - margin, footerY, { align: "right" });
 
       pdf.save(`${filename}.pdf`);
     } catch (err) {
