@@ -1,7 +1,7 @@
 {
   "name": "Спести – Сравни сметките си",
   "short_name": "Спести",
-  "description": "Безплатен калкулатор за сравнение на сметки за ток, вода, газ и интернет в България.",
+  "description": "Безплатен калкулатор за сравнение на сметки за ток, вода, газ, интернет, горива, заплати и още 16 калкулатора в България.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#f9fafb",
@@ -45,6 +45,16 @@
     {
       "name": "Комбиниран калкулатор",
       "url": "/kombiniran",
+      "icons": [{ "src": "/icons/icon-192x192.svg", "sizes": "192x192" }]
+    },
+    {
+      "name": "Евро конвертор",
+      "url": "/evro-konvertor",
+      "icons": [{ "src": "/icons/icon-192x192.svg", "sizes": "192x192" }]
+    },
+    {
+      "name": "Мобилни планове",
+      "url": "/mobilni-planove",
       "icons": [{ "src": "/icons/icon-192x192.svg", "sizes": "192x192" }]
     }
   ]

@@ -14,6 +14,12 @@ const footerLinks = [
   { href: "/inflacia", label: "Инфлация" },
   { href: "/zaplati", label: "Заплати" },
   { href: "/kombiniran", label: "Комбиниран" },
+  { href: "/koshnitsa", label: "Кошница" },
+  { href: "/bvp", label: "БВП" },
+  { href: "/evro-konvertor", label: "Евро конвертор" },
+  { href: "/bulgaria-vs-eu", label: "БГ vs ЕС" },
+  { href: "/mobilni-planove", label: "Мобилни планове" },
+  { href: "/kupuvatelna-sposobnost", label: "Покупателна сп." },
   { href: "/blog", label: "Блог" },
 ];
 

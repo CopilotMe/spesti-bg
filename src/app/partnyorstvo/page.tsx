@@ -192,7 +192,7 @@ export default function PartnershipPage() {
             Спести Pro (скоро)
           </h2>
         </div>
-        <p className="mb-6 text-xs font-medium text-purple-600">Tier 2 — В разработка</p>
+        <p className="mb-6 text-xs font-medium text-purple-600">Tier 2 — Скоро</p>
         <p className="mb-6 text-muted">
           Премиум функции за потребители, които искат повече контрол
           над своите разходи и спестявания.

@@ -18,6 +18,10 @@
     "inflation": "Инфлация",
     "salary": "Заплати",
     "combined": "Всичко",
+    "euroConverter": "Евро конвертор",
+    "euComparison": "БГ vs ЕС",
+    "mobilePlans": "Мобилни планове",
+    "purchasingPower": "Покупателна сп.",
     "about": "За нас",
     "methodology": "Методология",
     "privacy": "Поверителност",
@@ -108,7 +112,7 @@
     },
     "mobilePlans": {
       "title": "Мобилни планове",
-      "description": "Сравни 28 мобилни плана на A1, Vivacom и Yettel — намери най-евтиния.",
+      "description": "Сравни 21 мобилни плана на A1, Vivacom и Yettel — намери най-евтиния.",
       "icon": "Smartphone"
     },
     "purchasingPower": {

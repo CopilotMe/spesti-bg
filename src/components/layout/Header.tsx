@@ -19,6 +19,10 @@ const navLinks = [
   { href: "/inflacia", label: messages.nav.inflation },
   { href: "/zaplati", label: messages.nav.salary },
   { href: "/kombiniran", label: messages.nav.combined },
+  { href: "/evro-konvertor", label: messages.nav.euroConverter },
+  { href: "/bulgaria-vs-eu", label: messages.nav.euComparison },
+  { href: "/mobilni-planove", label: messages.nav.mobilePlans },
+  { href: "/kupuvatelna-sposobnost", label: messages.nav.purchasingPower },
   { href: "/blog", label: "Блог" },
 ];
 
@@ -36,7 +40,7 @@ export function Header() {
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden gap-1 md:flex">
+        <nav className="hidden gap-1 md:flex" aria-label="Основна навигация">
           {navLinks.map((link) => (
             <Link
               key={link.href}
@@ -53,6 +57,7 @@ export function Header() {
           className="rounded-lg p-2 text-muted hover:bg-gray-100 md:hidden"
           onClick={() => setIsOpen(!isOpen)}
           aria-label="Меню"
+          aria-expanded={isOpen}
         >
           {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>

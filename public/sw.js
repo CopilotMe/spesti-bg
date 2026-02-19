@@ -1,4 +1,4 @@
-const CACHE_NAME = "spesti-v2";
+const CACHE_NAME = "spesti-v3";
 const OFFLINE_URL = "/";
 
 // Pages to pre-cache
@@ -12,7 +12,15 @@ const PRECACHE_URLS = [
   "/krediti",
   "/zastrahovki",
   "/budget",
+  "/koshnitsa",
+  "/bvp",
+  "/inflacia",
+  "/zaplati",
   "/kombiniran",
+  "/evro-konvertor",
+  "/bulgaria-vs-eu",
+  "/mobilni-planove",
+  "/kupuvatelna-sposobnost",
   "/blog",
 ];
 
