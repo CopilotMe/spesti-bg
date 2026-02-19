@@ -13,6 +13,7 @@ import {
   Banknote,
   FileDown,
   ShieldCheck,
+  BadgeEuro,
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -34,6 +35,37 @@ interface ReleaseEntry {
 }
 
 const releases: ReleaseEntry[] = [
+  {
+    version: "0.14.0",
+    date: "19 февруари 2026",
+    title: "4 нови безплатни страници",
+    description:
+      "Евро конвертор, България vs ЕС, мобилни планове и покупателна способност — нови анализи с готови данни.",
+    icon: <BadgeEuro className="h-5 w-5" />,
+    color: "text-emerald-600 bg-emerald-100",
+    changes: [
+      {
+        type: "new",
+        text: "Евро конвертор — BGN↔EUR конверсия + проверка дали цените след еврото са честни (21 продукта)",
+      },
+      {
+        type: "new",
+        text: "България vs ЕС — сравнение на заплати, цени на ток, инфлация и часова цена на труда с Eurostat данни",
+      },
+      {
+        type: "new",
+        text: "Мобилни планове — филтриране и сравнение на 28 плана от A1, Vivacom и Yettel",
+      },
+      {
+        type: "new",
+        text: "Покупателна способност — колко продукти купува заплатата ти, с тренд и ЕС сравнение",
+      },
+      {
+        type: "improved",
+        text: "Начална страница с 4 нови категории и обновен sitemap",
+      },
+    ],
+  },
   {
     version: "0.13.0",
     date: "19 февруари 2026",

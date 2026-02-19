@@ -95,6 +95,26 @@
       "title": "Комбиниран калкулатор",
       "description": "Виж всички месечни разходи на едно място с живи данни от ECB.",
       "icon": "LayoutDashboard"
+    },
+    "euroConverter": {
+      "title": "Евро конвертор",
+      "description": "Конвертирай BGN↔EUR и провери дали цените след еврото са честни.",
+      "icon": "BadgeEuro"
+    },
+    "euComparison": {
+      "title": "България vs ЕС",
+      "description": "Сравни цени, заплати и инфлация с ЕС и съседните страни.",
+      "icon": "Globe"
+    },
+    "mobilePlans": {
+      "title": "Мобилни планове",
+      "description": "Сравни 28 мобилни плана на A1, Vivacom и Yettel — намери най-евтиния.",
+      "icon": "Smartphone"
+    },
+    "purchasingPower": {
+      "title": "Покупателна способност",
+      "description": "Колко хляб, мляко и бензин купува заплатата ти? Сравни с ЕС.",
+      "icon": "Scale"
     }
   },
   "howItWorks": {

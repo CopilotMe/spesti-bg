@@ -116,6 +116,30 @@ export default function Home() {
             icon={t.categories.budget.icon}
             href="/budget"
           />
+          <CategoryCard
+            title={t.categories.euroConverter.title}
+            description={t.categories.euroConverter.description}
+            icon={t.categories.euroConverter.icon}
+            href="/evro-konvertor"
+          />
+          <CategoryCard
+            title={t.categories.euComparison.title}
+            description={t.categories.euComparison.description}
+            icon={t.categories.euComparison.icon}
+            href="/bulgaria-vs-eu"
+          />
+          <CategoryCard
+            title={t.categories.mobilePlans.title}
+            description={t.categories.mobilePlans.description}
+            icon={t.categories.mobilePlans.icon}
+            href="/mobilni-planove"
+          />
+          <CategoryCard
+            title={t.categories.purchasingPower.title}
+            description={t.categories.purchasingPower.description}
+            icon={t.categories.purchasingPower.icon}
+            href="/kupuvatelna-sposobnost"
+          />
         </div>
         <div className="mx-auto mt-6 max-w-5xl">
           <CategoryCard
