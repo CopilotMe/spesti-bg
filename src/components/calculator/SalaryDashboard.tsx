@@ -160,7 +160,7 @@ export function SalaryDashboard() {
       </div>
 
       {/* НЕТО/БРУТО КАЛКУЛАТОР */}
-      <div className="rounded-2xl border-2 border-primary bg-primary/5 p-5">
+      <div data-pdf-section="calculator" className="rounded-2xl border-2 border-primary bg-primary/5 p-5">
         <div className="mb-4 flex items-center gap-2">
           <Calculator className="h-5 w-5 text-primary" />
           <h2 className="font-semibold text-text">
@@ -378,7 +378,7 @@ export function SalaryDashboard() {
       ) : (
         <>
           {/* Data source */}
-          <div className="flex flex-wrap items-center gap-2 rounded-xl border border-primary/20 bg-primary/5 px-4 py-3">
+          <div data-pdf-section="data-source" className="flex flex-wrap items-center gap-2 rounded-xl border border-primary/20 bg-primary/5 px-4 py-3">
             <Info className="h-4 w-4 shrink-0 text-primary" />
             <p className="text-sm text-text">
               <strong>Източници:</strong>{" "}
@@ -414,7 +414,7 @@ export function SalaryDashboard() {
 
           {/* MINIMUM WAGES — latest bar */}
           {mwLatest.length > 0 && (
-            <div className="rounded-2xl border border-border bg-surface p-5">
+            <div data-pdf-section="min-wages" className="rounded-2xl border border-border bg-surface p-5">
               <div className="mb-4 flex items-center gap-2">
                 <Wallet className="h-5 w-5 text-primary" />
                 <h3 className="font-semibold text-text">
@@ -496,7 +496,7 @@ export function SalaryDashboard() {
 
           {/* LABOUR COSTS per hour */}
           {labourCosts && labourCosts.totalPerHour.length > 0 && (
-            <div className="rounded-2xl border border-border bg-surface p-5">
+            <div data-pdf-section="labour-costs" className="rounded-2xl border border-border bg-surface p-5">
               <div className="mb-4 flex items-center gap-2">
                 <Globe className="h-5 w-5 text-primary" />
                 <h3 className="font-semibold text-text">
@@ -560,7 +560,7 @@ export function SalaryDashboard() {
 
           {/* LABOUR COST INDEX — BG growth */}
           {lciChartData.length > 0 && (
-            <div className="rounded-2xl border border-border bg-surface p-5">
+            <div data-pdf-section="lci" className="rounded-2xl border border-border bg-surface p-5">
               <div className="mb-4 flex items-center gap-2">
                 <TrendingUp className="h-5 w-5 text-primary" />
                 <h3 className="font-semibold text-text">
@@ -636,7 +636,7 @@ export function SalaryDashboard() {
       )}
 
       {/* FUNNEL — What does your salary cover? */}
-      <div className="rounded-2xl border border-border bg-surface p-5">
+      <div data-pdf-section="salary-links" className="rounded-2xl border border-border bg-surface p-5">
         <h3 className="mb-4 font-semibold text-text">
           Какво покрива заплатата ти?
         </h3>
@@ -697,7 +697,7 @@ export function SalaryDashboard() {
       </div>
 
       {/* What this means */}
-      <div className="rounded-xl border border-border bg-primary/5 p-5">
+      <div data-pdf-section="explainer" className="rounded-xl border border-border bg-primary/5 p-5">
         <p className="text-xs text-muted leading-relaxed">
           <strong className="text-text">Как да чета данните?</strong>{" "}
           Минималната заплата е брутната сума, определена от правителството.

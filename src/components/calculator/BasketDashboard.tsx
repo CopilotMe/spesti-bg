@@ -219,7 +219,7 @@ export function BasketDashboard() {
       </div>
 
       {/* Summary cards */}
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div data-pdf-section="summary" className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {/* Total basket */}
         <div className="rounded-2xl border border-border bg-surface p-5 text-center">
           <ShoppingBasket className="mx-auto mb-2 h-8 w-8 text-primary" />
@@ -279,7 +279,7 @@ export function BasketDashboard() {
       </div>
 
       {/* Data source label */}
-      <div className="flex flex-wrap items-center gap-2 rounded-xl border border-primary/20 bg-primary/5 px-4 py-3">
+      <div data-pdf-section="data-source" className="flex flex-wrap items-center gap-2 rounded-xl border border-primary/20 bg-primary/5 px-4 py-3">
         <Info className="h-4 w-4 shrink-0 text-primary" />
         <p className="text-sm text-text">
           <strong>Източник:</strong>{" "}
@@ -299,7 +299,7 @@ export function BasketDashboard() {
       </div>
 
       {/* History chart */}
-      <div className="rounded-2xl border border-border bg-surface p-5">
+      <div data-pdf-section="history-chart" className="rounded-2xl border border-border bg-surface p-5">
         <div className="mb-4 flex items-center gap-2">
           <BarChart3 className="h-5 w-5 text-primary" />
           <h3 className="font-semibold text-text">Стойност на кошницата по месеци</h3>
@@ -342,7 +342,7 @@ export function BasketDashboard() {
       </div>
 
       {/* ROOT-CAUSE ANALYSIS */}
-      <div className="rounded-2xl border border-amber-200 bg-amber-50/50 p-5">
+      <div data-pdf-section="analysis" className="rounded-2xl border border-amber-200 bg-amber-50/50 p-5">
         <div className="mb-5 flex items-center gap-2">
           <SearchCheck className="h-5 w-5 text-amber-600" />
           <h3 className="font-semibold text-text">
@@ -478,7 +478,7 @@ export function BasketDashboard() {
       </div>
 
       {/* Category breakdown */}
-      <div className="rounded-2xl border border-border bg-surface p-5">
+      <div data-pdf-section="category-chart" className="rounded-2xl border border-border bg-surface p-5">
         <h3 className="mb-4 font-semibold text-text">Разбивка по категории</h3>
         <div className="h-52">
           <ResponsiveContainer width="100%" height="100%">
@@ -518,7 +518,7 @@ export function BasketDashboard() {
       </div>
 
       {/* Product table */}
-      <div className="rounded-2xl border border-border bg-surface">
+      <div data-pdf-section="product-table" className="rounded-2xl border border-border bg-surface">
         <div className="border-b border-border p-4">
           <h3 className="font-semibold text-text">Всички продукти в кошницата</h3>
           <p className="text-sm text-muted">Натиснете заглавие за сортиране</p>
@@ -620,7 +620,7 @@ export function BasketDashboard() {
       </div>
 
       {/* Eurostat food inflation widget */}
-      <div className="rounded-2xl border border-border bg-surface p-5">
+      <div data-pdf-section="food-hicp" className="rounded-2xl border border-border bg-surface p-5">
         <div className="mb-4 flex items-center gap-2">
           <BarChart3 className="h-5 w-5 text-primary" />
           <h3 className="font-semibold text-text">Инфлация на храните (Eurostat HICP)</h3>

@@ -347,7 +347,7 @@ export function BudgetCalculator() {
       </div>
 
       {/* Income */}
-      <div className="rounded-2xl border-2 border-primary bg-primary/5 p-6">
+      <div data-pdf-section="income" className="rounded-2xl border-2 border-primary bg-primary/5 p-6">
         <div className="flex items-center gap-2 mb-3">
           <Wallet className="h-5 w-5 text-primary" />
           <h2 className="text-lg font-semibold text-text">Месечен доход на домакинството</h2>
@@ -376,7 +376,7 @@ export function BudgetCalculator() {
       </div>
 
       {/* Expense inputs grid */}
-      <div className="rounded-2xl border border-border bg-surface p-6">
+      <div data-pdf-section="expenses" className="rounded-2xl border border-border bg-surface p-6">
         <h2 className="mb-4 text-lg font-semibold text-text">Месечни разходи</h2>
 
         <div className="mb-3 text-xs text-muted">
@@ -410,7 +410,7 @@ export function BudgetCalculator() {
       </div>
 
       {/* Summary cards */}
-      <div className="grid gap-4 sm:grid-cols-3">
+      <div data-pdf-section="summary" className="grid gap-4 sm:grid-cols-3">
         <div className="rounded-2xl border border-border bg-surface p-4 text-center">
           <p className="text-xs text-muted">Общо разходи</p>
           <p className="text-2xl font-bold text-text">{formatCurrency(totalExpenses)}</p>
@@ -437,7 +437,7 @@ export function BudgetCalculator() {
       </div>
 
       {/* Charts */}
-      <div className="grid gap-6 lg:grid-cols-2">
+      <div data-pdf-section="charts" className="grid gap-6 lg:grid-cols-2">
         {/* Pie */}
         <div className="rounded-2xl border border-border bg-surface p-5">
           <h3 className="mb-3 font-semibold text-text">Разпределение на разходите</h3>
@@ -494,7 +494,7 @@ export function BudgetCalculator() {
       </div>
 
       {/* Saving tips with links */}
-      <div className="rounded-2xl border border-border bg-surface p-6">
+      <div data-pdf-section="tips" className="rounded-2xl border border-border bg-surface p-6">
         <div className="mb-4 flex items-center gap-2">
           <TrendingDown className="h-5 w-5 text-primary" />
           <h3 className="font-semibold text-text">Къде можеш да спестиш?</h3>

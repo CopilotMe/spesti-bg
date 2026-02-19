@@ -192,7 +192,7 @@ export function InflationDashboard() {
       </div>
 
       {/* Hero cards */}
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div data-pdf-section="hero" className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {/* Overall inflation */}
         <div className="rounded-2xl border border-border bg-surface p-5 text-center">
           {overall && overall.latestValue !== null && overall.latestValue > 0 ? (
@@ -278,7 +278,7 @@ export function InflationDashboard() {
       </div>
 
       {/* Data source */}
-      <div className="flex flex-wrap items-center gap-2 rounded-xl border border-primary/20 bg-primary/5 px-4 py-3">
+      <div data-pdf-section="data-source" className="flex flex-wrap items-center gap-2 rounded-xl border border-primary/20 bg-primary/5 px-4 py-3">
         <Info className="h-4 w-4 shrink-0 text-primary" />
         <p className="text-sm text-text">
           <strong>Източник:</strong>{" "}
@@ -297,7 +297,7 @@ export function InflationDashboard() {
       </div>
 
       {/* Bar chart — all categories latest month */}
-      <div className="rounded-2xl border border-border bg-surface p-5">
+      <div data-pdf-section="bar-chart" className="rounded-2xl border border-border bg-surface p-5">
         <div className="mb-4 flex items-center gap-2">
           <BarChart3 className="h-5 w-5 text-primary" />
           <h3 className="font-semibold text-text">
@@ -353,7 +353,7 @@ export function InflationDashboard() {
       </div>
 
       {/* Category cards grid */}
-      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      <div data-pdf-section="categories" className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {categoriesSorted.map((cat) => {
           const Icon = ICON_MAP[cat.icon] || TrendingUp;
           const isUp = (cat.latestValue ?? 0) > 0;
@@ -403,7 +403,7 @@ export function InflationDashboard() {
       </p>
 
       {/* Multi-line chart — selected categories */}
-      <div className="rounded-2xl border border-border bg-surface p-5">
+      <div data-pdf-section="line-chart" className="rounded-2xl border border-border bg-surface p-5">
         <div className="mb-4 flex items-center gap-2">
           <BarChart3 className="h-5 w-5 text-primary" />
           <h3 className="font-semibold text-text">
@@ -453,7 +453,7 @@ export function InflationDashboard() {
       </div>
 
       {/* BG vs EU comparison */}
-      <div className="rounded-2xl border border-border bg-surface p-5">
+      <div data-pdf-section="bg-vs-eu" className="rounded-2xl border border-border bg-surface p-5">
         <div className="mb-4 flex items-center gap-2">
           <Globe className="h-5 w-5 text-primary" />
           <h3 className="font-semibold text-text">
@@ -563,7 +563,7 @@ export function InflationDashboard() {
       </div>
 
       {/* What does this mean */}
-      <div className="rounded-xl border border-border bg-primary/5 p-5">
+      <div data-pdf-section="explainer" className="rounded-xl border border-border bg-primary/5 p-5">
         <p className="text-xs text-muted leading-relaxed">
           <strong className="text-text">Какво означава инфлацията за мен?</strong>{" "}
           Инфлацията показва колко са поскъпнали стоките и услугите спрямо
