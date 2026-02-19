@@ -1,8 +1,8 @@
 /**
  * Feature flags for Spesti.
  *
- * Pro status is stored in localStorage after a successful Revolut payment.
- * The /pro/success page writes the key; this helper reads it.
+ * Pro status is stored in localStorage as an HMAC-signed token
+ * issued by the /api/pro/activate endpoint after a valid activation code.
  *
  * Env-based override: set NEXT_PUBLIC_ENABLE_PRO=true to force Pro on
  * (useful for development / Vercel preview).
@@ -15,16 +15,24 @@ const PRO_STORAGE_KEY = "spesti_pro";
  *
  * Checks (in order):
  * 1. NEXT_PUBLIC_ENABLE_PRO env variable (build-time override)
- * 2. localStorage "spesti_pro" key (set after Revolut payment)
+ * 2. localStorage signed token or legacy "true" value
  */
 export function isProEnabled(): boolean {
-  // Build-time override (dev / Vercel)
+  // Build-time override (dev / Vercel preview)
   if (process.env.NEXT_PUBLIC_ENABLE_PRO === "true") return true;
 
   // Client-side localStorage check
   if (typeof window !== "undefined") {
     try {
-      return localStorage.getItem(PRO_STORAGE_KEY) === "true";
+      const stored = localStorage.getItem(PRO_STORAGE_KEY);
+      if (!stored) return false;
+
+      // Legacy support: plain "true" still works during transition
+      if (stored === "true") return true;
+
+      // New format: base64-encoded JSON { t: number, s: string }
+      const parsed = JSON.parse(atob(stored));
+      return typeof parsed.t === "number" && typeof parsed.s === "string";
     } catch {
       return false;
     }
@@ -33,14 +41,44 @@ export function isProEnabled(): boolean {
   return false;
 }
 
-/** Activate Pro (called from /pro/success page) */
-export function activatePro(): void {
+/** Activate Pro by storing a signed token (or legacy "true") */
+export function activatePro(token?: string): void {
   if (typeof window !== "undefined") {
     try {
-      localStorage.setItem(PRO_STORAGE_KEY, "true");
+      localStorage.setItem(PRO_STORAGE_KEY, token || "true");
     } catch {
       // Storage full or blocked — silently fail
     }
+  }
+}
+
+/**
+ * Activate Pro with an activation code.
+ * Calls the server API to validate the code and stores the signed token.
+ */
+export async function activateProWithCode(
+  code: string,
+): Promise<{ success: boolean; error?: string }> {
+  try {
+    const res = await fetch("/api/pro/activate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ code }),
+    });
+
+    if (!res.ok) {
+      const data = await res.json();
+      return {
+        success: false,
+        error: data.error || "Невалиден код",
+      };
+    }
+
+    const { token } = await res.json();
+    activatePro(token);
+    return { success: true };
+  } catch {
+    return { success: false, error: "Грешка в мрежата. Опитай отново." };
   }
 }
 
@@ -51,4 +89,4 @@ export function isProActive(): boolean {
 
 /** Revolut payment link for Pro activation */
 export const PRO_PAYMENT_URL = "https://revolut.me/shteryxjnu";
-export const PRO_PRICE = "0.99 €";
+export const PRO_PRICE = "0.99 \u20ac";

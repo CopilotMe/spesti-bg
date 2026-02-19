@@ -12,6 +12,7 @@ import {
   TrendingUp,
   Banknote,
   FileDown,
+  ShieldCheck,
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -33,6 +34,37 @@ interface ReleaseEntry {
 }
 
 const releases: ReleaseEntry[] = [
+  {
+    version: "0.13.0",
+    date: "19 февруари 2026",
+    title: "Pro активация с код и Revolut плащане",
+    description:
+      "Сигурна активация на Spesti Pro чрез активационен код след плащане с Revolut. Нова страница /pro/activate с двустъпков процес.",
+    icon: <ShieldCheck className="h-5 w-5" />,
+    color: "text-amber-600 bg-amber-100",
+    changes: [
+      {
+        type: "new",
+        text: "Страница /pro/activate — въвеждане на активационен код след плащане",
+      },
+      {
+        type: "new",
+        text: "API endpoint /api/pro/activate — сървърна валидация на кодове с HMAC-SHA256 токен",
+      },
+      {
+        type: "new",
+        text: "Revolut интеграция — бутон за плащане на 0.99 \u20ac директно от страницата",
+      },
+      {
+        type: "improved",
+        text: "Pro статус вече се верифицира със signed token вместо plain localStorage",
+      },
+      {
+        type: "fix",
+        text: "Затворена уязвимост: /pro/success вече не активира Pro без валиден код",
+      },
+    ],
+  },
   {
     version: "0.12.0",
     date: "18 \u0444\u0435\u0432\u0440\u0443\u0430\u0440\u0438 2026",
