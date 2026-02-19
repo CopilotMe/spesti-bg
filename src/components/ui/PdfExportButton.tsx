@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, type RefObject } from "react";
-import { Loader2 } from "lucide-react";
-import { isProEnabled } from "@/lib/features";
+import { useState, useEffect, type RefObject } from "react";
+import { Loader2, Sparkles } from "lucide-react";
+import { isProEnabled, PRO_PAYMENT_URL, PRO_PRICE } from "@/lib/features";
 
 /* ------------------------------------------------------------------ */
 /*  Layout constants (mm) — standard A4                                */
@@ -78,8 +78,27 @@ export function PdfExportButton({
   filename,
 }: PdfExportButtonProps) {
   const [loading, setLoading] = useState(false);
+  const [isPro, setIsPro] = useState(false);
 
-  if (!isProEnabled()) return null;
+  // Check Pro status on mount (localStorage is client-only)
+  useEffect(() => {
+    setIsPro(isProEnabled());
+  }, []);
+
+  // Not Pro → show upgrade CTA
+  if (!isPro) {
+    return (
+      <a
+        href={PRO_PAYMENT_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center gap-2 rounded-lg border border-amber-300 bg-amber-50 px-4 py-2 text-sm font-medium text-amber-700 transition-colors hover:bg-amber-100"
+      >
+        <Sparkles className="h-4 w-4" />
+        Активирай Pro за {PRO_PRICE} — PDF експорт
+      </a>
+    );
+  }
 
   async function handleExport() {
     if (!contentRef.current || loading) return;
