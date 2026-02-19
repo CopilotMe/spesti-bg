@@ -14,6 +14,9 @@ import {
   FileDown,
   ShieldCheck,
   BadgeEuro,
+  Wind,
+  Thermometer,
+  LayoutDashboard,
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -35,6 +38,64 @@ interface ReleaseEntry {
 }
 
 const releases: ReleaseEntry[] = [
+  {
+    version: "0.16.0",
+    date: "19 февруари 2026",
+    title: "3 нови страници: Въздух, Отопление, Цена на труда",
+    description:
+      "Качество на въздуха в реално време, калкулатор за отопление с 3 метода и пълна разбивка на разходите за труд от гледна точка на работодател.",
+    icon: <Wind className="h-5 w-5" />,
+    color: "text-teal-600 bg-teal-100",
+    changes: [
+      {
+        type: "new",
+        text: "Качество на въздуха — PM10, PM2.5 и AQI за София, Пловдив, Варна и Бургас (Open-Meteo API, 1ч обновяване)",
+      },
+      {
+        type: "new",
+        text: "Калкулатор за отопление — сравнение на конвектор, газов котел и термопомпа (COP 3.5) с реална прогноза за времето",
+      },
+      {
+        type: "new",
+        text: "Цена на труда — бруто→нето с пълна разбивка на осигуровки за работодател + ЕС сравнение от Eurostat",
+      },
+      {
+        type: "improved",
+        text: "Начална страница с 3 нови категории (общо 19 калкулатора)",
+      },
+      {
+        type: "improved",
+        text: "Sitemap и Service Worker обновени с новите URLs",
+      },
+    ],
+  },
+  {
+    version: "0.15.0",
+    date: "19 февруари 2026",
+    title: "Групирана навигация с падащи менюта",
+    description:
+      "Навигацията е преструктурирана в 3 логически групи — Сметки, Финанси и Анализи — с dropdown менюта на десктоп и секции на мобилно.",
+    icon: <LayoutDashboard className="h-5 w-5" />,
+    color: "text-indigo-600 bg-indigo-100",
+    changes: [
+      {
+        type: "new",
+        text: "Header — 3 dropdown групи: Сметки (7 линка), Финанси (5), Анализи (7) с hover, click и Escape",
+      },
+      {
+        type: "new",
+        text: "Footer — 4 групирани колони вместо плосък списък за по-лесна ориентация",
+      },
+      {
+        type: "improved",
+        text: "Мобилно меню с групирани секции и визуални разделители",
+      },
+      {
+        type: "improved",
+        text: "Достъпност — aria-expanded и aria-haspopup на dropdown бутоните",
+      },
+    ],
+  },
   {
     version: "0.14.0",
     date: "19 февруари 2026",
