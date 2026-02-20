@@ -35,6 +35,8 @@ import {
   Lightbulb,
   MapPin,
   BarChart3,
+  Pencil,
+  CheckCircle2,
 } from "lucide-react";
 import { electricityProviders } from "@/data/electricity";
 import { waterProviders } from "@/data/water";
@@ -45,7 +47,7 @@ import { basketProducts, minimumWageEur } from "@/data/basket";
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 
-const STORAGE_KEY = "spesti_financial_profile_v1";
+const STORAGE_KEY = "spesti_financial_profile_v2";
 
 const NATIONAL_AVERAGES = {
   electricity: 43, // EUR/month (Eurostat/NSI 2024)
@@ -91,6 +93,8 @@ const HEATING_ELECTRICITY_FACTOR: Record<string, number> = {
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
+type CostKey = "electricity" | "water" | "gas" | "internet" | "mobile" | "fuel" | "food" | "insurance";
+
 interface UserProfile {
   // Location
   electricityProvider: string;
@@ -113,6 +117,8 @@ interface UserProfile {
   hasKasko: boolean;
   // Finance
   netSalary: number;
+  // Manual overrides (optional real bill amounts)
+  manualOverrides: Partial<Record<CostKey, number>>;
 }
 
 interface CostBreakdown {
@@ -144,6 +150,7 @@ const defaultProfile: UserProfile = {
   hasGO: true,
   hasKasko: false,
   netSalary: 900,
+  manualOverrides: {},
 };
 
 // ─── Calculation helpers ──────────────────────────────────────────────────────
@@ -253,15 +260,16 @@ function estimateFood(profile: UserProfile): number {
 }
 
 function calculateProfile(profile: UserProfile): CostBreakdown {
+  const o = profile.manualOverrides ?? {};
   return {
-    electricity: estimateElectricity(profile),
-    water: estimateWater(profile),
-    gas: estimateGas(profile),
-    internet: estimateInternet(profile),
-    mobile: estimateMobile(profile),
-    fuel: estimateFuel(profile),
-    food: estimateFood(profile),
-    insurance: estimateInsurance(profile),
+    electricity: o.electricity != null ? o.electricity : estimateElectricity(profile),
+    water: o.water != null ? o.water : estimateWater(profile),
+    gas: o.gas != null ? o.gas : estimateGas(profile),
+    internet: o.internet != null ? o.internet : estimateInternet(profile),
+    mobile: o.mobile != null ? o.mobile : estimateMobile(profile),
+    fuel: o.fuel != null ? o.fuel : estimateFuel(profile),
+    food: o.food != null ? o.food : estimateFood(profile),
+    insurance: o.insurance != null ? o.insurance : estimateInsurance(profile),
   };
 }
 
@@ -492,6 +500,17 @@ export function FinancialProfileDashboard() {
 
   function upd<K extends keyof UserProfile>(key: K, val: UserProfile[K]) {
     setProfile((p) => ({ ...p, [key]: val }));
+  }
+
+  function setOverride(key: CostKey, val: string) {
+    const num = val === "" ? undefined : parseFloat(val);
+    setProfile((p) => ({
+      ...p,
+      manualOverrides: {
+        ...(p.manualOverrides ?? {}),
+        [key]: isNaN(num as number) ? undefined : num,
+      },
+    }));
   }
 
   // ─── Render ─────────────────────────────────────────────────────────────────
@@ -776,6 +795,65 @@ export function FinancialProfileDashboard() {
                     </div>
                   </div>
                 </div>
+              )}
+            </div>
+
+            {/* Optional: real bill overrides */}
+            <div>
+              <SectionHeader
+                icon={<Pencil className="h-4 w-4" />}
+                title="Реални сметки (незадължително)"
+              />
+              <p className="mb-4 text-sm text-muted">
+                Имаш реална сметка? Въведи я и ще заменим автоматичната оценка с точната стойност.
+              </p>
+              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+                {(
+                  [
+                    ["electricity", "⚡ Ток (EUR/мес)"],
+                    ["water", "💧 Вода (EUR/мес)"],
+                    ["gas", "🔥 Газ (EUR/мес)"],
+                    ["fuel", "⛽ Гориво (EUR/мес)"],
+                    ["internet", "📡 Интернет (EUR/мес)"],
+                    ["mobile", "📱 Мобилен (EUR/мес)"],
+                    ["food", "🛒 Храна (EUR/мес)"],
+                    ["insurance", "🛡 Застраховки (EUR/мес)"],
+                  ] as [CostKey, string][]
+                ).map(([key, label]) => {
+                  const overrideVal = profile.manualOverrides?.[key];
+                  const hasOverride = overrideVal != null;
+                  return (
+                    <div key={key} className="relative">
+                      <label className="mb-1 block text-xs font-medium text-text">
+                        {label}
+                        {hasOverride && (
+                          <CheckCircle2 className="ml-1 inline h-3 w-3 text-emerald-500" />
+                        )}
+                      </label>
+                      <input
+                        type="number"
+                        min={0}
+                        step={0.5}
+                        placeholder="авт."
+                        className={`w-full rounded-lg border px-3 py-2 text-sm ${
+                          hasOverride
+                            ? "border-emerald-400 bg-emerald-50 text-text dark:bg-emerald-900/20"
+                            : "border-border bg-background text-text"
+                        }`}
+                        value={overrideVal ?? ""}
+                        onChange={(e) => setOverride(key, e.target.value)}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+              {Object.keys(profile.manualOverrides ?? {}).length > 0 && (
+                <button
+                  className="mt-2 text-xs text-muted underline hover:text-text"
+                  onClick={() => upd("manualOverrides", {})}
+                >
+                  Изчисти всички ръчни стойности
+                </button>
               )}
             </div>
 
