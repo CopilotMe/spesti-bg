@@ -171,6 +171,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.8,
     },
+    {
+      url: `${baseUrl}/profil`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
     ...blogEntries,
     {
       url: `${baseUrl}/za-nas`,

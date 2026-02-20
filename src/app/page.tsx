@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { CategoryCard } from "@/components/layout/CategoryCard";
-import { ArrowRight, Shield, TrendingDown, Eye } from "lucide-react";
+import { ArrowRight, Shield, TrendingDown, Eye, Sparkles } from "lucide-react";
 import messages from "@/messages/bg.json";
 
 export const metadata: Metadata = {
@@ -12,6 +12,15 @@ export const metadata: Metadata = {
     canonical: "/",
   },
 };
+
+function GroupHeader({ title, subtitle }: { title: string; subtitle?: string }) {
+  return (
+    <div className="mb-6">
+      <h2 className="text-xl font-bold text-text">{title}</h2>
+      {subtitle && <p className="mt-1 text-sm text-muted">{subtitle}</p>}
+    </div>
+  );
+}
 
 export default function Home() {
   const t = messages;
@@ -27,169 +36,249 @@ export default function Home() {
           <p className="mx-auto mb-8 max-w-2xl text-lg text-muted">
             {t.hero.subtitle}
           </p>
-          <Link
-            href="/elektrichestvo"
-            className="inline-flex items-center gap-2 rounded-full bg-primary-dark px-6 py-3 font-semibold text-white shadow-md transition-colors hover:bg-primary"
-          >
-            {t.hero.cta}
-            <ArrowRight className="h-4 w-4" />
-          </Link>
+          <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+            <Link
+              href="/elektrichestvo"
+              className="inline-flex items-center gap-2 rounded-full bg-primary-dark px-6 py-3 font-semibold text-white shadow-md transition-colors hover:bg-primary"
+            >
+              {t.hero.cta}
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+            <Link
+              href="/profil"
+              className="inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/5 px-6 py-3 font-semibold text-primary transition-colors hover:bg-primary/10"
+            >
+              <Sparkles className="h-4 w-4" />
+              Моят финансов профил
+            </Link>
+          </div>
           <p className="mt-4 text-xs text-muted">{t.hero.trusted}</p>
         </div>
       </section>
 
-      {/* Categories */}
+      {/* New feature banner */}
+      <section className="border-y border-primary/20 bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5 px-4 py-5">
+        <Link href="/profil" className="group mx-auto flex max-w-5xl items-center justify-between gap-4">
+          <div className="flex items-center gap-4">
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary text-white">
+              <Sparkles className="h-5 w-5" />
+            </div>
+            <div>
+              <p className="font-bold text-text">
+                Ново ✨ Личен Финансов Профил
+              </p>
+              <p className="text-sm text-muted">
+                Въведи домакинството си → пълна месечна картина, работни дни за всяка сметка и лична инфлация
+              </p>
+            </div>
+          </div>
+          <ArrowRight className="h-5 w-5 shrink-0 text-primary transition-transform group-hover:translate-x-1" />
+        </Link>
+      </section>
+
+      {/* All Calculators — grouped */}
       <section className="px-4 py-12">
-        <h2 className="mx-auto mb-8 max-w-5xl text-center text-2xl font-bold text-text">
-          Калкулатори
-        </h2>
-        <div className="mx-auto grid max-w-5xl gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          <CategoryCard
-            title={t.categories.electricity.title}
-            description={t.categories.electricity.description}
-            icon={t.categories.electricity.icon}
-            href="/elektrichestvo"
-          />
-          <CategoryCard
-            title={t.categories.water.title}
-            description={t.categories.water.description}
-            icon={t.categories.water.icon}
-            href="/voda"
-          />
-          <CategoryCard
-            title={t.categories.gas.title}
-            description={t.categories.gas.description}
-            icon={t.categories.gas.icon}
-            href="/gaz"
-          />
-          <CategoryCard
-            title={t.categories.internet.title}
-            description={t.categories.internet.description}
-            icon={t.categories.internet.icon}
-            href="/internet"
-          />
-          <CategoryCard
-            title={t.categories.loans.title}
-            description={t.categories.loans.description}
-            icon={t.categories.loans.icon}
-            href="/krediti"
-          />
-          <CategoryCard
-            title={t.categories.insurance.title}
-            description={t.categories.insurance.description}
-            icon={t.categories.insurance.icon}
-            href="/zastrahovki"
-          />
-          <CategoryCard
-            title={t.categories.fuel.title}
-            description={t.categories.fuel.description}
-            icon={t.categories.fuel.icon}
-            href="/goriva"
-          />
-          <CategoryCard
-            title={t.categories.basket.title}
-            description={t.categories.basket.description}
-            icon={t.categories.basket.icon}
-            href="/koshnitsa"
-          />
-          <CategoryCard
-            title={t.categories.gdp.title}
-            description={t.categories.gdp.description}
-            icon={t.categories.gdp.icon}
-            href="/bvp"
-          />
-          <CategoryCard
-            title={t.categories.inflation.title}
-            description={t.categories.inflation.description}
-            icon={t.categories.inflation.icon}
-            href="/inflacia"
-          />
-          <CategoryCard
-            title={t.categories.salary.title}
-            description={t.categories.salary.description}
-            icon={t.categories.salary.icon}
-            href="/zaplati"
-          />
-          <CategoryCard
-            title={t.categories.budget.title}
-            description={t.categories.budget.description}
-            icon={t.categories.budget.icon}
-            href="/budget"
-          />
-          <CategoryCard
-            title={t.categories.euroConverter.title}
-            description={t.categories.euroConverter.description}
-            icon={t.categories.euroConverter.icon}
-            href="/evro-konvertor"
-          />
-          <CategoryCard
-            title={t.categories.euComparison.title}
-            description={t.categories.euComparison.description}
-            icon={t.categories.euComparison.icon}
-            href="/bulgaria-vs-eu"
-          />
-          <CategoryCard
-            title={t.categories.mobilePlans.title}
-            description={t.categories.mobilePlans.description}
-            icon={t.categories.mobilePlans.icon}
-            href="/mobilni-planove"
-          />
-          <CategoryCard
-            title={t.categories.purchasingPower.title}
-            description={t.categories.purchasingPower.description}
-            icon={t.categories.purchasingPower.icon}
-            href="/kupuvatelna-sposobnost"
-          />
-          <CategoryCard
-            title={t.categories.airQuality.title}
-            description={t.categories.airQuality.description}
-            icon={t.categories.airQuality.icon}
-            href="/kachestvo-na-vazduh"
-          />
-          <CategoryCard
-            title={t.categories.heating.title}
-            description={t.categories.heating.description}
-            icon={t.categories.heating.icon}
-            href="/otoplenie"
-          />
-          <CategoryCard
-            title={t.categories.labourCost.title}
-            description={t.categories.labourCost.description}
-            icon={t.categories.labourCost.icon}
-            href="/cena-na-truda"
-          />
-          <CategoryCard
-            title={t.categories.billBreakdown.title}
-            description={t.categories.billBreakdown.description}
-            icon={t.categories.billBreakdown.icon}
-            href="/razbivka-smetka"
-          />
-          <CategoryCard
-            title={t.categories.solarPanels.title}
-            description={t.categories.solarPanels.description}
-            icon={t.categories.solarPanels.icon}
-            href="/slanchevi-paneli"
-          />
-          <CategoryCard
-            title={t.categories.carCost.title}
-            description={t.categories.carCost.description}
-            icon={t.categories.carCost.icon}
-            href="/kola"
-          />
-          <CategoryCard
-            title={t.categories.waterComparison.title}
-            description={t.categories.waterComparison.description}
-            icon={t.categories.waterComparison.icon}
-            href="/voda-sravnenie"
-          />
-        </div>
-        <div className="mx-auto mt-6 max-w-5xl">
-          <CategoryCard
-            title={t.categories.combined.title}
-            description={t.categories.combined.description}
-            icon={t.categories.combined.icon}
-            href="/kombiniran"
-          />
+        <div className="mx-auto max-w-5xl space-y-14">
+
+          {/* Group 1: Комунални сметки */}
+          <div>
+            <GroupHeader
+              title="💡 Комунални сметки"
+              subtitle="Ток, вода, газ, интернет и отопление — сравни тарифи и разбери всяка такса"
+            />
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              <CategoryCard
+                title={t.categories.electricity.title}
+                description={t.categories.electricity.description}
+                icon={t.categories.electricity.icon}
+                href="/elektrichestvo"
+              />
+              <CategoryCard
+                title={t.categories.water.title}
+                description={t.categories.water.description}
+                icon={t.categories.water.icon}
+                href="/voda"
+              />
+              <CategoryCard
+                title={t.categories.gas.title}
+                description={t.categories.gas.description}
+                icon={t.categories.gas.icon}
+                href="/gaz"
+              />
+              <CategoryCard
+                title={t.categories.internet.title}
+                description={t.categories.internet.description}
+                icon={t.categories.internet.icon}
+                href="/internet"
+              />
+              <CategoryCard
+                title={t.categories.mobilePlans.title}
+                description={t.categories.mobilePlans.description}
+                icon={t.categories.mobilePlans.icon}
+                href="/mobilni-planove"
+              />
+              <CategoryCard
+                title={t.categories.heating.title}
+                description={t.categories.heating.description}
+                icon={t.categories.heating.icon}
+                href="/otoplenie"
+              />
+              <CategoryCard
+                title={t.categories.billBreakdown.title}
+                description={t.categories.billBreakdown.description}
+                icon={t.categories.billBreakdown.icon}
+                href="/razbivka-smetka"
+              />
+              <CategoryCard
+                title={t.categories.waterComparison.title}
+                description={t.categories.waterComparison.description}
+                icon={t.categories.waterComparison.icon}
+                href="/voda-sravnenie"
+              />
+              <CategoryCard
+                title={t.categories.combined.title}
+                description={t.categories.combined.description}
+                icon={t.categories.combined.icon}
+                href="/kombiniran"
+              />
+            </div>
+          </div>
+
+          {/* Group 2: Транспорт и имущество */}
+          <div>
+            <GroupHeader
+              title="🚗 Транспорт и имущество"
+              subtitle="Гориво, автомобил, слънчеви панели и застраховки"
+            />
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              <CategoryCard
+                title={t.categories.fuel.title}
+                description={t.categories.fuel.description}
+                icon={t.categories.fuel.icon}
+                href="/goriva"
+              />
+              <CategoryCard
+                title={t.categories.carCost.title}
+                description={t.categories.carCost.description}
+                icon={t.categories.carCost.icon}
+                href="/kola"
+              />
+              <CategoryCard
+                title={t.categories.insurance.title}
+                description={t.categories.insurance.description}
+                icon={t.categories.insurance.icon}
+                href="/zastrahovki"
+              />
+              <CategoryCard
+                title={t.categories.solarPanels.title}
+                description={t.categories.solarPanels.description}
+                icon={t.categories.solarPanels.icon}
+                href="/slanchevi-paneli"
+              />
+            </div>
+          </div>
+
+          {/* Group 3: Лични финанси */}
+          <div>
+            <GroupHeader
+              title="💰 Лични финанси"
+              subtitle="Кредити, бюджет, заплата и евро конвертор"
+            />
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              <CategoryCard
+                title={t.categories.loans.title}
+                description={t.categories.loans.description}
+                icon={t.categories.loans.icon}
+                href="/krediti"
+              />
+              <CategoryCard
+                title={t.categories.budget.title}
+                description={t.categories.budget.description}
+                icon={t.categories.budget.icon}
+                href="/budget"
+              />
+              <CategoryCard
+                title={t.categories.salary.title}
+                description={t.categories.salary.description}
+                icon={t.categories.salary.icon}
+                href="/zaplati"
+              />
+              <CategoryCard
+                title={t.categories.euroConverter.title}
+                description={t.categories.euroConverter.description}
+                icon={t.categories.euroConverter.icon}
+                href="/evro-konvertor"
+              />
+              <CategoryCard
+                title={t.categories.labourCost.title}
+                description={t.categories.labourCost.description}
+                icon={t.categories.labourCost.icon}
+                href="/cena-na-truda"
+              />
+            </div>
+          </div>
+
+          {/* Group 4: Икономически анализи */}
+          <div>
+            <GroupHeader
+              title="📊 Икономически анализи"
+              subtitle="БВП, инфлация, покупателна способност и сравнение с ЕС"
+            />
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              <CategoryCard
+                title={t.categories.basket.title}
+                description={t.categories.basket.description}
+                icon={t.categories.basket.icon}
+                href="/koshnitsa"
+              />
+              <CategoryCard
+                title={t.categories.inflation.title}
+                description={t.categories.inflation.description}
+                icon={t.categories.inflation.icon}
+                href="/inflacia"
+              />
+              <CategoryCard
+                title={t.categories.gdp.title}
+                description={t.categories.gdp.description}
+                icon={t.categories.gdp.icon}
+                href="/bvp"
+              />
+              <CategoryCard
+                title={t.categories.purchasingPower.title}
+                description={t.categories.purchasingPower.description}
+                icon={t.categories.purchasingPower.icon}
+                href="/kupuvatelna-sposobnost"
+              />
+              <CategoryCard
+                title={t.categories.euComparison.title}
+                description={t.categories.euComparison.description}
+                icon={t.categories.euComparison.icon}
+                href="/bulgaria-vs-eu"
+              />
+              <CategoryCard
+                title={t.categories.airQuality.title}
+                description={t.categories.airQuality.description}
+                icon={t.categories.airQuality.icon}
+                href="/kachestvo-na-vazduh"
+              />
+            </div>
+          </div>
+
+          {/* Killer feature: Profile — full-width featured card */}
+          <div>
+            <GroupHeader
+              title="✨ Всичко заедно"
+              subtitle="Нова функция — виж цялата финансова картина на домакинството си на едно място"
+            />
+            <CategoryCard
+              title={t.categories.profile.title}
+              description={t.categories.profile.description}
+              icon={t.categories.profile.icon}
+              href="/profil"
+              featured
+            />
+          </div>
+
         </div>
       </section>
 

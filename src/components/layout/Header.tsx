@@ -18,6 +18,7 @@ const navGroups = [
       { href: "/otoplenie", label: "Отопление" },
       { href: "/razbivka-smetka", label: "Разбивка сметка" },
       { href: "/voda-sravnenie", label: "Вода сравнение" },
+      { href: "/kombiniran", label: messages.nav.combined },
     ],
   },
   {
@@ -129,16 +130,16 @@ export function Header() {
             <DesktopDropdown key={group.label} group={group} />
           ))}
           <Link
-            href="/kombiniran"
-            className="rounded-lg px-3 py-2 text-sm font-medium text-muted transition-colors hover:bg-gray-100 hover:text-text"
-          >
-            {messages.nav.combined}
-          </Link>
-          <Link
             href="/blog"
             className="rounded-lg px-3 py-2 text-sm font-medium text-muted transition-colors hover:bg-gray-100 hover:text-text"
           >
             Блог
+          </Link>
+          <Link
+            href="/profil"
+            className="ml-1 flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-primary-dark"
+          >
+            ✨ {messages.nav.profile}
           </Link>
         </nav>
 
@@ -178,18 +179,18 @@ export function Header() {
           ))}
           <div className="border-t border-border pt-2">
             <Link
-              href="/kombiniran"
-              className="block rounded-lg px-3 py-2 text-sm font-medium text-muted transition-colors hover:bg-gray-100 hover:text-text"
-              onClick={() => setIsOpen(false)}
-            >
-              {messages.nav.combined}
-            </Link>
-            <Link
               href="/blog"
               className="block rounded-lg px-3 py-2 text-sm font-medium text-muted transition-colors hover:bg-gray-100 hover:text-text"
               onClick={() => setIsOpen(false)}
             >
               Блог
+            </Link>
+            <Link
+              href="/profil"
+              className="mt-1 block rounded-lg bg-primary/10 px-3 py-2 text-sm font-semibold text-primary transition-colors hover:bg-primary/20"
+              onClick={() => setIsOpen(false)}
+            >
+              ✨ {messages.nav.profile}
             </Link>
           </div>
         </nav>
