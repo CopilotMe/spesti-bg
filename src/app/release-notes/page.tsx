@@ -45,6 +45,33 @@ interface ReleaseEntry {
 
 const releases: ReleaseEntry[] = [
   {
+    version: "0.18.3",
+    date: "20 февруари 2026",
+    title: "GitHub Action: автоматично публикуване в social media",
+    description:
+      "При всеки нов blog post commit — автоматично пост в свързаните social media профили чрез Publer API. Готови текстове за r/bulgaria, Facebook, LinkedIn и Twitter/X.",
+    icon: <Rocket className="h-5 w-5" />,
+    color: "text-violet-600 bg-violet-100",
+    changes: [
+      {
+        type: "new",
+        text: "GitHub Action (.github/workflows/publer-post.yml) — детектира нови blog posts и публикува автоматично",
+      },
+      {
+        type: "new",
+        text: "Publer API интеграция: Bearer-API auth, instant publishing към всички свързани профили",
+      },
+      {
+        type: "new",
+        text: "Setup guide (.github/PUBLER_SETUP.md) — стъпка по стъпка: Publer акаунт, API токен, GitHub Secrets",
+      },
+      {
+        type: "new",
+        text: "Distribution posts (.github/DISTRIBUTION_POSTS.md) — готови текстове за r/bulgaria, Facebook, LinkedIn, Twitter threads, email pitch",
+      },
+    ],
+  },
+  {
     version: "0.18.2",
     date: "20 февруари 2026",
     title: "4 нови SEO статии в блога",
