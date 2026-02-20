@@ -16,6 +16,8 @@ const navGroups = [
       { href: "/goriva", label: messages.nav.fuel },
       { href: "/mobilni-planove", label: messages.nav.mobilePlans },
       { href: "/otoplenie", label: "Отопление" },
+      { href: "/razbivka-smetka", label: "Разбивка сметка" },
+      { href: "/voda-sravnenie", label: "Вода сравнение" },
     ],
   },
   {
@@ -26,6 +28,8 @@ const navGroups = [
       { href: "/budget", label: messages.nav.budget },
       { href: "/evro-konvertor", label: messages.nav.euroConverter },
       { href: "/cena-na-truda", label: "Цена на труда" },
+      { href: "/slanchevi-paneli", label: "Соларни панели" },
+      { href: "/kola", label: "Кола" },
     ],
   },
   {

@@ -13,6 +13,8 @@ const footerGroups = [
       { href: "/goriva", label: "Горива" },
       { href: "/mobilni-planove", label: "Мобилни планове" },
       { href: "/otoplenie", label: "Отопление" },
+      { href: "/razbivka-smetka", label: "Разбивка сметка" },
+      { href: "/voda-sravnenie", label: "Вода сравнение" },
     ],
   },
   {
@@ -24,6 +26,8 @@ const footerGroups = [
       { href: "/evro-konvertor", label: "Евро конвертор" },
       { href: "/kombiniran", label: "Комбиниран" },
       { href: "/cena-na-truda", label: "Цена на труда" },
+      { href: "/slanchevi-paneli", label: "Соларни панели" },
+      { href: "/kola", label: "Кола" },
     ],
   },
   {
